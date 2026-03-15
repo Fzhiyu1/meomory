@@ -31,6 +31,17 @@ experiments:
       model: qwen3.5:9b
     dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
 
+  - name: dgd-cms-judge-bigbang-9b
+    dataset: DialSim-bigbang
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: ollama
+      host: "http://192.168.1.5:11434"
+      model: qwen3.5:9b
+    dgd: { dim: 256, eta: 0.01 }
+
   # === DialSim-friends ===
   - name: cosine-friends
     dataset: DialSim-friends
@@ -60,6 +71,17 @@ experiments:
       model: qwen3.5:9b
     dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
 
+  - name: dgd-cms-judge-friends-9b
+    dataset: DialSim-friends
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: ollama
+      host: "http://192.168.1.5:11434"
+      model: qwen3.5:9b
+    dgd: { dim: 256, eta: 0.01 }
+
   # === DialSim-theoffice ===
   - name: cosine-theoffice
     dataset: DialSim-theoffice
@@ -88,3 +110,14 @@ experiments:
       host: "http://192.168.1.5:11434"
       model: qwen3.5:9b
     dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: dgd-cms-judge-theoffice-9b
+    dataset: DialSim-theoffice
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: ollama
+      host: "http://192.168.1.5:11434"
+      model: qwen3.5:9b
+    dgd: { dim: 256, eta: 0.01 }
