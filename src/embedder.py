@@ -8,7 +8,7 @@ import httpx
 OLLAMA_URL = "http://100.117.243.72:11435"
 EMBED_MODEL = "qwen3-embedding"
 EMBED_DIM = 4096
-TIMEOUT = 30.0
+TIMEOUT = 60.0
 
 # 显式创建无代理 transport，避免 HTTP_PROXY 环境变量干扰内网请求
 _transport = httpx.HTTPTransport()

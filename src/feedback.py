@@ -45,11 +45,11 @@ def auto_feedback(
     Returns:
         反馈结果列表 [{"title", "sim", "used", "updated"}]
     """
-    # embed + project query 和 response
+    # embed + project query 和 response（截断回复到 500 字符避免超时）
     q_vec = get_embedding(query_text)
     q_proj = _normalize(project(q_vec, proj_matrix))
 
-    r_vec = get_embedding(response_text)
+    r_vec = get_embedding(response_text[:500])
     r_proj = _normalize(project(r_vec, proj_matrix))
 
     results = []
