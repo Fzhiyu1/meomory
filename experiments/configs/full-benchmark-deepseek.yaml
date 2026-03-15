@@ -1,0 +1,69 @@
+# DeepSeek 对照组：3 数据集 × DGD+Judge + CMS
+# 和 qwen3.5:9b 组并行跑，不冲突
+
+experiments:
+  - name: dgd-judge-bigbang-deepseek
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: dgd-cms-judge-bigbang-deepseek
+    dataset: DialSim-bigbang
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, eta: 0.01 }
+
+  - name: dgd-judge-friends-deepseek
+    dataset: DialSim-friends
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: dgd-cms-judge-friends-deepseek
+    dataset: DialSim-friends
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, eta: 0.01 }
+
+  - name: dgd-judge-theoffice-deepseek
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: dgd-cms-judge-theoffice-deepseek
+    dataset: DialSim-theoffice
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, eta: 0.01 }
