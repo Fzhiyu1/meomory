@@ -121,14 +121,22 @@ async def run_experiment(config: dict) -> dict:
             total_correct = 0
             errors = 0
 
-            for qi, q in enumerate(dataset.questions):
+            # 并发执行所有题的 feedback（DGD 更新在 gather 后批量进行）
+            async def _process_one(qi, q):
                 scores = method.query(q_vecs[qi])
                 top_indices = [idx for _, idx in scores[:3]]
-
                 fb = await method.feedback(
                     q_vecs[qi], top_indices, q["answer_indices"],
                     dataset.fragments, proj_vecs, backend,
+                    question_text=q.get("question", ""),
                 )
+                return fb
+
+            import asyncio
+            fbs = await asyncio.gather(*[
+                _process_one(qi, q) for qi, q in enumerate(dataset.questions)
+            ])
+            for fb in fbs:
                 total_updates += fb.get("updates", 0)
                 total_correct += fb.get("correct", 0)
                 if fb.get("error"):

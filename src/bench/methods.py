@@ -35,7 +35,7 @@ class Method:
         """返回 [(score, frag_idx)] 降序"""
         raise NotImplementedError
 
-    async def feedback(self, q_vec, top_indices, answer_indices, fragments, proj_vecs, backend) -> dict:
+    async def feedback(self, q_vec, top_indices, answer_indices, fragments, proj_vecs, backend, question_text="") -> dict:
         """返回 {updates: int, correct: int}"""
         return {"updates": 0, "correct": 0}
 
@@ -140,7 +140,7 @@ class DGDMethod(Method):
 class DGDGroundTruth(DGDMethod):
     name = "dgd_gt"
 
-    async def feedback(self, q_vec, top_indices, answer_indices, fragments, proj_vecs, backend):
+    async def feedback(self, q_vec, top_indices, answer_indices, fragments, proj_vecs, backend, question_text=""):
         target = answer_indices[0]
         self.mem.update(q_vec, proj_vecs[target])
         return {"updates": 1, "correct": 1}
@@ -149,16 +149,16 @@ class DGDGroundTruth(DGDMethod):
 class DGDJudge(DGDMethod):
     name = "dgd_judge"
 
-    async def feedback(self, q_vec, top_indices, answer_indices, fragments, proj_vecs, backend):
+    async def feedback(self, q_vec, top_indices, answer_indices, fragments, proj_vecs, backend, question_text=""):
         if backend is None:
             return {"updates": 0, "correct": 0}
 
         top_3 = top_indices[:3]
         top_bodies = [fragments[idx]["body"][:200] for idx in top_3]
 
-        # Agent 回答
+        # Agent 回答（传入实际问题）
         injection = "\n".join(f"- {b}" for b in top_bodies)
-        prompt = f"[Context]\n{injection}\n\n[Question] Answer briefly based on context."
+        prompt = f"[Context]\n{injection}\n\n[Question] {question_text}\n\nAnswer briefly based on context."
         try:
             response = await backend.chat(prompt, max_tokens=200)
         except Exception:

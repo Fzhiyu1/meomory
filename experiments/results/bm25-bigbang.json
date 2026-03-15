@@ -1,0 +1,80 @@
+{
+  "name": "bm25-bigbang",
+  "config": {
+    "name": "bm25-bigbang",
+    "dataset": "DialSim-bigbang",
+    "method": "bm25",
+    "rounds": 1
+  },
+  "dataset": "DialSim-bigbang",
+  "n_fragments": 805,
+  "n_questions": 14,
+  "rounds": [
+    {
+      "round": 0,
+      "metrics": {
+        "1": 0.35714285714285715,
+        "3": 0.42857142857142855,
+        "5": 0.5714285714285714
+      },
+      "details": [
+        {
+          "qi": 0,
+          "rank": 2
+        },
+        {
+          "qi": 1,
+          "rank": 1
+        },
+        {
+          "qi": 2,
+          "rank": ">10"
+        },
+        {
+          "qi": 3,
+          "rank": 1
+        },
+        {
+          "qi": 4,
+          "rank": ">10"
+        },
+        {
+          "qi": 5,
+          "rank": 1
+        },
+        {
+          "qi": 6,
+          "rank": 1
+        },
+        {
+          "qi": 7,
+          "rank": ">10"
+        },
+        {
+          "qi": 8,
+          "rank": ">10"
+        },
+        {
+          "qi": 9,
+          "rank": 1
+        },
+        {
+          "qi": 10,
+          "rank": ">10"
+        },
+        {
+          "qi": 11,
+          "rank": 4
+        },
+        {
+          "qi": 12,
+          "rank": ">10"
+        },
+        {
+          "qi": 13,
+          "rank": 4
+        }
+      ]
+    }
+  ]
+}
