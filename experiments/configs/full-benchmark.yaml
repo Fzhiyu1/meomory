@@ -1,0 +1,90 @@
+# 大实验：3 数据集 × 4 方法 = 12 次实验
+# 在 OpenClaw 上用 tmux 跑，5070 做 agent/judge
+
+experiments:
+  # === DialSim-bigbang (已有缓存) ===
+  - name: cosine-bigbang
+    dataset: DialSim-bigbang
+    method: cosine
+    rounds: 1
+
+  - name: bm25-bigbang
+    dataset: DialSim-bigbang
+    method: bm25
+    rounds: 1
+
+  - name: dgd-gt-bigbang
+    dataset: DialSim-bigbang
+    method: dgd_gt
+    rounds: 20
+    eval_every: 2
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: dgd-judge-bigbang-9b
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: ollama
+      host: "http://192.168.1.5:11434"
+      model: qwen3.5:9b
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  # === DialSim-friends ===
+  - name: cosine-friends
+    dataset: DialSim-friends
+    method: cosine
+    rounds: 1
+
+  - name: bm25-friends
+    dataset: DialSim-friends
+    method: bm25
+    rounds: 1
+
+  - name: dgd-gt-friends
+    dataset: DialSim-friends
+    method: dgd_gt
+    rounds: 20
+    eval_every: 2
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: dgd-judge-friends-9b
+    dataset: DialSim-friends
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: ollama
+      host: "http://192.168.1.5:11434"
+      model: qwen3.5:9b
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  # === DialSim-theoffice ===
+  - name: cosine-theoffice
+    dataset: DialSim-theoffice
+    method: cosine
+    rounds: 1
+
+  - name: bm25-theoffice
+    dataset: DialSim-theoffice
+    method: bm25
+    rounds: 1
+
+  - name: dgd-gt-theoffice
+    dataset: DialSim-theoffice
+    method: dgd_gt
+    rounds: 20
+    eval_every: 2
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: dgd-judge-theoffice-9b
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: ollama
+      host: "http://192.168.1.5:11434"
+      model: qwen3.5:9b
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }

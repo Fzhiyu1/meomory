@@ -45,6 +45,9 @@ async def run_experiment(config: dict) -> dict:
     if ds_name.startswith("DialSim-"):
         sub = ds_name.split("-", 1)[1].lower()
         dataset = Dataset.load_dialsim(sub)
+    elif ds_name.startswith("LoCoMo-"):
+        index = int(ds_name.split("-", 1)[1])
+        dataset = Dataset.load_locomo(index)
     else:
         raise ValueError(f"Unknown dataset: {ds_name}")
 
