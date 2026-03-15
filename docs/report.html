@@ -99,7 +99,7 @@
 <table>
   <tr><th>方法</th><th>P@1</th><th>P@3</th><th>P@5</th><th>学习</th></tr>
   <tr><td>BM25（关键词匹配）</td><td>35.7%</td><td>42.9%</td><td>57.1%</td><td>不学习</td></tr>
-  <tr><td>Cosine（向量相似度）</td><td>57.1%</td><td>71.4%</td><td>71.4%</td><td>不学习</td></tr>
+  <tr><td>Cosine（qwen3-embedding 8B）</td><td>57.1%</td><td>71.4%</td><td>71.4%</td><td>不学习</td></tr>
   <tr><td class="winner">DGD + LLM Judge（全自动）</td><td class="winner">78.6%</td><td class="winner">85.7%</td><td class="winner">85.7%</td><td class="winner">在线学习</td></tr>
   <tr><td>DGD + Ground Truth（理想上界）</td><td>78.6%</td><td>85.7%</td><td>92.9%</td><td>在线学习</td></tr>
 </table>
@@ -202,7 +202,7 @@
 new Chart(document.getElementById('chart1'), {
   type: 'bar',
   data: {
-    labels: ['BM25', 'Cosine', 'DGD+Judge\n(auto)', 'DGD+GT\n(oracle)'],
+    labels: ['BM25', 'Cosine\n(qwen3-embedding 8B)', 'DGD+Judge\n(auto)', 'DGD+GT\n(oracle)'],
     datasets: [
       { label: 'P@1', data: [35.7, 57.1, 78.6, 78.6], backgroundColor: '#6366f1' },
       { label: 'P@3', data: [42.9, 71.4, 85.7, 85.7], backgroundColor: '#818cf8' },
@@ -229,7 +229,7 @@ new Chart(document.getElementById('chart2'), {
     labels: [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
     datasets: [
       {
-        label: 'Cosine (baseline)',
+        label: 'Cosine (qwen3-embedding 8B)',
         data: [57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1],
         borderColor: '#555', borderDash: [5, 5], pointRadius: 0, fill: false
       },
