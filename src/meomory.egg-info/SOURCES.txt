@@ -1,0 +1,7 @@
+pyproject.toml
+src/__init__.py
+src/meomory.egg-info/PKG-INFO
+src/meomory.egg-info/SOURCES.txt
+src/meomory.egg-info/dependency_links.txt
+src/meomory.egg-info/requires.txt
+src/meomory.egg-info/top_level.txt

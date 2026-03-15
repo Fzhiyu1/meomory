@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.venv/
+data/raw/
+data/parsed/
+memory/vectors/
+.env
+.DS_Store

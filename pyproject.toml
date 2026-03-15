@@ -1,0 +1,13 @@
+[project]
+name = "meomory"
+version = "0.1.0"
+description = "Memory prosthetic for LLM state restoration"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
