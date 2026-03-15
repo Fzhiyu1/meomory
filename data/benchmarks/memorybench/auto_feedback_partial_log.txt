@@ -1,0 +1,67 @@
+=== Loading data ===
+  805 fragments, 14 valid questions
+
+=== Embedding fragments ===
+  50/805
+  100/805
+  150/805
+  200/805
+  250/805
+  300/805
+  350/805
+  400/805
+  450/805
+  500/805
+  550/805
+  600/805
+  650/805
+  700/805
+  750/805
+  800/805
+
+=== Embedding questions ===
+
+  Cosine baseline: P@1=57.1% P@3=71.4% P@5=71.4%
+
+=== DGD + ground truth (20 rounds) ===
+  Round  1: P@1=64.3% P@3=71.4% P@5=78.6%
+  Round  2: P@1=71.4% P@3=71.4% P@5=78.6%
+  Round  4: P@1=64.3% P@3=85.7% P@5=85.7%
+  Round  6: P@1=71.4% P@3=85.7% P@5=85.7%
+  Round  8: P@1=64.3% P@3=85.7% P@5=85.7%
+  Round 10: P@1=71.4% P@3=85.7% P@5=85.7%
+  Round 12: P@1=71.4% P@3=85.7% P@5=85.7%
+  Round 14: P@1=71.4% P@3=78.6% P@5=85.7%
+  Round 16: P@1=71.4% P@3=78.6% P@5=85.7%
+  Round 18: P@1=78.6% P@3=78.6% P@5=85.7%
+  Round 20: P@1=78.6% P@3=85.7% P@5=92.9%
+
+=== DGD + auto feedback (20 rounds) ===
+    LLM error at round 1 q4: The read operation timed out
+  Round  1: P@1=57.1% P@3=71.4% P@5=78.6%  (updates: 22, correct: 68%)
+    LLM error at round 2 q4: The read operation timed out
+    LLM error at round 2 q8: The read operation timed out
+    LLM error at round 2 q11: The read operation timed out
+    LLM error at round 2 q13: The read operation timed out
+  Round  2: P@1=64.3% P@3=71.4% P@5=78.6%  (updates: 23, correct: 65%)
+    LLM error at round 3 q0: The read operation timed out
+    LLM error at round 3 q4: The read operation timed out
+    LLM error at round 3 q5: The read operation timed out
+    LLM error at round 3 q8: The read operation timed out
+    LLM error at round 3 q11: The read operation timed out
+    LLM error at round 3 q13: The read operation timed out
+    LLM error at round 4 q13: The read operation timed out
+  Round  4: P@1=64.3% P@3=78.6% P@5=78.6%  (updates: 22, correct: 68%)
+    LLM error at round 6 q11: The read operation timed out
+    LLM error at round 6 q13: The read operation timed out
+  Round  6: P@1=71.4% P@3=78.6% P@5=78.6%  (updates: 25, correct: 60%)
+    LLM error at round 7 q5: The read operation timed out
+    LLM error at round 7 q10: The read operation timed out
+    LLM error at round 8 q11: The read operation timed out
+  Round  8: P@1=64.3% P@3=78.6% P@5=78.6%  (updates: 27, correct: 59%)
+    LLM error at round 9 q11: The read operation timed out
+    LLM error at round 9 q13: The read operation timed out
+    LLM error at round 10 q0: The read operation timed out
+  Round 10: P@1=64.3% P@3=78.6% P@5=78.6%  (updates: 25, correct: 56%)
+    LLM error at round 11 q0: The read operation timed out
+    LLM error at round 11 q13: The read operation timed out
