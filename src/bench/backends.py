@@ -44,6 +44,7 @@ class OllamaBackend(LLMBackend):
             resp = await client.post(
                 f"{self.host}/api/chat",
                 json={"model": self.model, "messages": messages, "stream": False,
+                      "think": False,
                       "options": {"num_predict": max_tokens}},
             )
             resp.raise_for_status()

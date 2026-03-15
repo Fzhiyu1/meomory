@@ -1,0 +1,14 @@
+experiments:
+  - name: dgd-judge-bigbang-qwen9b
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: ollama
+      host: "http://127.0.0.1:11434"
+      model: qwen3.5:9b
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01

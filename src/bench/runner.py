@@ -54,23 +54,42 @@ async def run_experiment(config: dict) -> dict:
     method = create_method(config)
     backend = create_backend(config.get("llm_backend"))
 
-    # Embedding
+    # Embedding（带缓存）
     dim = config.get("dgd", {}).get("dim", 256)
     n_rounds = config.get("rounds", 1)
     eval_every = config.get("eval_every", 2)
 
-    print(f"  Embedding {len(dataset.fragments)} fragments...")
-    frag_vecs = []
-    for i, f in enumerate(dataset.fragments):
-        frag_vecs.append(get_embedding(f["body"][:400]))
-        if (i + 1) % 100 == 0:
-            print(f"    {i + 1}/{len(dataset.fragments)}")
+    cache_dir = Path(__file__).parent.parent.parent / "experiments" / "cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_file = cache_dir / f"{dataset.name}_embed.json"
+
+    if cache_file.exists():
+        print(f"  Loading cached embeddings from {cache_file.name}")
+        import json as _json
+        with open(cache_file) as _f:
+            cached = _json.load(_f)
+        frag_vecs = cached["frag_vecs"]
+        q_vecs_raw = cached["q_vecs"]
+    else:
+        print(f"  Embedding {len(dataset.fragments)} fragments...")
+        frag_vecs = []
+        for i, f in enumerate(dataset.fragments):
+            frag_vecs.append(get_embedding(f["body"][:400]))
+            if (i + 1) % 100 == 0:
+                print(f"    {i + 1}/{len(dataset.fragments)}")
+
+        print(f"  Embedding {len(dataset.questions)} questions...")
+        q_vecs_raw = [get_embedding(q["question"][:300]) for q in dataset.questions]
+
+        # 保存缓存
+        import json as _json
+        with open(cache_file, "w") as _f:
+            _json.dump({"frag_vecs": frag_vecs, "q_vecs": q_vecs_raw}, _f)
+        print(f"  Cached to {cache_file.name}")
 
     proj = create_projection_matrix(4096, dim, seed=42)
     proj_vecs = [_norm(project(v, proj)) for v in frag_vecs]
-
-    print(f"  Embedding {len(dataset.questions)} questions...")
-    q_vecs = [_norm(project(get_embedding(q["question"][:300]), proj)) for q in dataset.questions]
+    q_vecs = [_norm(project(v, proj)) for v in q_vecs_raw]
 
     # Setup method
     method.setup(proj_vecs)
