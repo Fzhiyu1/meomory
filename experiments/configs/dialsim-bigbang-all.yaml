@@ -1,0 +1,34 @@
+experiments:
+  - name: cosine-bigbang
+    dataset: DialSim-bigbang
+    method: cosine
+    rounds: 1
+
+  - name: bm25-bigbang
+    dataset: DialSim-bigbang
+    method: bm25
+    rounds: 1
+
+  - name: dgd-gt-bigbang
+    dataset: DialSim-bigbang
+    method: dgd_gt
+    rounds: 20
+    eval_every: 2
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+
+  - name: dgd-judge-bigbang
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
