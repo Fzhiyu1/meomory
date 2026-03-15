@@ -92,6 +92,16 @@
 <h2>实验一：4 方法对比</h2>
 <p style="color:#888; margin-bottom:16px;">MemoryBench DialSim-bigbang · 805 个对话片段 · 14 道测试题 · 20 轮</p>
 
+<div class="card" style="font-size:0.9em;">
+  <strong style="color:#fff;">评测指标说明</strong><br>
+  <span style="color:#888;">
+  <strong>P@1</strong>：返回的第 1 个结果就是正确答案的概率（最严格）<br>
+  <strong>P@3</strong>：正确答案在前 3 个结果中的概率<br>
+  <strong>P@5</strong>：正确答案在前 5 个结果中的概率（最宽松）<br>
+  例如：P@1=78.6% 意味着 14 题中有 11 题第一个就找对了。
+  </span>
+</div>
+
 <div class="chart-container">
   <canvas id="chart1" height="260"></canvas>
 </div>
