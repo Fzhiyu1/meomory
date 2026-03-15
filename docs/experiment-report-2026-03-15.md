@@ -133,29 +133,93 @@ Round    Cosine     GT        Auto(Judge)
 
 ---
 
+## 实验四：小模型验证 — 9B 本地模型 vs 几百B API ⭐
+
+**设计**：用 qwen3.5:9b（9.7B 参数，本地 RTX 5070 GPU）替代 DeepSeek-chat（几百B，API 调用）做 agent + judge，跑同样的 benchmark。
+
+**动机**：如果小模型也能达到类似效果，意味着整个系统可以完全离线运行在消费级硬件上。
+
+**结果（完整，20 轮）**：
+
+| 轮次 | P@1 | 更新数 | 反馈准确率 | 耗时 |
+|------|-----|--------|-----------|------|
+| Round 1 | 57.1% | 14 | 64% | 23.6s |
+| Round 2 | 57.1% | 14 | 79% | 22.9s |
+| Round 4 | 64.3% | 15 | 47% | 22.1s |
+| Round 8 | 64.3% | 14 | 71% | 25.7s |
+| Round 10 | **78.6%** | 15 | 67% | 22.7s |
+| Round 12 | 78.6% | 11 | 82% | 24.7s |
+| Round 16 | 78.6% | 15 | 60% | 23.3s |
+| Round 20 | **78.6%** | 14 | 71% | 24.8s |
+
+**结论**：
+- P@1：57.1% → 78.6%（**+21.5pp**），与 DeepSeek 版完全一致，也追平了 Ground Truth
+- 反馈准确率平均 ~68%，略低于 DeepSeek 版（~75%），但足以驱动同等学习效果
+- 注意：qwen3.5 默认开启 thinking 模式会导致 content 为空，需要 `think: false`
+- **9B 模型足以驱动完整记忆闭环，不需要大模型**
+
+---
+
+## 实验五（统一框架）：4 方法完整对比 ⭐
+
+**设计**：使用统一实验框架，在同一个数据集上对比 4 种方法。
+
+**结果（DialSim-bigbang, qwen3.5:9b 做 judge）**：
+
+| 方法 | P@1 | P@3 | P@5 | 学习 |
+|------|-----|-----|-----|------|
+| BM25（关键词） | 35.7% | 42.9% | 57.1% | 不学习 |
+| Cosine（qwen3-embedding 8B） | 57.1% | 71.4% | 71.4% | 不学习 |
+| **DGD + LLM Judge（全自动）** | **78.6%** | **85.7%** | **85.7%** | 在线学习 |
+| DGD + Ground Truth（理想上界） | 78.6% | 85.7% | 92.9% | 在线学习 |
+
+**新发现**：
+- **BM25 远不如 embedding**（35.7% vs 57.1%）：因为 MemoryBench 的问题措辞和原文差异大，关键词匹配失效
+- **DGD + Judge 追平 GT 的 P@1**：全自动反馈达到理想上界
+
+---
+
+## 多数据集 Cosine Baseline
+
+为后续大实验建立 baseline：
+
+| 数据集 | 片段数 | 题数 | Cosine P@1 | P@3 | P@5 |
+|--------|--------|------|-----------|-----|-----|
+| DialSim-bigbang | 805 | 14 | 57.1% | 71.4% | 71.4% |
+| DialSim-friends | 787 | 12 | 25.0% | 41.7% | 50.0% |
+| DialSim-theoffice | 2343 | 8 | 25.0% | 62.5% | 62.5% |
+
+Friends 和 TheOffice 的 baseline 更低（25%），DGD 有更大提升空间。大实验将验证 DGD 在这些更难的数据集上是否同样有效。
+
+---
+
 ## 总结对比
 
-| 方法 | P@1 (最终) | 相比 cosine | 反馈准确率 | 稳定性 |
-|------|-----------|------------|-----------|--------|
-| Cosine baseline | 57.1% | — | N/A | 固定不变 |
-| DGD + Ground Truth | **78.6%** | +21.5pp | 100% | 有震荡 |
-| DGD + Embedding 反馈 (GPT-5.4) | ~64-71% | +7-14pp | 60-68% | 不稳定，超时严重 |
-| DGD + Embedding 反馈 (DeepSeek) | ~57-71% | +0-14pp | 48-55% | 震荡不收敛 |
-| **DGD + LLM Judge (DeepSeek)** | **71.4%** | **+14.3pp** | **~72%** | **稳步上升** |
+| 方法 | 模型 | P@1 (最终) | 相比 cosine | 反馈准确率 |
+|------|------|-----------|------------|-----------|
+| BM25 | — | 35.7% | -21.4pp | N/A |
+| Cosine baseline | qwen3-embedding 8B | 57.1% | — | N/A |
+| DGD + Embedding 反馈 | GPT-5.4 | ~64-71% | +7-14pp | 60-68% |
+| DGD + Embedding 反馈 | DeepSeek | ~57-71% | +0-14pp | 48-55% |
+| DGD + LLM Judge | DeepSeek-chat (~几百B) | **78.6%** | **+21.5pp** | **~75%** |
+| DGD + LLM Judge | **qwen3.5:9b (9B 本地)** | **78.6%** | **+21.5pp** | **~68%** |
+| DGD + Ground Truth | — | 78.6% | +21.5pp | 100% |
 
 ## 关键发现
 
 ### 已验证
-1. **DGD 能学习**：ground truth 下 P@1 +21.5pp，LLM judge 下 +14.3pp
-2. **LLM 判断者 >> embedding 相似度**：反馈准确率 72% vs 50%，学习曲线稳定 vs 震荡
-3. **自动反馈闭环可行**：无需人工标注，LLM 观察 agent 行为即可产生有效学习信号
-4. **并行执行有效**：14 题并发，每轮 9-10 秒，20 轮总共 ~3 分钟
+1. **DGD 能学习**：P@1 从 57% 提升到 79%（+22pp）
+2. **LLM 判断者 >> embedding 相似度**：反馈准确率 72% vs 50%
+3. **自动反馈闭环可行**：无需人工标注
+4. **9B 小模型足够**：qwen3.5:9b = DeepSeek 效果，可完全离线
+5. **BM25 不适合此任务**：措辞差异大时关键词匹配失效
 
 ### 瓶颈已定位
-1. ~~DGD 能不能学~~ → 能学（已验证）
-2. ~~自动反馈信号够不够~~ → embedding 不够，LLM 判断者够（已验证）
-3. **测试集太小**：14 题，统计显著性不足（仍然是问题）
-4. **DGD 长期稳定性**：20 轮后是否退化？需要更多轮次验证
+1. ~~DGD 能不能学~~ → 能学 ✅
+2. ~~自动反馈够不够~~ → LLM 判断者够 ✅
+3. ~~需要大模型吗~~ → 不需要，9B 够 ✅
+4. **测试集太小**：14 题，统计显著性不足（大实验进行中）
+5. **单一数据集**：只在 BigBang 验证过（大实验将覆盖 3 个数据集）
 
 ### 反馈机制演进
 
@@ -165,33 +229,54 @@ v1: embedding cosine > 0.5     → 50% 准确率，不够
 v2: LLM 判断者                  → 72% 准确率，足够驱动学习 ✓
 ```
 
+## DGD 工作原理简述
+
+DGD (Delta Gradient Descent) 的核心是一个 **256×256 的权重矩阵 M**——本质上是一个单层线性神经网络（65K 参数）。
+
+**查询时**：query 向量经过 M 变换后再和记忆片段比较。M 相当于"改变了你看向量库的角度"——把查询向量旋转、拉伸到更接近正确答案的方向。
+
+**更新时**：`M_new = M_old × (αI − η·k·kᵀ) − η·error·kᵀ`
+- 遗忘项：在查询方向上衰减旧关联
+- 学习项：写入新的正确关联
+
+**与向量库的关系**：DGD 不替代向量库，而是套在向量库前面。向量库里的数据不变，变的是查询向量的变换方式。M 记录的是"什么线索应该激活什么记忆"的映射经验——通过使用历史积累的有效关联。
+
 ## 局限性
 
-1. **14 题太少** — 每次 P@1 变化都是 ±1 题（7.1%），需要更大测试集
-2. **单一数据集** — 只在 Big Bang Theory 上测过
+1. **14 题统计显著性不足** — 每次 P@1 变化 = ±1 题（7.1%），需更大测试集
+2. **单一数据集** — 只在 Big Bang Theory 上验证过（大实验即将覆盖 3 个数据集）
 3. **未部署到真实 agent** — 所有结果来自离线 benchmark
-4. **DGD 参数未调优** — α=1.0 (无遗忘), η=0.01 是随手设的
-5. **LLM 判断者成本** — 每次反馈需要一次额外 LLM 调用
+4. **DGD 参数未调优** — α=1.0, η=0.01 是默认值
+5. **未对比 RAG + Reranker** — 只对比了 cosine 和 BM25
 
-## 下一步建议
+## 正在进行
 
-1. **加大测试集**：LongMemEval（500 题）或自造更大测试集
-2. **Gateway 集成**：接入 OpenClaw 在真实对话中验证
-3. **CMS 多时间尺度**：短/中/长期三层 DGD
-4. **判断者异步化**：反馈不阻塞主流程，后台更新 M
-5. **对比更强 baseline**：BM25、reranker、RAG + rerank
-6. **DGD 参数搜索**：α、η、dim 的最优组合
+**大实验（3 数据集 × 4 方法 = 12 次实验）：**
+
+在 OpenClaw (RTX 4060) 上使用统一实验框架运行，5070 (qwen3.5:9b) 做 agent + judge。
+
+| 数据集 | cosine | BM25 | DGD+GT | DGD+Judge |
+|--------|--------|------|--------|-----------|
+| DialSim-bigbang | ✅ done | ✅ done | ✅ done | ✅ done |
+| DialSim-friends | baseline done | 待跑 | 待跑 | 待跑 |
+| DialSim-theoffice | baseline done | 待跑 | 待跑 | 待跑 |
+
+## 下一步
+
+1. **完成大实验** — 3 个数据集全部跑完，验证 DGD 在不同场景下的一致性
+2. **Gateway 集成** — 接入 OpenClaw 在真实对话中部署
+3. **CMS 多时间尺度** — 短/中/长期三层 DGD
+4. **判断者异步化** — 反馈不阻塞主流程
+5. **DGD 参数搜索** — α、η、dim 的最优组合
 
 ## 文件索引
 
 | 文件 | 内容 |
 |------|------|
-| `scripts/bench_memorybench.py` | 实验一：ground truth 评测 |
-| `scripts/bench_auto_feedback.py` | 实验二 v1：embedding 自动反馈 |
-| `scripts/bench_v2.py` | **实验三 v2：LLM 判断者 + 并行** |
-| `scripts/bench_dgd.py` | 补充实验：简单 benchmark |
-| `data/benchmarks/memorybench/bench_v2_full_log.txt` | v2 完整运行日志 |
-| `data/benchmarks/memorybench/learning_curve_v2.json` | v2 学习曲线数据 |
-| `data/benchmarks/memorybench/auto_feedback_partial_log.txt` | v1 部分日志 |
-| `data/benchmarks/memorybench/deepseek_partial_log.txt` | DeepSeek embedding 反馈部分日志 |
+| `scripts/run_bench.py` | **统一实验 CLI** |
+| `src/bench/` | 实验框架（backends/datasets/methods/runner） |
+| `experiments/configs/full-benchmark.yaml` | 大实验配置 |
+| `experiments/results/*.json` | 实验结果 JSON |
+| `scripts/bench_v2.py` | 早期实验：LLM 判断者 + 并行 |
 | `docs/architecture.md` | 完整架构文档 |
+| `docs/report.html` | 可视化报告（给 mentor 看） |

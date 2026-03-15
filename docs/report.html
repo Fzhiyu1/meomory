@@ -165,6 +165,38 @@
   <p>Embedding 相似度（50% 准确率）无法驱动学习。LLM Judge（75% 准确率）就足够了。DGD 本身在任何准确率 >60% 的反馈下都能学习。</p>
 </div>
 
+<!-- 多数据集 baseline -->
+<h2>多数据集 Cosine Baseline</h2>
+<p style="color:#888; margin-bottom:16px;">为大实验建立的 baseline（大实验进行中）</p>
+
+<table>
+  <tr><th>数据集</th><th>片段数</th><th>题数</th><th>Cosine P@1</th><th>P@3</th><th>P@5</th></tr>
+  <tr><td>DialSim-bigbang</td><td>805</td><td>14</td><td>57.1%</td><td>71.4%</td><td>71.4%</td></tr>
+  <tr><td>DialSim-friends</td><td>787</td><td>12</td><td>25.0%</td><td>41.7%</td><td>50.0%</td></tr>
+  <tr><td>DialSim-theoffice</td><td>2343</td><td>8</td><td>25.0%</td><td>62.5%</td><td>62.5%</td></tr>
+</table>
+
+<div class="insight">
+  <div class="insight-title">观察：Friends 和 TheOffice 的 baseline 更低（25%）</div>
+  <p>Cosine 在这两个数据集上只有 25% P@1，DGD 有更大的提升空间。大实验将验证 DGD 在不同难度的数据集上是否一致有效。</p>
+</div>
+
+<!-- DGD 原理 -->
+<h2>DGD 如何工作</h2>
+
+<div class="card">
+  <h3 style="color:#fff; margin-top:0;">核心思想</h3>
+  <p>DGD 不替代向量库，而是<span class="highlight">套在向量库前面</span>。查询向量在进入向量库之前，先经过一个 256×256 的权重矩阵 M 变换。</p>
+  <p style="margin-top:12px;">M 做的事：把查询向量<strong>旋转、拉伸</strong>，让它更靠近正确答案的方向。向量库里的数据不变，变的是你看向量库的角度。</p>
+</div>
+
+<div class="card" style="font-family: 'SF Mono', monospace; font-size: 0.9em; line-height: 2;">
+  <span style="color:#888;">普通 RAG：</span>query → embedding → 直接和向量库比较 → 返回<br>
+  <span style="color:#6366f1;">meomory：</span>query → embedding → <strong>M × query</strong> → 和向量库比较 → 返回<br><br>
+  <span style="color:#888;">M 通过反馈学会了"这类查询应该往哪个方向偏"。</span><br>
+  <span style="color:#888;">65536 个参数（256×256），单层线性网络，一次矩阵乘法完成。</span>
+</div>
+
 <div class="separator"></div>
 
 <!-- 技术细节 -->
