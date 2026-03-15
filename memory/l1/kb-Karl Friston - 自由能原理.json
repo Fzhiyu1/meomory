@@ -1,0 +1,13 @@
+{
+  "id": "kb-Karl Friston - 自由能原理",
+  "cue": [
+    "Karl Friston - 自由能原理",
+    "自由能原理",
+    "目标真空假说"
+  ],
+  "ts": "",
+  "source": "knowledge-base/4-references/Karl Friston - 自由能原理.md",
+  "category": "4-references",
+  "title": "Karl Friston - 自由能原理",
+  "body": "# Karl Friston - 自由能原理\n\n**领域**：神经科学 / 理论物理\n**关联概念**：[[自由能原理]]、[[目标真空假说]]\n\n## 人物\n\n伦敦大学学院神经科学家。提出自由能原理（Free Energy Principle），试图用一个统一框架解释所有生物行为。\n\n## 核心著作/概念\n\n- **变分自由能**（Variational Free Energy）\n- **预测编码**（Predictive Coding）\n- **主动推理**（Active Inference）\n\n## 与本知识库的关系\n\n自由能原理为 [[目标真空假说]] 提供了理论语言：目标真空 = 自由能梯度消失 → 系统趋向最大熵态。\n\n如果要将脑干研究写成学术论文，Friston的框架提供了学术界能听懂的术语体系。\n"
+}

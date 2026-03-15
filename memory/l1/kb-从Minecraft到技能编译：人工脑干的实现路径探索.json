@@ -1,0 +1,15 @@
+{
+  "id": "kb-从Minecraft到技能编译：人工脑干的实现路径探索",
+  "cue": [
+    "从Minecraft到技能编译：人工脑干的实现路径探索",
+    "AI",
+    "认知科学",
+    "工程",
+    "人工脑干：从目标真空到RL+LLM双系统架构"
+  ],
+  "ts": "",
+  "source": "knowledge-base/2-explorations/从Minecraft到技能编译：人工脑干的实现路径探索.md",
+  "category": "2-explorations",
+  "title": "从Minecraft到技能编译：人工脑干的实现路径探索",
+  "body": "# 从Minecraft到技能编译：人工脑干的实现路径探索\n\n**讨论者**：fangzhiyu & Claude Opus 4.6\n**日期**：2026年2月25日\n**背景**：从人工脑干实验的环境选型出发，经由Minecraft agent生态调研、运动控制层级分析，发现了\"技能编译\"和\"连续基质\"两个关键问题\n\n---\n\n## 一、环境选型：为什么是Minecraft\n\n原有实验设计（[[人工脑干：从目标真空到RL+LLM双系统架构]] 第四节）使用抽象的token预算环境。讨论中转向了游戏环境，最终选定Minecraft，因为它天然具备脑干实验需要的所有要素：\n\n- 生存压力：血量、饥饿值、敌对生物\n- 昼夜循环：夜晚威胁增加，需要节律性行为\n- 资源管理：食物、工具、材料的获取和消耗\n- 开放世界：没有固定目标，agent必须自己产生目标\n\n## 二、Minecraft LLM Agent 生态\n\n### Voyager（2023，NVIDIA）\n\n第一个LLM驱动的Minecraft agent。6.7k stars，但代码更新不多，更像里程碑式研究项目。架构：LLM写JavaScript代码 → Mineflayer执行 → 技能库积累。纯\"皮层\"路线，没有生存压力概念。\n\n### CraftJarvis 团队（最活跃）\n\n围绕Minecraft agent建了完整生态，更新到2026年2月：\n\n- **MineStudio**（344 stars）— Minecraft AI agent开发标准化工具包，支持在线RL训练\n- **JARVIS-1**（388 stars）— 多模态版Voyager，能看屏幕不只靠文本\n- **ROCKET-1** — 视觉-时序上下文提示，CVPR 2025。输入截图+交互类型，输出鼠标键盘动作\n- **ROCKET-2** — ROCKET-1升级版，端到端打败末影龙，自发涌现搭桥行为，跨游戏零样本迁移\n- **OpenHA** — 层级式agent架构，与我们的双层思路接近\n\n### Cradle（2.5k stars，清华/BAAI）\n\n通用计算机控制框架，截图+LLM推理+键鼠操作，不限于Minecraft。\n\n### 关键观察\n\n没有一个项目同时具备\"快速反射\"和\"语言推理\"。Voyager是纯皮层，R"
+}

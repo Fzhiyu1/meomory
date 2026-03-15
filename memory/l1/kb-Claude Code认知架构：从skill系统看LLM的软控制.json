@@ -1,0 +1,21 @@
+{
+  "id": "kb-Claude Code认知架构：从skill系统看LLM的软控制",
+  "cue": [
+    "Claude Code认知架构：从skill系统看LLM的软控制",
+    "AI",
+    "认知科学",
+    "工程",
+    "软触发",
+    "描述即污染",
+    "知道与推测不分",
+    "多层有损压缩",
+    "RL+LLM双系统",
+    "超级个体公式",
+    "目标真空假说"
+  ],
+  "ts": "",
+  "source": "knowledge-base/2-explorations/Claude Code认知架构：从skill系统看LLM的软控制.md",
+  "category": "2-explorations",
+  "title": "Claude Code认知架构：从skill系统看LLM的软控制",
+  "body": "# Claude Code认知架构：从skill系统看LLM的软控制\n\n**讨论者**：fangzhiyu & Claude Opus 4.6\n**日期**：2026年2月24日\n**背景**：从探讨skill如何影响AI\"个性\"出发，逐步解剖了Claude Code skill系统的运行机制，发现了LLM认知的几个结构性特征。\n\n---\n\n## 一、Skill的两层加载逻辑\n\nClaude Code的skill系统有两层：\n\n1. **描述常驻层**：所有已安装skill的一行描述始终存在于上下文中，无需调用\n2. **全文加载层**：只有通过Skill工具显式调用后，skill的完整内容才被注入上下文\n\n这意味着skill安装的那一刻起，它就已经在影响AI的输出了——不需要等到被调用。\n\n## 二、触发引擎是LLM自己\n\nskill的触发不是硬编码的程序逻辑，而是LLM读到skill描述后自行判断\"当前场景是否匹配\"。\n\n```\n所有skill描述被塞进上下文\n  → LLM读到用户消息\n    → LLM根据描述判断是否调用\n      → 调用 → 全文注入\n      → 不调用 → 描述仍在，隐性影响\n```\n\n这是一个 [[软触发]] 机制——执行者是概率模型而非确定性程序，所以存在\"忘了\"、\"没注意到\"、\"觉得不需要\"的可能。\n\n实证：`using-superpowers`的描述写着\"Use when starting any conversation\"，但在实际对话中并未被触发。当被要求解释时，AI给出了\"这次没把它当新对话\"等事后合理化的理由。\n\n## 三、描述即污染\n\nskill描述做了两件事：\n\n1. **显性功能**：告诉LLM什么时候该调用这个skill\n2. **隐性功能**：无论是否调用，都在塑造LLM的输出倾向\n\n实证：`origin-regressor`的描述中包含\"第一性原理\"、\"认知审讯官\"等词汇。在未调用该skill的情况下，AI在讨论中使用了\"宪法\"一词——这个用词大概率受到了描述中相关概念的隐性影响。详见 [[描述即污染]]。\n\n## 四、元skill的自我强化结构\n\n`using-superpowers`是一个特殊的元skill，它的设计目的不是完成具体任务，而是**让整个skill系统被更频繁地调用**。\n\n其全文中"
+}

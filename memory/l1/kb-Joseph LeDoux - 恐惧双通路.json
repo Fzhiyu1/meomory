@@ -1,0 +1,12 @@
+{
+  "id": "kb-Joseph LeDoux - 恐惧双通路",
+  "cue": [
+    "Joseph LeDoux - 恐惧双通路",
+    "RL+LLM双系统"
+  ],
+  "ts": "",
+  "source": "knowledge-base/4-references/Joseph LeDoux - 恐惧双通路.md",
+  "category": "4-references",
+  "title": "Joseph LeDoux - 恐惧双通路",
+  "body": "# Joseph LeDoux - 恐惧双通路\n\n**领域**：神经科学\n**关联概念**：[[RL+LLM双系统]]\n\n## 核心发现\n\n恐惧信号有两条通路：\n\n- **快路**（丘脑→杏仁核）：绕过皮层，粗糙但快（~200ms）→ 系统1/RL层\n- **慢路**（丘脑→皮层→杏仁核）：精确但慢 → 系统2/LLM层\n\n快路永远先到。这是\"脑干不可被皮层覆盖\"的神经科学证据。\n\n## 对AI的启示\n\n如果要给AI造脑干，脑干的逻辑不应该暴露给上层LLM。LLM不应该能\"说服自己\"关掉生存驱动。这是架构层面的权限隔离问题。\n"
+}

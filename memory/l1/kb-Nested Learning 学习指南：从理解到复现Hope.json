@@ -1,0 +1,11 @@
+{
+  "id": "kb-Nested Learning 学习指南：从理解到复现Hope",
+  "cue": [
+    "Nested Learning 学习指南：从理解到复现 Hope"
+  ],
+  "ts": "",
+  "source": "knowledge-base/2-explorations/Nested Learning 学习指南：从理解到复现Hope.md",
+  "category": "2-explorations",
+  "title": "Nested Learning 学习指南：从理解到复现 Hope",
+  "body": "# Nested Learning 学习指南：从理解到复现 Hope\n\n**讨论者**：fangzhiyu & Claude Opus 4.6\n**日期**：2026年2月19日\n**背景**：基于论文《Nested Learning: The Illusion of Deep Learning Architectures》（Ali Behrouz et al., Google Research, NeurIPS 2025），为 AI 应用工程师制定的学习与实践路线\n**目标**：理解核心思想，小规模复现 Hope 架构\n**设备**：48GB MacBook Pro（Apple Silicon，MPS 后端）\n\n---\n\n## 零、这篇论文在讲什么（30秒版本）\n\n传统观点把\"模型架构\"和\"优化器\"当两件事。这篇论文说：**它们是同一个东西**——都是\"关联记忆\"，都在做\"把信息压缩到参数里\"这件事，只是工作频率不同。\n\n基于这个统一视角，作者设计了 **Hope 架构**——一个能持续学习、不会灾难性遗忘的新模型。\n\n---\n\n## 零点五、为什么要学这个\n\n### 我的背景\n\nAI 应用工程师，目前在雷石（北京）。公司允许自由探索 AI 方向。对 AI 底层原理有浓厚兴趣，目标是成为超级个体——不只是会调 API，而是真正理解模型在做什么。\n\n### 学习目标\n\n纯粹的技术兴趣 + 能力积累。通过复现 Hope 来：\n1. **深入理解**现代序列模型的本质（不只是会用，还知道为什么）\n2. **掌握模型训练**的实战能力（从架构设计到训练调参）\n3. **建立认知优势**——在别人只能调 API 的时候，你能自己设计和训练模型\n\n---\n\n## 一、论文全景地图\n\n```\n┌──────────────────────────────────────────────────────────────┐\n│                    Nested Learning 论文结构                    │\n├──────────────────────────────────────────────────────────────┤\n│                                                     "
+}
