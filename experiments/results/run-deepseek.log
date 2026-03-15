@@ -1,0 +1,121 @@
+Running 6 experiment(s) from experiments/configs/full-benchmark-deepseek.yaml
+
+============================================================
+  Experiment: dgd-judge-bigbang-deepseek
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:9 acc:78% err:0 4.1s)
+  Round  2: P@1=71.4% P@3=71.4% P@5=78.6%  (upd:9 acc:89% err:0 4.4s)
+  Round  4: P@1=71.4% P@3=71.4% P@5=78.6%  (upd:7 acc:71% err:0 5.3s)
+  Round  6: P@1=71.4% P@3=71.4% P@5=85.7%  (upd:7 acc:86% err:0 4.3s)
+  Round  8: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:8 acc:88% err:0 4.2s)
+  Round 10: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:6 acc:100% err:0 3.6s)
+  Round 12: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:6 acc:100% err:0 3.7s)
+  Round 14: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:7 acc:86% err:0 3.5s)
+  Round 16: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:7 acc:71% err:0 3.5s)
+  Round 18: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:9 acc:78% err:0 3.9s)
+  Round 20: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:7 acc:71% err:0 4.3s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-judge-bigbang-deepseek.json
+
+============================================================
+  Experiment: dgd-cms-judge-bigbang-deepseek
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:11 acc:73% err:0 4.5s)
+  Round  2: P@1=64.3% P@3=71.4% P@5=78.6%  (upd:13 acc:62% err:0 4.8s)
+  Round  4: P@1=64.3% P@3=71.4% P@5=78.6%  (upd:7 acc:71% err:0 4.5s)
+  Round  6: P@1=71.4% P@3=71.4% P@5=78.6%  (upd:10 acc:90% err:0 4.4s)
+  Round  8: P@1=71.4% P@3=71.4% P@5=78.6%  (upd:6 acc:83% err:0 4.1s)
+  Round 10: P@1=71.4% P@3=78.6% P@5=78.6%  (upd:10 acc:60% err:0 4.7s)
+  Round 12: P@1=71.4% P@3=78.6% P@5=78.6%  (upd:8 acc:88% err:0 5.1s)
+  Round 14: P@1=71.4% P@3=78.6% P@5=78.6%  (upd:12 acc:67% err:0 4.7s)
+  Round 16: P@1=78.6% P@3=78.6% P@5=78.6%  (upd:9 acc:89% err:0 5.5s)
+  Round 18: P@1=78.6% P@3=78.6% P@5=78.6%  (upd:9 acc:89% err:0 5.4s)
+  Round 20: P@1=78.6% P@3=78.6% P@5=78.6%  (upd:11 acc:55% err:0 5.6s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-cms-judge-bigbang-deepseek.json
+
+============================================================
+  Experiment: dgd-judge-friends-deepseek
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  Round  1: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 4.0s)
+  Round  2: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:3 acc:0% err:0 3.6s)
+  Round  4: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:3 acc:0% err:0 4.3s)
+  Round  6: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:3 acc:0% err:0 3.9s)
+  Round  8: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 3.9s)
+  Round 10: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 3.9s)
+  Round 12: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 3.5s)
+  Round 14: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 3.7s)
+  Round 16: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 3.8s)
+  Round 18: P@1=25.0% P@3=50.0% P@5=50.0%  (upd:4 acc:0% err:0 3.5s)
+  Round 20: P@1=16.7% P@3=50.0% P@5=50.0%  (upd:3 acc:0% err:0 4.1s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-judge-friends-deepseek.json
+
+============================================================
+  Experiment: dgd-cms-judge-friends-deepseek
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  Round  1: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:2 acc:0% err:0 4.3s)
+  Round  2: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:2 acc:0% err:0 4.2s)
+  Round  4: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:3 acc:0% err:0 3.8s)
+  Round  6: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:4 acc:0% err:0 3.5s)
+  Round  8: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 3.9s)
+  Round 10: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 3.8s)
+  Round 12: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 4.1s)
+  Round 14: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:2 acc:0% err:0 4.1s)
+  Round 16: P@1=16.7% P@3=50.0% P@5=50.0%  (upd:2 acc:0% err:0 3.9s)
+  Round 18: P@1=16.7% P@3=50.0% P@5=50.0%  (upd:2 acc:0% err:0 4.2s)
+  Round 20: P@1=16.7% P@3=50.0% P@5=50.0%  (upd:3 acc:0% err:0 3.5s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-cms-judge-friends-deepseek.json
+
+============================================================
+  Experiment: dgd-judge-theoffice-deepseek
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:5 acc:80% err:0 4.7s)
+  Round  2: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:4 acc:75% err:0 4.3s)
+  Round  4: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:7 acc:57% err:0 4.7s)
+  Round  6: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:7 acc:57% err:0 3.9s)
+  Round  8: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:5 acc:60% err:0 4.4s)
+  Round 10: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:3 acc:100% err:0 4.3s)
+  Round 12: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:3 acc:100% err:0 4.0s)
+  Round 14: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:3 acc:100% err:0 4.4s)
+  Round 16: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:4 acc:100% err:0 4.5s)
+  Round 18: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:5 acc:80% err:0 3.9s)
+  Round 20: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:6 acc:50% err:0 4.1s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-judge-theoffice-deepseek.json
+
+============================================================
+  Experiment: dgd-cms-judge-theoffice-deepseek
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:3 acc:100% err:0 4.6s)
+  Round  2: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:5 acc:60% err:0 5.0s)
+  Round  4: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:2 acc:100% err:0 4.2s)
+  Round  6: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:3 acc:67% err:0 4.1s)
+  Round  8: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:4 acc:75% err:0 4.2s)
+  Round 10: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:4 acc:75% err:0 4.0s)
+  Round 12: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:5 acc:60% err:0 4.0s)
+  Round 14: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:5 acc:80% err:0 3.8s)
+  Round 16: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:8 acc:50% err:0 4.5s)
+  Round 18: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:5 acc:80% err:0 3.7s)
+  Round 20: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:6 acc:50% err:0 4.4s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-cms-judge-theoffice-deepseek.json
+
+============================================================
+  Summary
+============================================================
+  Name                                P@1      P@3      P@5
+  ------------------------------------------------------
+  dgd-judge-bigbang-deepseek       71.4%   85.7%   85.7%
+  dgd-cms-judge-bigbang-deepseek   78.6%   78.6%   78.6%
+  dgd-judge-friends-deepseek       16.7%   50.0%   50.0%
+  dgd-cms-judge-friends-deepseek   16.7%   50.0%   50.0%
+  dgd-judge-theoffice-deepseek     50.0%   62.5%   62.5%
+  dgd-cms-judge-theoffice-deepseek   50.0%   62.5%   62.5%

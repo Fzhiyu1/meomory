@@ -1,0 +1,232 @@
+Running 15 experiment(s) from experiments/configs/full-benchmark.yaml
+
+============================================================
+  Experiment: cosine-bigbang
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  cosine: P@1=57.1% P@3=71.4% P@5=71.4%
+  Saved: /home/fzhiyu/services/meomory/experiments/results/cosine-bigbang.json
+
+============================================================
+  Experiment: bm25-bigbang
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  bm25: P@1=35.7% P@3=42.9% P@5=57.1%
+  Saved: /home/fzhiyu/services/meomory/experiments/results/bm25-bigbang.json
+
+============================================================
+  Experiment: dgd-gt-bigbang
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=64.3% P@3=71.4% P@5=78.6%  (upd:14 acc:100% err:0 0.4s)
+  Round  2: P@1=71.4% P@3=71.4% P@5=78.6%  (upd:14 acc:100% err:0 0.4s)
+  Round  4: P@1=64.3% P@3=85.7% P@5=85.7%  (upd:14 acc:100% err:0 0.4s)
+  Round  6: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:14 acc:100% err:0 0.4s)
+  Round  8: P@1=64.3% P@3=85.7% P@5=85.7%  (upd:14 acc:100% err:0 0.4s)
+  Round 10: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:14 acc:100% err:0 0.4s)
+  Round 12: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:14 acc:100% err:0 0.4s)
+  Round 14: P@1=71.4% P@3=78.6% P@5=85.7%  (upd:14 acc:100% err:0 0.4s)
+  Round 16: P@1=71.4% P@3=78.6% P@5=85.7%  (upd:14 acc:100% err:0 0.4s)
+  Round 18: P@1=78.6% P@3=78.6% P@5=85.7%  (upd:14 acc:100% err:0 0.4s)
+  Round 20: P@1=78.6% P@3=85.7% P@5=92.9%  (upd:14 acc:100% err:0 0.4s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-gt-bigbang.json
+
+============================================================
+  Experiment: dgd-judge-bigbang-9b
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:15 acc:60% err:0 27.0s)
+  Round  2: P@1=64.3% P@3=71.4% P@5=78.6%  (upd:17 acc:65% err:0 24.8s)
+  Round  4: P@1=71.4% P@3=71.4% P@5=78.6%  (upd:16 acc:62% err:0 24.2s)
+  Round  6: P@1=64.3% P@3=85.7% P@5=85.7%  (upd:18 acc:61% err:0 20.0s)
+  Round  8: P@1=64.3% P@3=85.7% P@5=85.7%  (upd:15 acc:47% err:0 17.1s)
+  Round 10: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:13 acc:69% err:0 24.5s)
+  Round 12: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:20 acc:65% err:0 26.3s)
+  Round 14: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:15 acc:73% err:0 21.4s)
+  Round 16: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:25 acc:56% err:0 25.0s)
+  Round 18: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:16 acc:62% err:0 24.9s)
+  Round 20: P@1=78.6% P@3=78.6% P@5=85.7%  (upd:15 acc:67% err:0 24.4s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-judge-bigbang-9b.json
+
+============================================================
+  Experiment: dgd-cms-judge-bigbang-9b
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:18 acc:50% err:0 21.1s)
+  Round  2: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:16 acc:56% err:0 21.2s)
+  Round  4: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:19 acc:58% err:0 23.4s)
+  Round  6: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:19 acc:47% err:0 24.8s)
+  Round  8: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:19 acc:63% err:0 22.3s)
+  Round 10: P@1=64.3% P@3=71.4% P@5=71.4%  (upd:17 acc:76% err:0 22.6s)
+  Round 12: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:20 acc:65% err:0 21.8s)
+  Round 14: P@1=50.0% P@3=71.4% P@5=71.4%  (upd:18 acc:56% err:0 25.0s)
+  Round 16: P@1=42.9% P@3=71.4% P@5=71.4%  (upd:17 acc:59% err:0 22.6s)
+  Round 18: P@1=35.7% P@3=71.4% P@5=71.4%  (upd:19 acc:42% err:0 22.7s)
+  Round 20: P@1=42.9% P@3=71.4% P@5=71.4%  (upd:20 acc:65% err:0 23.4s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-cms-judge-bigbang-9b.json
+
+============================================================
+  Experiment: cosine-friends
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  cosine: P@1=25.0% P@3=41.7% P@5=50.0%
+  Saved: /home/fzhiyu/services/meomory/experiments/results/cosine-friends.json
+
+============================================================
+  Experiment: bm25-friends
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  bm25: P@1=33.3% P@3=41.7% P@5=41.7%
+  Saved: /home/fzhiyu/services/meomory/experiments/results/bm25-friends.json
+
+============================================================
+  Experiment: dgd-gt-friends
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  Round  1: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:12 acc:100% err:0 0.3s)
+  Round  2: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:12 acc:100% err:0 0.3s)
+  Round  4: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:12 acc:100% err:0 0.3s)
+  Round  6: P@1=25.0% P@3=41.7% P@5=66.7%  (upd:12 acc:100% err:0 0.3s)
+  Round  8: P@1=25.0% P@3=50.0% P@5=83.3%  (upd:12 acc:100% err:0 0.3s)
+  Round 10: P@1=25.0% P@3=66.7% P@5=83.3%  (upd:12 acc:100% err:0 0.3s)
+  Round 12: P@1=33.3% P@3=66.7% P@5=83.3%  (upd:12 acc:100% err:0 0.3s)
+  Round 14: P@1=33.3% P@3=83.3% P@5=83.3%  (upd:12 acc:100% err:0 0.3s)
+  Round 16: P@1=33.3% P@3=83.3% P@5=83.3%  (upd:12 acc:100% err:0 0.3s)
+  Round 18: P@1=41.7% P@3=83.3% P@5=83.3%  (upd:12 acc:100% err:0 0.3s)
+  Round 20: P@1=41.7% P@3=83.3% P@5=83.3%  (upd:12 acc:100% err:0 0.3s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-gt-friends.json
+
+============================================================
+  Experiment: dgd-judge-friends-9b
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  Round  1: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:15 acc:33% err:0 19.6s)
+  Round  2: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:22 acc:18% err:0 21.8s)
+  Round  4: P@1=16.7% P@3=41.7% P@5=41.7%  (upd:22 acc:18% err:0 19.7s)
+  Round  6: P@1=16.7% P@3=41.7% P@5=50.0%  (upd:26 acc:19% err:0 19.4s)
+  Round  8: P@1=16.7% P@3=41.7% P@5=50.0%  (upd:25 acc:16% err:0 20.2s)
+  Round 10: P@1=16.7% P@3=41.7% P@5=50.0%  (upd:14 acc:14% err:0 16.8s)
+  Round 12: P@1=16.7% P@3=41.7% P@5=50.0%  (upd:20 acc:25% err:0 21.6s)
+  Round 14: P@1=16.7% P@3=41.7% P@5=50.0%  (upd:18 acc:11% err:0 18.9s)
+  Round 16: P@1=16.7% P@3=41.7% P@5=50.0%  (upd:24 acc:17% err:0 20.6s)
+  Round 18: P@1=16.7% P@3=41.7% P@5=50.0%  (upd:18 acc:22% err:0 18.5s)
+  Round 20: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:16 acc:31% err:0 16.5s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-judge-friends-9b.json
+
+============================================================
+  Experiment: dgd-cms-judge-friends-9b
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  Round  1: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:12 acc:33% err:0 18.5s)
+  Round  2: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:19 acc:16% err:0 19.5s)
+  Round  4: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:21 acc:24% err:0 19.1s)
+  Round  6: P@1=16.7% P@3=41.7% P@5=58.3%  (upd:16 acc:12% err:0 21.4s)
+  Round  8: P@1=16.7% P@3=33.3% P@5=50.0%  (upd:17 acc:6% err:0 18.8s)
+  Round 10: P@1=16.7% P@3=33.3% P@5=41.7%  (upd:16 acc:25% err:0 18.0s)
+  Round 12: P@1=25.0% P@3=33.3% P@5=41.7%  (upd:21 acc:29% err:0 20.9s)
+  Round 14: P@1=25.0% P@3=33.3% P@5=41.7%  (upd:16 acc:25% err:0 18.9s)
+  Round 16: P@1=25.0% P@3=33.3% P@5=41.7%  (upd:16 acc:19% err:0 18.7s)
+  Round 18: P@1=25.0% P@3=33.3% P@5=33.3%  (upd:16 acc:25% err:0 17.5s)
+  Round 20: P@1=33.3% P@3=33.3% P@5=33.3%  (upd:15 acc:27% err:0 18.9s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-cms-judge-friends-9b.json
+
+============================================================
+  Experiment: cosine-theoffice
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  cosine: P@1=25.0% P@3=62.5% P@5=62.5%
+  Saved: /home/fzhiyu/services/meomory/experiments/results/cosine-theoffice.json
+
+============================================================
+  Experiment: bm25-theoffice
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  bm25: P@1=12.5% P@3=25.0% P@5=37.5%
+  Saved: /home/fzhiyu/services/meomory/experiments/results/bm25-theoffice.json
+
+============================================================
+  Experiment: dgd-gt-theoffice
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:8 acc:100% err:0 0.4s)
+  Round  2: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:8 acc:100% err:0 0.5s)
+  Round  4: P@1=25.0% P@3=37.5% P@5=62.5%  (upd:8 acc:100% err:0 0.5s)
+  Round  6: P@1=25.0% P@3=37.5% P@5=62.5%  (upd:8 acc:100% err:0 0.5s)
+  Round  8: P@1=25.0% P@3=50.0% P@5=75.0%  (upd:8 acc:100% err:0 0.4s)
+  Round 10: P@1=25.0% P@3=50.0% P@5=75.0%  (upd:8 acc:100% err:0 0.5s)
+  Round 12: P@1=50.0% P@3=50.0% P@5=75.0%  (upd:8 acc:100% err:0 0.4s)
+  Round 14: P@1=50.0% P@3=50.0% P@5=75.0%  (upd:8 acc:100% err:0 0.5s)
+  Round 16: P@1=50.0% P@3=75.0% P@5=75.0%  (upd:8 acc:100% err:0 0.5s)
+  Round 18: P@1=50.0% P@3=75.0% P@5=75.0%  (upd:8 acc:100% err:0 0.5s)
+  Round 20: P@1=50.0% P@3=75.0% P@5=75.0%  (upd:8 acc:100% err:0 0.5s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-gt-theoffice.json
+
+============================================================
+  Experiment: dgd-judge-theoffice-9b
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:7 acc:57% err:0 12.4s)
+  Round  2: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:6 acc:83% err:0 9.0s)
+  Round  4: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:44% err:0 12.3s)
+  Round  6: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:14 acc:36% err:0 10.2s)
+  Round  8: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:6 acc:50% err:0 11.2s)
+  Round 10: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:7 acc:57% err:0 10.5s)
+  Round 12: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:7 acc:43% err:0 9.6s)
+  Round 14: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:10 acc:40% err:0 7.9s)
+  Round 16: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:10 acc:50% err:0 10.3s)
+  Round 18: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:16 acc:25% err:0 10.2s)
+  Round 20: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:11 acc:36% err:0 9.2s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-judge-theoffice-9b.json
+
+============================================================
+  Experiment: dgd-cms-judge-theoffice-9b
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:13 acc:31% err:0 10.8s)
+  Round  2: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:10 acc:40% err:0 8.3s)
+  Round  4: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:7 acc:43% err:0 9.9s)
+  Round  6: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:12 acc:42% err:0 10.0s)
+  Round  8: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:11 acc:36% err:0 10.7s)
+  Round 10: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:11 acc:36% err:0 9.4s)
+  Round 12: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:44% err:0 8.5s)
+  Round 14: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:15 acc:27% err:0 12.0s)
+  Round 16: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:8 acc:50% err:0 9.9s)
+  Round 18: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:12 acc:33% err:0 10.5s)
+  Round 20: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:11 acc:36% err:0 11.1s)
+  Saved: /home/fzhiyu/services/meomory/experiments/results/dgd-cms-judge-theoffice-9b.json
+
+============================================================
+  Summary
+============================================================
+  Name                                P@1      P@3      P@5
+  ------------------------------------------------------
+  cosine-bigbang                   57.1%   71.4%   71.4%
+  bm25-bigbang                     35.7%   42.9%   57.1%
+  dgd-gt-bigbang                   78.6%   85.7%   92.9%
+  dgd-judge-bigbang-9b             78.6%   78.6%   85.7%
+  dgd-cms-judge-bigbang-9b         42.9%   71.4%   71.4%
+  cosine-friends                   25.0%   41.7%   50.0%
+  bm25-friends                     33.3%   41.7%   41.7%
+  dgd-gt-friends                   41.7%   83.3%   83.3%
+  dgd-judge-friends-9b             25.0%   41.7%   50.0%
+  dgd-cms-judge-friends-9b         33.3%   33.3%   33.3%
+  cosine-theoffice                 25.0%   62.5%   62.5%
+  bm25-theoffice                   12.5%   25.0%   37.5%
+  dgd-gt-theoffice                 50.0%   75.0%   75.0%
+  dgd-judge-theoffice-9b           50.0%   62.5%   62.5%
+  dgd-cms-judge-theoffice-9b       50.0%   62.5%   62.5%

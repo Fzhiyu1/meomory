@@ -1,0 +1,235 @@
+{
+  "name": "dgd-gt-friends",
+  "config": {
+    "name": "dgd-gt-friends",
+    "dataset": "DialSim-friends",
+    "method": "dgd_gt",
+    "rounds": 20,
+    "eval_every": 2,
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    }
+  },
+  "dataset": "DialSim-friends",
+  "n_fragments": 787,
+  "n_questions": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.5
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 3,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 4,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.5
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 5,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 6,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.6666666666666666
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 7,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 8,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.5,
+        "5": 0.8333333333333334
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 9,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 10,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.6666666666666666,
+        "5": 0.8333333333333334
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 11,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 12,
+      "metrics": {
+        "1": 0.3333333333333333,
+        "3": 0.6666666666666666,
+        "5": 0.8333333333333334
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 13,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 14,
+      "metrics": {
+        "1": 0.3333333333333333,
+        "3": 0.8333333333333334,
+        "5": 0.8333333333333334
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 15,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 16,
+      "metrics": {
+        "1": 0.3333333333333333,
+        "3": 0.8333333333333334,
+        "5": 0.8333333333333334
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 17,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 18,
+      "metrics": {
+        "1": 0.4166666666666667,
+        "3": 0.8333333333333334,
+        "5": 0.8333333333333334
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 19,
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 20,
+      "metrics": {
+        "1": 0.4166666666666667,
+        "3": 0.8333333333333334,
+        "5": 0.8333333333333334
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    }
+  ]
+}

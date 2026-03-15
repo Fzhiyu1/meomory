@@ -1,0 +1,72 @@
+{
+  "name": "bm25-friends",
+  "config": {
+    "name": "bm25-friends",
+    "dataset": "DialSim-friends",
+    "method": "bm25",
+    "rounds": 1
+  },
+  "dataset": "DialSim-friends",
+  "n_fragments": 787,
+  "n_questions": 12,
+  "rounds": [
+    {
+      "round": 0,
+      "metrics": {
+        "1": 0.3333333333333333,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "details": [
+        {
+          "qi": 0,
+          "rank": ">10"
+        },
+        {
+          "qi": 1,
+          "rank": ">10"
+        },
+        {
+          "qi": 2,
+          "rank": ">10"
+        },
+        {
+          "qi": 3,
+          "rank": 1
+        },
+        {
+          "qi": 4,
+          "rank": 1
+        },
+        {
+          "qi": 5,
+          "rank": 2
+        },
+        {
+          "qi": 6,
+          "rank": ">10"
+        },
+        {
+          "qi": 7,
+          "rank": ">10"
+        },
+        {
+          "qi": 8,
+          "rank": 1
+        },
+        {
+          "qi": 9,
+          "rank": 1
+        },
+        {
+          "qi": 10,
+          "rank": ">10"
+        },
+        {
+          "qi": 11,
+          "rank": ">10"
+        }
+      ]
+    }
+  ]
+}

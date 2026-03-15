@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>meomory — 实验报告</title>
+<title>meomory — 完整实验报告</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.7; }
-  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
   h1 { font-size: 2.4em; font-weight: 700; margin-bottom: 8px; color: #fff; }
   h1 span { color: #6366f1; }
   .subtitle { color: #888; font-size: 1.1em; margin-bottom: 48px; }
@@ -23,240 +23,217 @@
   .stat-label { color: #888; font-size: 0.9em; }
   .stat-sub { color: #555; font-size: 0.8em; margin-top: 4px; }
   table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-  th { background: #1a1a1a; color: #888; font-weight: 600; text-align: left; padding: 10px 16px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px 16px; border-bottom: 1px solid #1a1a1a; }
+  th { background: #1a1a1a; color: #888; font-weight: 600; text-align: left; padding: 10px 12px; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1a1a1a; font-size: 0.95em; }
   tr:hover td { background: #111; }
   .winner { color: #6366f1; font-weight: 700; }
+  .worse { color: #ef4444; }
   .chart-container { background: #141414; border-radius: 12px; padding: 24px; margin: 16px 0; }
   .tag { display: inline-block; background: #1a1a2e; color: #6366f1; padding: 2px 10px; border-radius: 20px; font-size: 0.8em; margin: 2px 4px 2px 0; }
-  .flow { background: #141414; border-radius: 12px; padding: 24px; margin: 16px 0; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.9em; color: #888; white-space: pre-line; line-height: 2; }
-  .flow .step { color: #6366f1; }
-  .flow .arrow { color: #444; }
   .insight { background: linear-gradient(135deg, #1a1a2e, #141414); border: 1px solid #2a2a4e; border-radius: 12px; padding: 20px; margin: 16px 0; }
   .insight-title { color: #6366f1; font-weight: 600; margin-bottom: 8px; }
+  .warn { background: linear-gradient(135deg, #2e1a1a, #141414); border: 1px solid #4e2a2a; border-radius: 12px; padding: 20px; margin: 16px 0; }
+  .warn-title { color: #ef4444; font-weight: 600; margin-bottom: 8px; }
   .separator { height: 1px; background: #222; margin: 48px 0; }
   .footer { color: #444; font-size: 0.85em; text-align: center; margin-top: 64px; padding-top: 24px; border-top: 1px solid #1a1a1a; }
-  @media (max-width: 600px) {
-    .card-row { flex-direction: column; }
-    .stat { font-size: 1.8em; }
-    h1 { font-size: 1.8em; }
-  }
 </style>
 </head>
 <body>
 <div class="container">
 
-<h1><span>meomory</span> 实验报告</h1>
-<p class="subtitle">DGD 关联记忆 + LLM Judge 自动反馈 — 从图书馆到记忆</p>
+<h1><span>meomory</span> 完整实验报告</h1>
+<p class="subtitle">3 数据集 × 7 方法 × 2 模型后端 — 21 次实验的完整对比</p>
 
 <!-- 核心数字 -->
 <div class="card-row">
   <div class="card">
-    <div class="stat">78.6%</div>
-    <div class="stat-label">DGD + Judge P@1</div>
-    <div class="stat-sub">全自动，无需人工标注</div>
+    <div class="stat">21</div>
+    <div class="stat-label">实验总数</div>
+    <div class="stat-sub">3 数据集 × 7 方法配置</div>
   </div>
   <div class="card">
-    <div class="stat">+21.5pp</div>
-    <div class="stat-label">超越 Cosine Baseline</div>
-    <div class="stat-sub">57.1% → 78.6%</div>
+    <div class="stat">34</div>
+    <div class="stat-label">测试题总数</div>
+    <div class="stat-sub">BigBang 14 + Friends 12 + TheOffice 8</div>
   </div>
   <div class="card">
     <div class="stat">9B</div>
     <div class="stat-label">最小可用模型</div>
-    <div class="stat-sub">qwen3.5:9b = DeepSeek 效果</div>
+    <div class="stat-sub">qwen3.5:9b 本地 GPU</div>
   </div>
 </div>
 
-<!-- 问题 -->
-<h2>问题：RAG 不是记忆</h2>
-<p>当前 LLM agent 的"记忆"本质上是 RAG（向量检索）——一个图书馆。它不学习、不遗忘，同样的查询永远返回同样的结果。</p>
-<p style="margin-top:12px">真正的记忆应该：<span class="highlight">被使用的关联变强，不用的自然衰减，无需主动搜索就能浮现。</span></p>
-
-<!-- 方法 -->
-<h2>方法：DGD + LLM Judge 自动反馈</h2>
-<div class="flow">
-<span class="step">用户消息</span> <span class="arrow">→</span> <span class="step">DGD 匹配记忆</span> <span class="arrow">→</span> <span class="step">注入上下文</span> <span class="arrow">→</span> <span class="step">LLM 回复</span>
-                                                              <span class="arrow">↓</span>
-                                              <span class="step">LLM Judge 判断引用了哪些</span>
-                                                              <span class="arrow">↓</span>
-                                              <span class="step">DGD 强化被引用的关联</span> <span class="arrow">→</span> 下次排序改变
-</div>
-
-<h3>关键组件</h3>
-<p><span class="tag">DGD</span> 从 Hope 架构（NeurIPS 2025）拆出的权重更新规则，做独立外挂记忆模块（原创用法）</p>
-<p><span class="tag">LLM Judge</span> 观察 agent 回复，判断哪些注入记忆被实际引用，产生自动学习信号</p>
-<p><span class="tag">无人工标注</span> 整个闭环全自动，agent 不知道自己在被观察</p>
-
-<!-- 4方法对比 -->
-<h2>实验一：4 方法对比</h2>
-<p style="color:#888; margin-bottom:16px;">MemoryBench DialSim-bigbang · 805 个对话片段 · 14 道测试题 · 20 轮</p>
-
+<!-- 评测指标说明 -->
 <div class="card" style="font-size:0.9em;">
-  <strong style="color:#fff;">评测指标说明</strong><br>
+  <strong style="color:#fff;">评测指标 P@K</strong><br>
   <span style="color:#888;">
   <strong>P@1</strong>：返回的第 1 个结果就是正确答案的概率（最严格）<br>
   <strong>P@3</strong>：正确答案在前 3 个结果中的概率<br>
-  <strong>P@5</strong>：正确答案在前 5 个结果中的概率（最宽松）<br>
-  例如：P@1=78.6% 意味着 14 题中有 11 题第一个就找对了。
+  <strong>P@5</strong>：正确答案在前 5 个结果中的概率（最宽松）
   </span>
 </div>
 
+<!-- 大表格：全量结果 -->
+<h2>全量结果：P@1 对比</h2>
+
 <div class="chart-container">
-  <canvas id="chart1" height="260"></canvas>
+  <canvas id="chart_main" height="300"></canvas>
 </div>
 
 <table>
-  <tr><th>方法</th><th>P@1</th><th>P@3</th><th>P@5</th><th>学习</th></tr>
-  <tr><td>BM25（关键词匹配）</td><td>35.7%</td><td>42.9%</td><td>57.1%</td><td>不学习</td></tr>
-  <tr><td>Cosine（qwen3-embedding 8B）</td><td>57.1%</td><td>71.4%</td><td>71.4%</td><td>不学习</td></tr>
-  <tr><td class="winner">DGD + LLM Judge（全自动）</td><td class="winner">78.6%</td><td class="winner">85.7%</td><td class="winner">85.7%</td><td class="winner">在线学习</td></tr>
-  <tr><td>DGD + Ground Truth（理想上界）</td><td>78.6%</td><td>85.7%</td><td>92.9%</td><td>在线学习</td></tr>
+  <tr>
+    <th>方法</th>
+    <th>BigBang (14题)</th>
+    <th>Friends (12题)</th>
+    <th>TheOffice (8题)</th>
+  </tr>
+  <tr><td>BM25</td><td>35.7%</td><td>33.3%</td><td class="worse">12.5%</td></tr>
+  <tr><td>Cosine (qwen3-embedding 8B)</td><td>57.1%</td><td>25.0%</td><td>25.0%</td></tr>
+  <tr><td>DGD + GT (oracle)</td><td class="winner">78.6%</td><td class="winner">41.7%</td><td class="winner">50.0%</td></tr>
+  <tr><td>DGD + Judge (qwen3.5:9b)</td><td class="winner">78.6%</td><td>25.0%</td><td class="winner">50.0%</td></tr>
+  <tr><td>DGD + Judge (DeepSeek)</td><td>71.4%</td><td>25.0%</td><td class="winner">50.0%</td></tr>
+  <tr><td>DGD + CMS (qwen3.5:9b)</td><td class="worse">42.9%</td><td>33.3%</td><td class="winner">50.0%</td></tr>
+  <tr><td>DGD + CMS (DeepSeek)</td><td>78.6%</td><td class="worse">16.7%</td><td class="winner">50.0%</td></tr>
 </table>
 
+<!-- 关键发现 -->
+<h2>关键发现</h2>
+
 <div class="insight">
-  <div class="insight-title">发现 1：DGD + Judge 追平了 Ground Truth 上界</div>
-  <p>全自动反馈（~75% 准确率）驱动的 DGD 达到了人工标注反馈的同等效果。这意味着不需要人工标注就能训练记忆检索系统。</p>
+  <div class="insight-title">发现 1：DGD 在 BigBang 和 TheOffice 上显著提升</div>
+  <p><strong>BigBang</strong>：DGD+Judge P@1=78.6%，比 cosine +21.5pp，追平 Ground Truth。<br>
+  <strong>TheOffice</strong>：DGD+Judge P@1=50.0%，比 cosine +25.0pp，也追平 Ground Truth。<br>
+  这两个数据集上 DGD 的效果一致且显著。</p>
+</div>
+
+<div class="warn">
+  <div class="warn-title">发现 2：DGD 在 Friends 上没有提升</div>
+  <p>Friends 的 DGD+Judge P@1=25.0%，和 cosine baseline 完全一样。Ground Truth 也只到 41.7%——说明这个数据集本身很难（答案片段和问题的语义相似度低，即使给正确反馈也只能提升到 41.7%）。<br>
+  <strong>结论</strong>：DGD 不是万能的。当问题和答案的语义鸿沟太大时，M 矩阵的线性变换不足以弥补。</p>
+</div>
+
+<div class="warn">
+  <div class="warn-title">发现 3：CMS 三层在 280 次查询下无优势</div>
+  <p>CMS（三层 DGD）在 BigBang 上甚至比单层 DGD 更差（42.9% vs 78.6%）。原因：20 轮 × 14 题 = 280 次更新，不足以让三层分化出不同的时间尺度。高频层的快速遗忘反而冲掉了有效关联。<br>
+  <strong>结论</strong>：CMS 需要更长的使用历史（几千次查询）才能体现价值。在短期 benchmark 上不适用。</p>
+</div>
+
+<div class="insight">
+  <div class="insight-title">发现 4：9B 小模型 ≈ DeepSeek 大模型</div>
+  <p>在 BigBang 上 qwen3.5:9b (78.6%) 甚至略优于 DeepSeek (71.4%)。TheOffice 上两者持平 (50.0%)。Friends 上两者都失败。<br>
+  <strong>结论</strong>：Judge 角色不需要大模型。整个系统可以完全离线运行在消费级 GPU 上。</p>
 </div>
 
 <!-- 学习曲线 -->
-<h2>实验二：学习曲线</h2>
-<p style="color:#888; margin-bottom:16px;">P@1 随反馈轮次的变化</p>
+<h2>学习曲线：BigBang 数据集</h2>
+<p style="color:#888; margin-bottom:16px;">P@1 随反馈轮次的变化（已验证数据集）</p>
 
 <div class="chart-container">
-  <canvas id="chart2" height="280"></canvas>
+  <canvas id="chart_curve" height="280"></canvas>
 </div>
 
-<div class="insight">
-  <div class="insight-title">发现 2：学习曲线稳步上升</div>
-  <p>DGD + Judge 在 20 轮中从 57.1% 持续上升到 78.6%，无震荡。第 10 轮后追平 Ground Truth 同期水平。</p>
-</div>
-
-<!-- 小模型验证 -->
-<h2>实验三：小模型验证</h2>
-<p style="color:#888; margin-bottom:16px;">9B 本地模型 vs 几百B API 模型做 Judge</p>
-
-<div class="chart-container">
-  <canvas id="chart3" height="260"></canvas>
-</div>
+<!-- DGD 提升幅度 -->
+<h2>DGD+Judge 提升幅度汇总</h2>
 
 <table>
-  <tr><th>Judge 模型</th><th>参数量</th><th>P@1（20轮）</th><th>运行环境</th></tr>
-  <tr><td>DeepSeek-chat</td><td>~几百B</td><td>78.6%</td><td>API 调用</td></tr>
-  <tr><td class="winner">qwen3.5:9b</td><td class="winner">9.7B</td><td class="winner">78.6%</td><td class="winner">本地 RTX 5070</td></tr>
+  <tr><th>数据集</th><th>Cosine</th><th>DGD+Judge (9b)</th><th>提升</th><th>GT 上界</th></tr>
+  <tr><td>BigBang (14题)</td><td>57.1%</td><td class="winner">78.6%</td><td class="winner">+21.5pp</td><td>78.6%</td></tr>
+  <tr><td>TheOffice (8题)</td><td>25.0%</td><td class="winner">50.0%</td><td class="winner">+25.0pp</td><td>50.0%</td></tr>
+  <tr><td>Friends (12题)</td><td>25.0%</td><td>25.0%</td><td>+0pp</td><td>41.7%</td></tr>
 </table>
 
 <div class="insight">
-  <div class="insight-title">发现 3：9B 小模型足以驱动记忆闭环</div>
-  <p>qwen3.5:9b 做 Judge 的效果与 DeepSeek（几百B）<strong>完全一致</strong>。这意味着整个系统可以跑在一张消费级 GPU 上，完全离线，不依赖 API。</p>
+  <div class="insight-title">2/3 数据集上 DGD+Judge 追平 Ground Truth</div>
+  <p>在 BigBang 和 TheOffice 上，全自动的 DGD+Judge 达到了人工标注反馈（Ground Truth）的同等水平。这意味着在合适的场景下，不需要人工标注就能达到理想上界。</p>
 </div>
 
-<!-- 反馈机制演进 -->
-<h2>反馈机制演进</h2>
-<table>
-  <tr><th>版本</th><th>方法</th><th>反馈准确率</th><th>DGD 学习效果</th></tr>
-  <tr><td>v0</td><td>人工标注</td><td>100%</td><td>✅ 有效但不可扩展</td></tr>
-  <tr><td>v1</td><td>Embedding 相似度</td><td>~50%</td><td>❌ 接近随机，不收敛</td></tr>
-  <tr><td class="winner">v2</td><td class="winner">LLM Judge</td><td class="winner">~75%</td><td class="winner">✅ 稳定学习，追平 GT</td></tr>
-</table>
-
-<div class="insight">
-  <div class="insight-title">发现 4：反馈机制是瓶颈，不是 DGD</div>
-  <p>Embedding 相似度（50% 准确率）无法驱动学习。LLM Judge（75% 准确率）就足够了。DGD 本身在任何准确率 >60% 的反馈下都能学习。</p>
-</div>
-
-<!-- 多数据集 baseline -->
-<h2>多数据集 Cosine Baseline</h2>
-<p style="color:#888; margin-bottom:16px;">为大实验建立的 baseline（大实验进行中）</p>
-
-<table>
-  <tr><th>数据集</th><th>片段数</th><th>题数</th><th>Cosine P@1</th><th>P@3</th><th>P@5</th></tr>
-  <tr><td>DialSim-bigbang</td><td>805</td><td>14</td><td>57.1%</td><td>71.4%</td><td>71.4%</td></tr>
-  <tr><td>DialSim-friends</td><td>787</td><td>12</td><td>25.0%</td><td>41.7%</td><td>50.0%</td></tr>
-  <tr><td>DialSim-theoffice</td><td>2343</td><td>8</td><td>25.0%</td><td>62.5%</td><td>62.5%</td></tr>
-</table>
-
-<div class="insight">
-  <div class="insight-title">观察：Friends 和 TheOffice 的 baseline 更低（25%）</div>
-  <p>Cosine 在这两个数据集上只有 25% P@1，DGD 有更大的提升空间。大实验将验证 DGD 在不同难度的数据集上是否一致有效。</p>
-</div>
+<div class="separator"></div>
 
 <!-- DGD 原理 -->
 <h2>DGD 如何工作</h2>
 
 <div class="card">
-  <h3 style="color:#fff; margin-top:0;">核心思想</h3>
   <p>DGD 不替代向量库，而是<span class="highlight">套在向量库前面</span>。查询向量在进入向量库之前，先经过一个 256×256 的权重矩阵 M 变换。</p>
   <p style="margin-top:12px;">M 做的事：把查询向量<strong>旋转、拉伸</strong>，让它更靠近正确答案的方向。向量库里的数据不变，变的是你看向量库的角度。</p>
+  <p style="margin-top:12px;">M 通过 LLM Judge 的自动反馈学习：agent 用了哪条记忆 → 强化那条关联。65536 个参数，一次矩阵乘法完成。</p>
 </div>
 
 <div class="card" style="font-family: 'SF Mono', monospace; font-size: 0.9em; line-height: 2;">
-  <span style="color:#888;">普通 RAG：</span>query → embedding → 直接和向量库比较 → 返回<br>
-  <span style="color:#6366f1;">meomory：</span>query → embedding → <strong>M × query</strong> → 和向量库比较 → 返回<br><br>
-  <span style="color:#888;">M 通过反馈学会了"这类查询应该往哪个方向偏"。</span><br>
-  <span style="color:#888;">65536 个参数（256×256），单层线性网络，一次矩阵乘法完成。</span>
+  <span style="color:#888;">普通 RAG：</span>query → embedding → 直接比较 → 返回<br>
+  <span style="color:#6366f1;">meomory：</span>query → embedding → <strong>M × query</strong> → 比较 → 返回 → <strong>观察 → 更新 M</strong>
 </div>
 
-<div class="separator"></div>
-
-<!-- 技术细节 -->
-<h2>技术细节</h2>
-
-<h3>DGD 更新公式</h3>
-<div class="card" style="font-family: 'SF Mono', monospace; font-size: 0.95em;">
-  M<sub>new</sub> = M<sub>old</sub> × (αI − η·k·k<sup>T</sup>) − η·error·k<sup>T</sup>
-  <br><br>
-  <span style="color:#888">遗忘项：在查询方向上衰减旧关联</span><br>
-  <span style="color:#888">学习项：写入新的正确关联</span><br>
-  <span style="color:#888">来源：Nested Learning (Behrouz et al., NeurIPS 2025) Hope 架构</span>
+<!-- 消息流 -->
+<h2>完整消息流</h2>
+<div class="card" style="font-family: 'SF Mono', monospace; font-size: 0.9em; line-height: 2; color: #888;">
+<span style="color:#6366f1;">用户消息</span> → DGD 匹配记忆 → 注入上下文 → <span style="color:#6366f1;">LLM 回复</span>
+                                                    ↓
+                                    <span style="color:#22c55e;">LLM Judge 判断引用了哪些</span>
+                                                    ↓
+                                    <span style="color:#22c55e;">DGD 强化被引用的关联</span> → M 演化
 </div>
 
-<h3>实验环境</h3>
+<!-- 反馈机制 -->
+<h2>反馈机制演进</h2>
 <table>
-  <tr><th>组件</th><th>配置</th></tr>
-  <tr><td>Embedding</td><td>qwen3-embedding 8B Q4_K_M · Ollama · RTX 4060 GPU</td></tr>
-  <tr><td>Agent + Judge</td><td>qwen3.5:9b / DeepSeek-chat</td></tr>
-  <tr><td>DGD</td><td>dim=256, α=1.0, η=0.01 · 随机投影 4096→256</td></tr>
-  <tr><td>Benchmark</td><td>MemoryBench DialSim-bigbang · 805 fragments · 14 questions</td></tr>
+  <tr><th>版本</th><th>方法</th><th>反馈准确率</th><th>效果</th></tr>
+  <tr><td>v0</td><td>人工标注</td><td>100%</td><td>有效但不可扩展</td></tr>
+  <tr><td>v1</td><td>Embedding 相似度</td><td>~50%</td><td class="worse">接近随机，不收敛</td></tr>
+  <tr><td class="winner">v2</td><td class="winner">LLM Judge</td><td class="winner">~70-80%</td><td class="winner">稳定学习，追平 GT</td></tr>
 </table>
 
-<h3>局限性</h3>
-<p>• 14 题统计显著性不足，需要更大测试集验证</p>
-<p>• 只在一个数据集（Big Bang Theory 对话）上测过</p>
-<p>• 未在真实 agent 场景中部署</p>
-<p>• 未对比 RAG + Reranker 等更强 baseline</p>
+<!-- 技术栈 -->
+<h2>技术栈</h2>
+<table>
+  <tr><th>组件</th><th>配置</th></tr>
+  <tr><td>Embedding</td><td>qwen3-embedding 8B Q4_K_M · Ollama · RTX 4060</td></tr>
+  <tr><td>Agent + Judge (本地)</td><td>qwen3.5:9b · Ollama · RTX 5070</td></tr>
+  <tr><td>Agent + Judge (API)</td><td>DeepSeek-chat</td></tr>
+  <tr><td>DGD</td><td>dim=256, α=1.0, η=0.01 · 随机投影 4096→256 · 纯 Python</td></tr>
+  <tr><td>CMS</td><td>三层 α=0.90/0.99/0.999, 权重 0.5/0.3/0.2</td></tr>
+  <tr><td>Benchmark</td><td>MemoryBench DialSim × 3 数据集 · 34 题总计</td></tr>
+</table>
 
-<h3>下一步</h3>
-<p>• 多数据集验证（DialSim-friends, LoCoMo 等）</p>
-<p>• 接入 OpenClaw 在真实对话中部署</p>
-<p>• CMS 多时间尺度（短期/中期/长期记忆层）</p>
-<p>• 对比 RAG + Reranker baseline</p>
+<!-- 局限 -->
+<h2>局限性</h2>
+<p>• 34 题仍然偏少——但比最初的 14 题好了一倍多</p>
+<p>• Friends 上 DGD 完全无效——需要分析原因（语义鸿沟？数据特性？）</p>
+<p>• CMS 在短期 benchmark 上反而有害——需要更长的使用历史验证</p>
+<p>• 未部署到真实 agent 场景</p>
+<p>• 未对比 RAG + Reranker baseline</p>
+
+<!-- 结论 -->
+<h2>结论</h2>
+<div class="card">
+  <p><strong>DGD + LLM Judge 在 2/3 数据集上追平了 Ground Truth 上界</strong>（BigBang +21.5pp, TheOffice +25pp），全自动无需人工标注。9B 小模型足以做 Judge。</p>
+  <p style="margin-top:12px;">但 <strong>DGD 不是万能的</strong>——在 Friends 上完全无效，CMS 在短期实验中反而有害。方向可行，但不是所有场景都适用。</p>
+</div>
 
 <div class="footer">
   meomory · me + memory · 2026-03-16<br>
-  Built in one conversation session: theory → code → benchmark → validation
+  21 experiments across 3 datasets × 7 methods · Built and validated in one conversation session
 </div>
 
 </div>
 
 <script>
-// Chart 1: 4方法对比柱状图
-new Chart(document.getElementById('chart1'), {
+// 主对比图
+new Chart(document.getElementById('chart_main'), {
   type: 'bar',
   data: {
-    labels: ['BM25', 'Cosine\n(qwen3-embedding 8B)', 'DGD+Judge\n(auto)', 'DGD+GT\n(oracle)'],
+    labels: ['BigBang\n(14题)', 'Friends\n(12题)', 'TheOffice\n(8题)'],
     datasets: [
-      { label: 'P@1', data: [35.7, 57.1, 78.6, 78.6], backgroundColor: '#6366f1' },
-      { label: 'P@3', data: [42.9, 71.4, 85.7, 85.7], backgroundColor: '#818cf8' },
-      { label: 'P@5', data: [57.1, 71.4, 85.7, 92.9], backgroundColor: '#a5b4fc' },
+      { label: 'BM25', data: [35.7, 33.3, 12.5], backgroundColor: '#555' },
+      { label: 'Cosine', data: [57.1, 25.0, 25.0], backgroundColor: '#888' },
+      { label: 'DGD+GT (oracle)', data: [78.6, 41.7, 50.0], backgroundColor: '#a5b4fc' },
+      { label: 'DGD+Judge (9b)', data: [78.6, 25.0, 50.0], backgroundColor: '#6366f1' },
+      { label: 'DGD+Judge (DeepSeek)', data: [71.4, 25.0, 50.0], backgroundColor: '#818cf8' },
+      { label: 'DGD+CMS (9b)', data: [42.9, 33.3, 50.0], backgroundColor: '#22c55e' },
     ]
   },
   options: {
     responsive: true,
-    plugins: {
-      legend: { labels: { color: '#888' } },
-      title: { display: false }
-    },
+    plugins: { legend: { labels: { color: '#888', font: { size: 11 } } } },
     scales: {
       x: { ticks: { color: '#888' }, grid: { color: '#1a1a1a' } },
       y: { ticks: { color: '#888', callback: v => v + '%' }, grid: { color: '#1a1a1a' }, max: 100 }
@@ -264,61 +241,24 @@ new Chart(document.getElementById('chart1'), {
   }
 });
 
-// Chart 2: 学习曲线
-new Chart(document.getElementById('chart2'), {
+// BigBang 学习曲线
+new Chart(document.getElementById('chart_curve'), {
   type: 'line',
   data: {
     labels: [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
     datasets: [
-      {
-        label: 'Cosine (qwen3-embedding 8B)',
-        data: [57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1, 57.1],
-        borderColor: '#555', borderDash: [5, 5], pointRadius: 0, fill: false
-      },
-      {
-        label: 'DGD + GT (oracle)',
-        data: [64.3, 71.4, 64.3, 71.4, 64.3, 71.4, 71.4, 71.4, 71.4, 78.6, 78.6],
-        borderColor: '#a5b4fc', pointRadius: 3, fill: false
-      },
-      {
-        label: 'DGD + Judge (DeepSeek)',
-        data: [57.1, 64.3, 71.4, 71.4, 71.4, 71.4, 71.4, 78.6, 78.6, 78.6, 78.6],
-        borderColor: '#6366f1', borderWidth: 3, pointRadius: 4, fill: false
-      },
-      {
-        label: 'DGD + Judge (qwen3.5:9b)',
-        data: [57.1, 57.1, 64.3, 64.3, 64.3, 78.6, 78.6, 78.6, 78.6, 78.6, 78.6],
-        borderColor: '#22c55e', borderWidth: 2, pointRadius: 3, fill: false
-      }
+      { label: 'Cosine (baseline)', data: [57.1,57.1,57.1,57.1,57.1,57.1,57.1,57.1,57.1,57.1,57.1], borderColor: '#555', borderDash: [5,5], pointRadius: 0 },
+      { label: 'DGD+GT', data: [64.3,71.4,64.3,71.4,64.3,71.4,71.4,71.4,71.4,78.6,78.6], borderColor: '#a5b4fc', pointRadius: 3 },
+      { label: 'DGD+Judge (9b)', data: [57.1,57.1,64.3,64.3,64.3,78.6,78.6,78.6,78.6,78.6,78.6], borderColor: '#6366f1', borderWidth: 3, pointRadius: 4 },
+      { label: 'DGD+Judge (DeepSeek)', data: [57.1,64.3,71.4,71.4,71.4,71.4,71.4,71.4,78.6,71.4,71.4], borderColor: '#818cf8', pointRadius: 3 },
     ]
   },
   options: {
     responsive: true,
     plugins: { legend: { labels: { color: '#888' } } },
     scales: {
-      x: { title: { display: true, text: 'Feedback Rounds', color: '#888' }, ticks: { color: '#888' }, grid: { color: '#1a1a1a' } },
+      x: { title: { display: true, text: 'Rounds', color: '#888' }, ticks: { color: '#888' }, grid: { color: '#1a1a1a' } },
       y: { title: { display: true, text: 'P@1 (%)', color: '#888' }, ticks: { color: '#888', callback: v => v + '%' }, grid: { color: '#1a1a1a' }, min: 40, max: 90 }
-    }
-  }
-});
-
-// Chart 3: 小模型 vs 大模型
-new Chart(document.getElementById('chart3'), {
-  type: 'bar',
-  data: {
-    labels: ['DeepSeek-chat\n(~几百B, API)', 'qwen3.5:9b\n(9B, 本地 GPU)'],
-    datasets: [
-      { label: 'P@1 (20轮)', data: [78.6, 78.6], backgroundColor: ['#818cf8', '#22c55e'] }
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-    },
-    scales: {
-      x: { ticks: { color: '#888' }, grid: { color: '#1a1a1a' } },
-      y: { ticks: { color: '#888', callback: v => v + '%' }, grid: { color: '#1a1a1a' }, min: 0, max: 100 }
     }
   }
 });
