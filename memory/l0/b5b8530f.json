@@ -1,0 +1,19 @@
+{
+  "id": "l0-b5b8530f",
+  "cue": [
+    "read",
+    "heartbeat",
+    "exists",
+    "workspace",
+    "context",
+    "follow",
+    "strictly",
+    "infer",
+    "repeat",
+    "old"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/b5b8530f-b833-4f30-9459-eed71f707496",
+  "turns": 7,
+  "body": "用户: Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.\nWhen reading HEARTBEAT..."
+}

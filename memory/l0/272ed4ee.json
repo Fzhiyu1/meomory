@@ -1,0 +1,19 @@
+{
+  "id": "l0-272ed4ee",
+  "cue": [
+    "cron",
+    "bbe25621-8972-46e4-af49-cd3481974cce",
+    "human-memory-compression-autopilot",
+    "human",
+    "memory",
+    "compression",
+    "home",
+    "fzhiyu",
+    "openclaw",
+    "workspace"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/272ed4ee-58c1-4b4c-aff8-1257552534ee",
+  "turns": 1,
+  "body": "用户: [cron:bbe25621-8972-46e4-af49-cd3481974cce human-memory-compression-autopilot] 继续推进长期任务 Human Memory Compression。开始前必须先读取 /home/fzhiyu/.openclaw/workspace/docs/human-memory-compression.md 与 /ho..."
+}

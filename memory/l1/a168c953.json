@@ -1,0 +1,26 @@
+[
+  {
+    "id": "l1-a168c953-000",
+    "cue": [
+      "cron",
+      "b6d2-97cd04d796df",
+      "ai-daily-digest",
+      "openclaw",
+      "workspace",
+      "ai-developer-digest",
+      "http_proxy",
+      "http",
+      "https_proxy",
+      "pythonpath",
+      "venv",
+      "bin",
+      "python",
+      "collectors",
+      "runner"
+    ],
+    "ts": "2026-03-14",
+    "source": "session/a168c953-a018-445d-813e-af2844796859",
+    "model": "gpt-5.4",
+    "body": "用户: [cron:17279f61-49a0-44ef-b6d2-97cd04d796df ai-daily-digest] 请执行今日 AI 日报任务：1. 在 ~/.openclaw/workspace/AI-Developer-Digest 目录运行采集器（http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890 P...\n动作: [tool:read] [tool:read] [tool:read] [tool:read] → 好的，我开始执行今天的 AI 日报任务了，可能要跑一会儿采集和整理。我先在项目目录里完成采集、生成和仓库分析，再整理出需要发送的 md 文件与 git 结果。 [tool:exec] → [tool:process] → [tool:exec] [tool:read] → 我先生成日报和 Trending 前 3 仓库研究文件，然后检查需要发送的 md 清单与 git 状态。 [tool:exec] → [tool:process] → [tool:exec] [tool..."
+  }
+]

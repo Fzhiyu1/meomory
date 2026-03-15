@@ -1,0 +1,19 @@
+{
+  "id": "l0-a168c953",
+  "cue": [
+    "cron",
+    "b6d2-97cd04d796df",
+    "ai-daily-digest",
+    "openclaw",
+    "workspace",
+    "ai-developer-digest",
+    "http_proxy",
+    "http",
+    "https_proxy",
+    "pythonpath"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/a168c953-a018-445d-813e-af2844796859",
+  "turns": 1,
+  "body": "用户: [cron:17279f61-49a0-44ef-b6d2-97cd04d796df ai-daily-digest] 请执行今日 AI 日报任务：1. 在 ~/.openclaw/workspace/AI-Developer-Digest 目录运行采集器（http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:78..."
+}

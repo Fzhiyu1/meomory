@@ -48,7 +48,7 @@ def parse_session(path: str | Path) -> dict[str, Any]:
             rtype = record.get("type")
 
             if rtype == "session":
-                session_id = record.get("sessionId", "")
+                session_id = record.get("sessionId", "") or record.get("id", "")
                 session_timestamp = record.get("timestamp", "")
 
             elif rtype == "model_change":

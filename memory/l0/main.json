@@ -1,0 +1,19 @@
+{
+  "id": "l0-main",
+  "cue": [
+    "fri",
+    "gmt",
+    "openclaw",
+    "workspace",
+    "ai-developer-digest",
+    "data",
+    "slim",
+    "json",
+    "reports",
+    "tool"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/main",
+  "turns": 6,
+  "body": "用户: [Fri 2026-03-13 08:00 GMT+8] 生成今天的 AI 开发者日报，读取 ~/.openclaw/workspace/AI-Developer-Digest/data/2026-03-13-slim.json，分析后写入 reports/2026-03-13.md\n动作: [tool:read] → [tool:read] → [tool:read]\n工具返回: ..."
+}
