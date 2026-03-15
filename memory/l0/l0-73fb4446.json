@@ -1,0 +1,15 @@
+{
+  "id": "l0-73fb4446",
+  "cue": [
+    "Human Memory Compression",
+    "workspace原型长期观察",
+    "observation check",
+    "daily样本",
+    "7天连续窗口",
+    "plan/progress同步"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/73fb4446-d368-455e-8606-8810d24b1634",
+  "turns": 1,
+  "body": "项目处于长期观察阶段：先查方案与进度，优先补 observation check 并确认当日 daily 样本，未满 7 天连续窗口且当天记忆文件缺失时仅记录观察，不推进新实验，并同步更新计划与进度。"
+}

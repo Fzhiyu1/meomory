@@ -1,0 +1,14 @@
+{
+  "id": "l0-878feb8f",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "7 天连续 daily 样本窗口",
+    "plan/progress 双向引用"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/878feb8f-ae9c-493c-b2f7-83cb46c3c560",
+  "turns": 1,
+  "body": "当前在 Human Memory Compression 的 workspace 原型长期观察阶段，先读两份主文档判定状态，持续补充 observation check 至少凑满 7 天 daily 样本，并同步更新 plan/progress 与双向引用。"
+}

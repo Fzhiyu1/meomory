@@ -1,0 +1,14 @@
+{
+  "id": "l1-main-004",
+  "cue": [
+    "AI-Developer-Digest",
+    "2026-03-15-slim.json",
+    "reports/2026-03-15.md",
+    "read",
+    "write"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/main",
+  "model": "gpt-5.4",
+  "body": "生成 AI 开发者日报的操作模板：读取 `~/.openclaw/workspace/AI-Developer-Digest/data/2026-03-15-slim.json`，基于其中聚合统计与条目内容完成分析，再写入 `~/.openclaw/workspace/AI-Developer-Digest/reports/2026-03-15.md`。产出成功后可继续派生“适合飞书直接发送的简版”作为后续步骤。"
+}

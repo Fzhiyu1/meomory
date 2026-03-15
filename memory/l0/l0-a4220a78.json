@@ -1,0 +1,16 @@
+{
+  "id": "l0-a4220a78",
+  "cue": [
+    "Human Memory Compression",
+    "长期观察",
+    "today log",
+    "session 检测",
+    "main.jsonl",
+    "sessions.json",
+    "observation check"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/a4220a78-03c1-487f-8d67-3c74f578d61b",
+  "turns": 1,
+  "body": "该 session 在完善 Human Memory Compression 的观察链路：判断今日是否有素材不能只看 memory 日报，还要检查 today log 与 sessions 文件，并补充 observation check 及同步更新相关文档。"
+}

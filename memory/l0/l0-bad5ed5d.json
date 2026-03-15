@@ -1,0 +1,15 @@
+{
+  "id": "l0-bad5ed5d",
+  "cue": [
+    "Human Memory Compression",
+    "长期观察",
+    "observation check",
+    "7天daily样本",
+    "plan/progress同步",
+    "一致性维护"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/bad5ed5d-ad11-4086-9308-c6558eb82a03",
+  "turns": 1,
+  "body": "会话围绕 Human Memory Compression：确认仍在 workspace 原型长期观察阶段，继续做 observation check、累计至少 7 天连续 daily 样本；无样本则记无新 daily，并同步更新 plan/progress 保持一致。"
+}

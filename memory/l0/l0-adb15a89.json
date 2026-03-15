@@ -1,0 +1,15 @@
+{
+  "id": "l0-adb15a89",
+  "cue": [
+    "Human Memory Compression",
+    "autopilot顺序",
+    "daily memory",
+    "observation check",
+    "progress",
+    "跨日补全"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/adb15a89-870c-434e-b039-b805823e4bef",
+  "turns": 1,
+  "body": "固定 autopilot：先读 plan/progress，再结合主会话、cron 转录、日报与 memory 判断素材是否足够；2026-03-15 已可停止 observation check，回写结论并优先补齐 2026-03-14 等缺失 daily。"
+}

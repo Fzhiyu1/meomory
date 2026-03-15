@@ -1,0 +1,15 @@
+{
+  "id": "l0-9906a938",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "进度同步",
+    "7天连续daily样本",
+    "文档互引"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/9906a938-4605-4751-bdd9-22052852fc5c",
+  "turns": 1,
+  "body": "本轮应继续在 workspace 原型长期观察阶段新增 observation check，并同步更新 plan/progress 与双向引用；完成标准是形成至少 7 天连续 daily 样本窗口，而非看记录条数。"
+}

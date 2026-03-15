@@ -1,0 +1,15 @@
+{
+  "id": "l0-35b0185c",
+  "cue": [
+    "Human Memory Compression",
+    "workspace原型观察",
+    "observation check",
+    "plan/progress同步",
+    "7天daily样本",
+    "阶段判断"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/35b0185c-0f17-4f68-9e6f-abf3d7b001b2",
+  "turns": 1,
+  "body": "本轮聚焦 Human Memory Compression：先读方案与进展判断是否仍处长期观察阶段，若是则新增 observation check 并同步更新 plan/progress，当前目标是积累至少 7 天连续 daily 样本。"
+}

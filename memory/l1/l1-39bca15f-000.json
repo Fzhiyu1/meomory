@@ -1,0 +1,16 @@
+{
+  "id": "l1-39bca15f-000",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "today log",
+    "session 检测",
+    "daily 文件",
+    "main.jsonl",
+    "sessions.json"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/39bca15f-8e4d-4cb3-99da-06007ae67656",
+  "model": "gpt-5.4",
+  "body": "Human Memory Compression 当前处于 workspace 原型长期观察阶段。下一步：持续新增 observation check，并细化 today log / session 检测链路，判断“已有当日素材但未生成 daily”。排查顺序：先看 memory/当天.md 是否缺失，再核验 main.jsonl、sessions.json 是否存在并抽样尾部；若含当天真实活动文本，则判定“无 daily ≠ 无素材”。完成后同步更新 human-memory-compression.md 勾选、progress 记录，并保持双向关联。"
+}

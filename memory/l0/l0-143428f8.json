@@ -1,0 +1,15 @@
+{
+  "id": "l0-143428f8",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "daily 样本",
+    "7 天连续窗口",
+    "progress 更新"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/143428f8-340f-4f1e-82d4-0c8993290d78",
+  "turns": 1,
+  "body": "本次聚焦 Human Memory Compression 的 workspace 原型长期观察：先读 plan/progress 判定阶段，若当日无 daily 样本则记录 observation check，并同步更新实验文档与进度。"
+}

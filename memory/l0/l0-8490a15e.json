@@ -1,0 +1,15 @@
+{
+  "id": "l0-8490a15e",
+  "cue": [
+    "Human Memory Compression",
+    "daily memory",
+    "observation check",
+    "长期观察",
+    "progress更新",
+    "避免重复补写"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/8490a15e-c953-40c6-8500-53300dd2d45c",
+  "turns": 1,
+  "body": "本次在规范 Human Memory Compression 的长期观察：判断当日素材需结合全链路证据，若 daily 已完整则禁止重复补写与 observation check，转而更新计划进度并扩大连续样本窗口后推进 summary/MEMORY。"
+}

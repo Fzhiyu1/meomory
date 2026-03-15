@@ -1,0 +1,16 @@
+{
+  "id": "l1-789ceddf-000",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "today log",
+    "session 检测",
+    "daily 样本窗口",
+    "human-memory-compression-progress.md"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/789ceddf-3546-4f87-b0d2-848728a04088",
+  "model": "gpt-5.4",
+  "body": "推进 Human Memory Compression 时，先读 `docs/human-memory-compression.md` 与 `docs/human-memory-compression-progress.md` 判定阶段和待办；若仍在 `workspace 原型长期观察阶段`，下一步是继续新增 observation check，优先积累至少 7 天连续 daily 样本窗口，并验证 `today log / session 检测 → 已有素材但未形成 daily` 的识别链路。每轮完成后必须同步：更新 plan 勾选状态、在 progress 记录本轮产物、让 plan..."
+}

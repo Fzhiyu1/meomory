@@ -1,0 +1,15 @@
+{
+  "id": "l0-6d76ab73",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "daily memory",
+    "跨日补齐",
+    "plan/progress",
+    "真实素材核验"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/6d76ab73-2b09-400a-8344-6745058e1d0e",
+  "turns": 1,
+  "body": "推进 Human Memory Compression 需先读 plan/progress、核验当天是否有真实素材；若 daily 已成且有素材则不再追加 observation check，优先补齐缺失跨日 daily（如 2026-03-14）并同步更新进度。"
+}

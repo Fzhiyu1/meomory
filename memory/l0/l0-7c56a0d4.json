@@ -1,0 +1,15 @@
+{
+  "id": "l0-7c56a0d4",
+  "cue": [
+    "workspace原型观察",
+    "observation check",
+    "today log",
+    "main.jsonl",
+    "sessions.json",
+    "计划进度同步"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/7c56a0d4-e04e-4104-b778-41c4662a92ea",
+  "turns": 1,
+  "body": "会话聚焦 workspace 原型长期观察：并行积累 observation check 样本并细化 today log/session 检测，main.jsonl 为强侧证、sessions.json 仅弱侧证，推进后同步更新 plan 与 progress。"
+}

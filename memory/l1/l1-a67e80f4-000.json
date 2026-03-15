@@ -1,0 +1,16 @@
+{
+  "id": "l1-a67e80f4-000",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "daily 文件",
+    "today log",
+    "session 检测识别链路",
+    "7天连续样本窗口"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/a67e80f4-b44a-40ac-be05-eca21b6739db",
+  "model": "gpt-5.4",
+  "body": "Human Memory Compression 处于 workspace 原型长期观察阶段。例行推进：先读 plan/progress 判断阶段；若当日 daily 文件缺失但 sessions 已有可沉淀素材，则新增 observation check，结论记为“可沉淀但未形成 daily”。随后同步更新 human-memory-compression.md 勾选状态与 progress，并保持双向关联。下一步持续积累至少 7 天连续 daily 样本，同时细化 today log/session 检测识别链路。"
+}

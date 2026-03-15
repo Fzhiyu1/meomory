@@ -1,0 +1,15 @@
+{
+  "id": "l1-a168c953-000",
+  "cue": [
+    "AI-Developer-Digest",
+    "collectors.runner",
+    "2026-03-14-slim.json",
+    "repo-research",
+    "git add -A",
+    "Feishu"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/a168c953-a018-445d-813e-af2844796859",
+  "model": "gpt-5.4",
+  "body": "AI-Developer-Digest 日报执行路径：进入项目后先设 `http_proxy`/`https_proxy` 为 `http://127.0.0.1:7890`，用 `PYTHONPATH=. .venv/bin/python -m collectors.runner` 采集；确认生成 `data/YYYY-MM-DD.json` 与 `data/YYYY-MM-DD-slim.json`；读取 slim JSON 产出 `reports/YYYY-MM-DD.md`；再生成 GitHub Trending 前3研究到 `repo-research/YYYY-MM-DD/`..."
+}

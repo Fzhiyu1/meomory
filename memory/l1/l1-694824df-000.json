@@ -1,0 +1,14 @@
+{
+  "id": "l1-694824df-000",
+  "cue": [
+    "AI-Developer-Digest",
+    "collectors.runner",
+    "GitHub Trending",
+    "Feishu account",
+    "repo-research"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/694824df-684e-4457-9be4-2b6639eaf06c",
+  "model": "gpt-5.4",
+  "body": "AI-Developer-Digest 日报任务可按固定顺序执行：先在项目目录用代理运行 `PYTHONPATH=. .venv/bin/python -m collectors.runner` 生成当日 `data/YYYY-MM-DD-slim.json`，再写 `reports/YYYY-MM-DD.md`。GitHub Trending 不要直接信已有缓存；若 `web_fetch` 失败或直连超时，改走代理重抓真实榜单后覆盖 `repo-research/YYYY-MM-DD/`。发送时只发“今天新增”的 md 文件。若报 `Feishu account \"default\" n..."
+}

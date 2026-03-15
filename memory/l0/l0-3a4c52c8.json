@@ -1,0 +1,16 @@
+{
+  "id": "l0-3a4c52c8",
+  "cue": [
+    "Human Memory Compression",
+    "长期观察",
+    "observation check",
+    "today log/session 检测",
+    "main.jsonl 优先",
+    "daily 生成判定",
+    "文档双向更新"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/3a4c52c8-7231-4ba1-bb5f-ccd7062d9a0c",
+  "turns": 1,
+  "body": "项目处于 workspace 原型长期观察阶段，需并行补 observation check、细化当日素材与 daily 判定链路，并以 main.jsonl 为主证同步更新相关文档。"
+}

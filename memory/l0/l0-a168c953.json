@@ -1,0 +1,15 @@
+{
+  "id": "l0-a168c953",
+  "cue": [
+    "AI-Developer-Digest",
+    "collectors.runner",
+    "slim.json",
+    "repo-research",
+    "git add -A",
+    "Feishu"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/a168c953-a018-445d-813e-af2844796859",
+  "turns": 1,
+  "body": "本次记录的是 AI-Developer-Digest 日报流程：配置代理后运行 collectors.runner 生成 JSON/slim，产出日报与 GitHub Trending 前3研究，并准备提交与飞书发送。"
+}

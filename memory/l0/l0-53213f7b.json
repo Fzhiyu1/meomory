@@ -1,0 +1,15 @@
+{
+  "id": "l0-53213f7b",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "plan/progress 同步",
+    "双向关联",
+    "daily 样本记录"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/53213f7b-0c2f-4694-ab65-259ccc9873c6",
+  "turns": 1,
+  "body": "本轮明确 HMC 流程：先查 plan/progress 判定阶段与待办；若仍处原型长期观察阶段则优先补 observation check，完成后同步更新 plan、progress 与双向链接，并注明缺失的当日 daily 样本。"
+}

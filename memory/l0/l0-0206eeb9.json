@@ -1,0 +1,16 @@
+{
+  "id": "l0-0206eeb9",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察",
+    "daily 样本窗口",
+    "today log",
+    "session 检测",
+    "main.jsonl",
+    "plan/progress"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/0206eeb9-915f-4318-ab59-7642fb27dcc1",
+  "turns": 1,
+  "body": "当前仍处 Human Memory Compression 的 workspace 原型长期观察阶段，需并行积累连续 7 天 daily 样本并完善 today log/session 检测，联合 main.jsonl 与 sessions.json 判断素材状态，已确认 2026-03-14..."
+}

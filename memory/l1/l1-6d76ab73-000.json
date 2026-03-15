@@ -1,0 +1,15 @@
+{
+  "id": "l1-6d76ab73-000",
+  "cue": [
+    "Human Memory Compression",
+    "daily memory",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "human-memory-compression-progress",
+    "memory/2026-03-14.md"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/6d76ab73-2b09-400a-8344-6745058e1d0e",
+  "model": "gpt-5.4",
+  "body": "推进 Human Memory Compression 时先读 plan/progress；先核验当天是否有真实素材，不能只看 daily 文件是否存在。若当天已有素材且 daily 已成，不再追加 observation check；优先补齐缺失的跨日 daily，如补建 memory/2026-03-14.md，并同步更新 plan/progress。"
+}

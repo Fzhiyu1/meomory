@@ -1,0 +1,16 @@
+{
+  "id": "l0-09514417",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "today log/session 检测链路",
+    "daily 样本积累",
+    "main.jsonl",
+    "sessions.json"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/09514417-b3d0-4cd5-95b0-2b33cd1cd514",
+  "turns": 1,
+  "body": "该 session 在推进原型长期观察：先读 plan/progress 判阶段，并并行积累 7 天 daily 样本、细化 today log/session 链路，新增 observation check 二阶段判定并要求附 main.jsonl、sessions.json 证据及同步更新..."
+}

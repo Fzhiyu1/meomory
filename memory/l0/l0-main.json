@@ -1,0 +1,16 @@
+{
+  "id": "l0-main",
+  "cue": [
+    "AI-Developer-Digest",
+    "data-slim.json",
+    "reports",
+    "ENOENT",
+    "Feishu",
+    "default account",
+    "message tool"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/main",
+  "turns": 6,
+  "body": "本次主要规范 AI Developer Digest：始终从 data/YYYY-MM-DD-slim.json 读源并写 reports，遇 ENOENT 先排查误路径/技能环境；飞书发送失败多因 message 工具未配置 default 账号，报告可先生成后再配置重试或手动发送。"
+}

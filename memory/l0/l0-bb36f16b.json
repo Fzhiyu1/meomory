@@ -1,0 +1,14 @@
+{
+  "id": "l0-bb36f16b",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "daily 样本窗口",
+    "plan/progress 双向回写"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/bb36f16b-4867-49b5-a7a7-bbfd596d5685",
+  "turns": 1,
+  "body": "该 session 明确 Human Memory Compression 处于 workspace 原型长期观察阶段，先读 plan/progress 判断下一步，持续补 observation check，累计至少 7 天 daily 样本后再做连续压缩实验，并每轮双向更新两份文档。"
+}

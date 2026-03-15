@@ -1,0 +1,16 @@
+{
+  "id": "l1-75aa70f6-000",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "main.jsonl",
+    "sessions.json",
+    "today log",
+    "session 检测"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/75aa70f6-2fbc-44ab-a4c2-dd2fda93dc84",
+  "model": "gpt-5.4",
+  "body": "Human Memory Compression 当前仍处于 workspace 原型长期观察阶段；下一步继续积累观察样本并细化 today log / session 检测链路。关键规则：先做路径存在性校验；main.jsonl（会话原始日志）与 sessions.json（session 元数据）不能等价，sessions.json 显示活跃不代表当日已有可压缩样本。每轮推进后同步更新锚点计划、进展文档并保持双向关联。"
+}

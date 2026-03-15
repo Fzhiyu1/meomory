@@ -1,0 +1,15 @@
+{
+  "id": "l0-bb407901",
+  "cue": [
+    "Human Memory Compression",
+    "autopilot 规则",
+    "daily memory",
+    "observation check",
+    "progress/plan",
+    "跨天记忆补齐"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/bb407901-438c-4730-a486-2e22e6f09b44",
+  "turns": 1,
+  "body": "本次在明确 Human Memory Compression 的 autopilot：先核对规则与进展，再结合主会话等证据判断当日素材；若 daily 缺失则优先补齐，若已形成则停止追加 observation check，转而更新 plan/progress 并补跨天记忆。"
+}

@@ -1,0 +1,14 @@
+{
+  "id": "l0-2ac6c0b4",
+  "cue": [
+    "Human Memory Compression",
+    "workspace prototype",
+    "observation check",
+    "daily memory",
+    "progress sync"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/2ac6c0b4-3a2c-4d9c-a1f4-f96c600f9abb",
+  "turns": 1,
+  "body": "该 session 在梳理 Human Memory Compression 的观察流程：先判断当日是否有可沉淀素材及是否已写入 daily，若缺少 `memory/2026-03-14.md`，应先创建并再同步总览与进展文档。"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l0-3e578ea7",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "today log",
+    "session 检测",
+    "main.jsonl",
+    "progress"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/3e578ea7-679e-47b6-965d-72e69d077d92",
+  "turns": 1,
+  "body": "当前在长期观察原型阶段：每轮先读说明与进度判定阶段，未完成则并行补 observation check 样本并细化 today log/session 检测，需查 main.jsonl 等真实痕迹且同步更新计划进度。"
+}

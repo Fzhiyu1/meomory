@@ -1,0 +1,15 @@
+{
+  "id": "l0-81e0725c",
+  "cue": [
+    "human-memory-compression",
+    "workspace原型长期观察",
+    "observation check",
+    "daily note",
+    "plan/progress",
+    "MEMORY.md"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/81e0725c-0025-412e-8e98-c7250ef30122",
+  "turns": 1,
+  "body": "本次聚焦 Human Memory Compression：确认已过内核接入评估，当前处于 workspace 原型长期观察阶段，应持续补 observation check、累计 daily 样本，并同步更新 plan/progress、MEMORY.md 与双向链接。"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l0-5881f850",
+  "cue": [
+    "Human Memory Compression",
+    "plan/progress",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "7天连续 daily 样本窗口",
+    "双向关联同步"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/5881f850-491a-4641-a2fa-3c883d8df85a",
+  "turns": 1,
+  "body": "本轮聚焦 HMC 原型长期观察：先读 plan/progress 判阶段，继续新增 observation check、累计样本逼近 7 天连续 daily，并同步更新 plan、progress 与样本双向关联。"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l1-52452c51-000",
+  "cue": [
+    "Human Memory Compression",
+    "daily memory",
+    "observation check",
+    "human-memory-compression.md",
+    "human-memory-compression-progress.md",
+    "main.jsonl"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/52452c51-32d1-40f8-ac20-8b177b4f7128",
+  "model": "gpt-5.4",
+  "body": "推进 Human Memory Compression 时先读 human-memory-compression.md 与 progress；先核实“今天是否已有可沉淀素材”，证据不能只看 memory/YYYY-MM-DD.md，还要看主会话、cron 转录、main.jsonl 等。若 today daily 已存在且素材充分，禁止继续追加同日 observation check，只做最小推进：同步 plan/progress 到最新状态并记录“当天不再追加同日 observation check”。"
+}

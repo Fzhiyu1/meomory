@@ -1,0 +1,15 @@
+{
+  "id": "l0-eec20789",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace原型长期观察",
+    "main.jsonl",
+    "daily缺失判定",
+    "progress文档同步"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/eec20789-171c-4b32-bbb7-f6eabbbb3689",
+  "turns": 1,
+  "body": "HMC 仍在 workspace 原型长期观察阶段；巡检若 daily 缺失需先查 main.jsonl/today log，有活动则记 observation check，并同步更新相关 docs 的阶段、计数与下一步。"
+}

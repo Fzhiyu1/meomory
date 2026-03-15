@@ -1,0 +1,15 @@
+{
+  "id": "l0-52452c51",
+  "cue": [
+    "Human Memory Compression",
+    "daily memory",
+    "observation check",
+    "progress sync",
+    "evidence sources",
+    "same-day guard"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/52452c51-32d1-40f8-ac20-8b177b4f7128",
+  "turns": 1,
+  "body": "推进 Human Memory Compression 前先读说明与进度，并核实主会话/cron/main.jsonl 等是否已有当天素材；若 daily 已充分，禁止追加同日 observation check，仅同步 plan/progress 并注明当日不再追加。"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l1-7b35ab93-000",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察",
+    "human-memory-compression.md",
+    "human-memory-compression-progress.md",
+    "MEMORY.md"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/7b35ab93-7d8d-4e92-9834-702bb5cdf565",
+  "model": "gpt-5.4",
+  "body": "推进 Human Memory Compression 时，先读取 plan 与 progress 判断阶段/下一步。当前处于 workspace 原型长期观察阶段；下一待办是持续补 observation check，并优先凑够至少 7 天连续 daily 样本窗口。每轮完成后必须：新增一条 observation check；同步更新 human-memory-compression.md 与 human-memory-compression-progress.md 的计数/待办；确保 observation、plan、progress 双向关联。若 edit 命中重复段落失败，先 ..."
+}

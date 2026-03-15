@@ -1,0 +1,15 @@
+{
+  "id": "l0-046c91fb",
+  "cue": [
+    "Human Memory Compression",
+    "daily memory",
+    "observation check",
+    "main.jsonl",
+    "Feishu",
+    "plan/progress"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/046c91fb-b881-468e-aaa1-09b120fedbcf",
+  "turns": 1,
+  "body": "推进 Human Memory Compression 要先读 plan/progress，并以 main.jsonl、主会话、飞书和任务证据综合判断当日素材；若有素材但 daily 缺失，应先补建并同步文档进度。"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "l0-24a7d87b",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察",
+    "today log/session 检测",
+    "main.jsonl",
+    "sessions.json",
+    "progress 同步"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/24a7d87b-51b3-44fd-adf6-2485bc3f5b4e",
+  "turns": 1,
+  "body": "本次聚焦 Human Memory Compression 的长期观察：先查方案与进度，持续新增 observation check，细化 today log/session 检测；即使无有效会话也记边界样本，并同步更新计划、进度、计数与关联。"
+}

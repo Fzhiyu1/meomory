@@ -1,0 +1,15 @@
+{
+  "id": "l0-42a187c8",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "daily memory",
+    "progress update",
+    "main.jsonl",
+    "2026-03-14"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/42a187c8-1958-4d09-b831-4a44592757f8",
+  "turns": 1,
+  "body": "本次聚焦 Human Memory Compression：先读规范与进度，检查 daily/main.jsonl/会话证据；若今日素材已足够或 daily 已存在，则停止追加 observation check，改更新计划进度并优先补齐 memory/2026-03-14.md。"
+}

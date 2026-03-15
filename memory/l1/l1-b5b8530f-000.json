@@ -1,0 +1,16 @@
+{
+  "id": "l1-b5b8530f-000",
+  "cue": [
+    "HEARTBEAT.md",
+    "heartbeat-state.json",
+    "AI 日报",
+    "Feishu",
+    "chat:<chat_id>",
+    "cron",
+    "heartbeat queue"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/b5b8530f-b833-4f30-9459-eed71f707496",
+  "model": "gpt-5.4",
+  "body": "heartbeat 巡检流程：只读取 /home/fzhiyu/.openclaw/workspace/HEARTBEAT.md，并按顺序检查 cron、heartbeat 失败投递、memory/heartbeat-state.json。若 heartbeat 目录缺失且只有历史遗留失败记录，或无新 cron 完成通知，则回复 HEARTBEAT_OK。处理 Feishu 时优先用 chat:<chat_id> 识别目标，避免把历史裸 oc_... 记录当新故障；新通知需先整理摘要、发送到对应会话，成功后更新 heartbeat-state.json。"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l1-b5b8530f-006",
+  "cue": [
+    "memory autopilot",
+    "observation check",
+    "daily",
+    "cron",
+    "human-memory-compression.md",
+    "89ece68"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/b5b8530f-b833-4f30-9459-eed71f707496",
+  "model": "gpt-5.4",
+  "body": "memory autopilot 出现用 observation check 代替 daily 的循环时，修复原则是：只要检测到已有可沉淀素材但当日 daily 缺失，必须优先创建/补全 daily，不允许继续停留在 observation check。落实要覆盖三层：修改 cron 提示词、在进展文档记录结论、把约束写入主计划文档；可用提交 89ece68 作为对应修复参考。"
+}

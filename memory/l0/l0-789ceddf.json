@@ -1,0 +1,15 @@
+{
+  "id": "l0-789ceddf",
+  "cue": [
+    "Human Memory Compression",
+    "workspace原型长期观察",
+    "observation check",
+    "daily样本窗口",
+    "today log/session检测",
+    "progress同步"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/789ceddf-3546-4f87-b0d2-848728a04088",
+  "turns": 1,
+  "body": "本轮聚焦 Human Memory Compression 的长期观察：先读两份文档判阶段，若仍在原型观察期则持续补 observation check、积累至少7天 daily 样本并验证识别链路，且每轮都要同步更新 plan 与 progress。"
+}

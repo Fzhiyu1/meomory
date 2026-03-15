@@ -1,0 +1,15 @@
+{
+  "id": "l1-61875900-000",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "today log",
+    "session 检测",
+    "daily memory"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/61875900-385e-4595-8d2b-2d78510aaf32",
+  "model": "gpt-5.4",
+  "body": "长期任务处于 workspace 原型长期观察阶段；下一步并行做两件事：持续新增 observation check 样本，并细化 today log / session 检测，判断是否已有当日素材但尚未生成 daily memory。执行后要同步更新 `human-memory-compression.md` 与 `human-memory-compression-progress.md`，保持双向关联；若 `memory/YYYY-MM-DD.md` 不存在，记录为“未形成 daily”。"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "l0-60b33771",
+  "cue": [
+    "Human Memory Compression",
+    "workspace原型",
+    "observation check",
+    "today log",
+    "session检测",
+    "证据路径校验",
+    "文档同步"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/60b33771-f3de-44a3-893d-3a6b9e109c21",
+  "turns": 1,
+  "body": "会话聚焦 Human Memory Compression 的长期观察：先校验日志/元数据证据路径，不存在仅记无法取证，持续积累 observation check 并同步更新两份关联文档。"
+}

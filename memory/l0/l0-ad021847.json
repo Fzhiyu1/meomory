@@ -1,0 +1,15 @@
+{
+  "id": "l0-ad021847",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "plan/progress 同步",
+    "双向关联",
+    "精确锚点编辑"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/ad021847-f58b-404e-a9af-01f0115d619c",
+  "turns": 1,
+  "body": "本次围绕 Human Memory Compression 的长期观察阶段：先读 plan/progress 判定阶段，持续新增 observation check，并同步更新 plan、progress 与 daily/observation 的双向关联，重复编辑时用更精确锚点。"
+}

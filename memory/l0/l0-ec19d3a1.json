@@ -1,0 +1,15 @@
+{
+  "id": "l0-ec19d3a1",
+  "cue": [
+    "Human Memory Compression",
+    "workspace原型长期观察",
+    "observation check",
+    "7天daily样本窗口",
+    "plan/progress同步",
+    "双向关联"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/ec19d3a1-0dd7-425e-b872-fd9d30f89167",
+  "turns": 1,
+  "body": "本轮聚焦 Human Memory Compression 的长期观察阶段：先读 plan/progress 判定状态，持续补 observation check 至少形成 7 天连续 daily 样本，并同步更新 plan、progress 与双向关联。"
+}

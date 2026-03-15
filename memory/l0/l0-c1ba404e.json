@@ -1,0 +1,16 @@
+{
+  "id": "l0-c1ba404e",
+  "cue": [
+    "Human Memory Compression",
+    "autopilot",
+    "daily memory",
+    "observation check",
+    "plan/progress",
+    "素材核验",
+    "workspace观察"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/c1ba404e-91c7-4aef-8273-17aa57c52e26",
+  "turns": 1,
+  "body": "本次明确了 HMC autopilot 的纠偏规则：先结合 plan/progress、主会话与真实活动核验素材，优先创建或补全 daily，仅在素材不足时才新增 observation check。"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "l0-b5b8530f",
+  "cue": [
+    "heartbeat巡检",
+    "heartbeat-state.json",
+    "Feishu chat_id",
+    "memory daily",
+    "observation check",
+    "autopilot/cron",
+    "summary/MEMORY"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/b5b8530f-b833-4f30-9459-eed71f707496",
+  "turns": 7,
+  "body": "本次主要固化两类规则：heartbeat 只按指定顺序巡检并用 chat_id 去重投递；记忆压缩/cron 若有素材但缺 daily，必须先补 memory/YYYY-MM-DD.md，再推进 summary 与 MEMORY，避免卡在 observation check。"
+}

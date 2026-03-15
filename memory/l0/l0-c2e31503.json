@@ -1,0 +1,15 @@
+{
+  "id": "l0-c2e31503",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "today log",
+    "daily",
+    "main.jsonl"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/c2e31503-ebbc-44fd-ab1b-36ba264bce53",
+  "turns": 1,
+  "body": "长期任务仍在原型观察阶段，需并行补充 observation check 样本并细化 today log/session→daily 识别链路，每轮后同步更新两份进度文档并保持双向关联。"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l1-df1e3809-000",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "sessions.json",
+    "daily 样本窗口",
+    "observation check",
+    "memory/2026-03-14.md"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/df1e3809-8d1d-43e2-a373-cbe67935c17c",
+  "model": "gpt-5.4",
+  "body": "推进 Human Memory Compression 时先读 plan/progress 判断阶段。当前仍在 workspace 原型长期观察阶段；下一步并行做两件事：积累至少 7 天连续 daily 样本窗口；细化 today log/session 检测链路，用于识别“已有当日素材但未形成 daily”。排查规则：`memory/YYYY-MM-DD.md` 不存在，不等于当天无样本，需交叉检查 `sessions.json` 与主会话。每轮新增 observation check 后，同步更新 `human-memory-compression.md` 与 progress，并保..."
+}

@@ -1,0 +1,16 @@
+{
+  "id": "l0-19b526d5",
+  "cue": [
+    "Human Memory Compression",
+    "plan/progress",
+    "workspace原型观察",
+    "observation check",
+    "daily样本",
+    "7天连续窗口",
+    "双文档同步"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/19b526d5-9099-44da-a246-02d2a002f52f",
+  "turns": 1,
+  "body": "本次在推进 Human Memory Compression 的长期观察：先读 plan/progress 判断阶段；若当天无 daily，则记 observation check“无新 daily 增量”并同步两文档，当前目标是积累至少 7 天连续样本。"
+}

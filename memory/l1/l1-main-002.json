@@ -1,0 +1,14 @@
+{
+  "id": "l1-main-002",
+  "cue": [
+    "AI-Developer-Digest",
+    "2026-03-14-slim.json",
+    "reports/2026-03-14.md",
+    "SKILL.md",
+    "ENOENT"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/main",
+  "model": "gpt-5.4",
+  "body": "生成 AI Developer Digest 前若读文件工具报 ENOENT 且指向 skills/.../SKILL.md，先排查技能环境或工作目录而非数据文件本身；确认技能定义文件可访问后，再读取 ~/.openclaw/workspace/AI-Developer-Digest/data/2026-03-14-slim.json，并将分析结果写入 reports/2026-03-14.md。"
+}

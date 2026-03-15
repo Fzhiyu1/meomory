@@ -1,0 +1,15 @@
+{
+  "id": "l1-eec20789-000",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "main.jsonl",
+    "memory/2026-03-14.md",
+    "human-memory-compression-progress.md"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/eec20789-171c-4b32-bbb7-f6eabbbb3689",
+  "model": "gpt-5.4",
+  "body": "Human Memory Compression 当前处于 workspace 原型长期观察阶段。巡检时不要把缺少 `memory/YYYY-MM-DD.md` 直接判定为“当天无素材”；应先查 `main.jsonl`/today log 是否有真实活动。若存在活动但 daily 缺失，应记为“今天已有可沉淀素材，但尚未形成 daily”，新增一条 observation check 记录，并同步更新 `docs/human-memory-compression.md` 与 `docs/human-memory-compression-progress.md` 的阶段、计数和下一步，保..."
+}

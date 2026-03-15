@@ -1,0 +1,16 @@
+{
+  "id": "l0-39bca15f",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "today log",
+    "session 检测",
+    "daily 文件",
+    "main.jsonl",
+    "sessions.json"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/39bca15f-8e4d-4cb3-99da-06007ae67656",
+  "turns": 1,
+  "body": "该 session 聚焦 Human Memory Compression 原型观察：完善 observation check 与 today log/session 检测，按 daily 文件、main.jsonl、sessions.json 排查并确认“无 daily 不等于无素材”，随后..."
+}

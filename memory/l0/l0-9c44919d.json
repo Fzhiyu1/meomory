@@ -1,0 +1,15 @@
+{
+  "id": "l0-9c44919d",
+  "cue": [
+    "Human Memory Compression",
+    "长期观察",
+    "observation check",
+    "plan/progress",
+    "跨日样本",
+    "下一待办"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/9c44919d-2b49-46ae-be8f-6a3b14227d6a",
+  "turns": 1,
+  "body": "该会话在推进 Human Memory Compression：先读 plan/progress 判阶段与待办；当前仍处长期观察，13 条同日巡检不足替代至少 7 天连续 daily 样本，需继续补跨日 observation check，并同步更新文档勾选、progress 及双向关联。"
+}

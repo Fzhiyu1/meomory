@@ -1,0 +1,15 @@
+{
+  "id": "l0-61875900",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "today log",
+    "session 检测",
+    "daily memory"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/61875900-385e-4595-8d2b-2d78510aaf32",
+  "turns": 1,
+  "body": "会话聚焦长期观察阶段：并行补充 observation check 样本并细化 today log/session 检测，以判断当日素材与 daily memory 生成状态，并同步更新两份进度文档。"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l0-5c065895",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "progress 同步",
+    "daily 样本",
+    "plan 回写"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/5c065895-638c-4681-aa4c-1d5a54909a6e",
+  "turns": 1,
+  "body": "推进 Human Memory Compression 时先查 plan/progress 判阶段；若仍在长期观察且当日无 daily，则新增 observation check，不伪造样本，并同步更新 plan 与 progress。"
+}

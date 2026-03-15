@@ -1,0 +1,16 @@
+{
+  "id": "l0-29c580de",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察",
+    "today log",
+    "session 检测",
+    "observation check",
+    "plan/progress 同步",
+    "保守判断规则"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/29c580de-3240-4179-951e-9dbf0634693c",
+  "turns": 1,
+  "body": "处于长期观察原型阶段，先读 human-memory-compression.md 与 progress.md，继续并行推进样本积累和 today log/session 检测；新增 observation check 需同步更新 plan/progress，且 daily 缺失不等于今天无样本。"
+}

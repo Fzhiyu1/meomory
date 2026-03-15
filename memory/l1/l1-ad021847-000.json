@@ -1,0 +1,15 @@
+{
+  "id": "l1-ad021847-000",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "human-memory-compression-progress.md",
+    "human-memory-compression.md",
+    "memory/2026-03-14.md"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/ad021847-f58b-404e-a9af-01f0115d619c",
+  "model": "gpt-5.4",
+  "body": "推进 Human Memory Compression 时先读 plan 与 progress 判断阶段；当前阶段为 workspace 原型长期观察阶段，下一步是持续积累 observation check。执行要求：新增 observation check 文件后，同步更新 human-memory-compression.md 勾选状态与 human-memory-compression-progress.md 本轮记录，并确保 plan/progress/observation 三者双向关联。若 edit 命中重复，需增加更精确锚点再改。若当日 daily 如 memory/20..."
+}

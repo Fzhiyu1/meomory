@@ -1,0 +1,15 @@
+{
+  "id": "l1-7f96e1f7-000",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "main.jsonl",
+    "today log",
+    "daily 样本窗口",
+    "human-memory-compression-progress.md"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/7f96e1f7-fa71-432d-b9b6-9a978653caf4",
+  "model": "gpt-5.4",
+  "body": "Human Memory Compression 当前仍处于“workspace 原型长期观察阶段”。推进步骤：先读 `human-memory-compression.md` 与 `human-memory-compression-progress.md` 判断阶段；若 `memory/YYYY-MM-DD.md` 缺失，不视为无素材，需用 `main.jsonl` 检查跨日附近真实活动，判定“今天已有可沉淀素材但尚未形成 daily”。然后新增一条 observation check，更新 plan 勾选状态与 progress 本轮结果，并在两文档中互相引用。当前待办：持续积累长期..."
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l0-694824df",
+  "cue": [
+    "AI-Developer-Digest",
+    "collectors.runner",
+    "GitHub Trending",
+    "代理重抓",
+    "Feishu account",
+    "新增日报"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/694824df-684e-4457-9be4-2b6639eaf06c",
+  "turns": 1,
+  "body": "本次主要确定日报流程：先运行 collectors.runner 生成 slim 数据再写当日 md，Trending 缓存不可信需失败时走代理重抓覆盖，发送时只发当天新增文件并注意 Feishu 默认账号问题。"
+}

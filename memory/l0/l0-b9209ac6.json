@@ -1,0 +1,16 @@
+{
+  "id": "l0-b9209ac6",
+  "cue": [
+    "Human Memory Compression",
+    "长期观察",
+    "素材核验",
+    "main.jsonl",
+    "daily",
+    "sessions.json",
+    "7天样本"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/b9209ac6-60fb-425c-9687-07459097edfc",
+  "turns": 1,
+  "body": "该 session 明确原型观察期的素材判断链路：优先查当日 memory，再核验 main.jsonl，sessions.json 仅补充；main 有活动即算有素材，并继续累计 7 天 daily 样本与更新 plan/progress。"
+}

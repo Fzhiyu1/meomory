@@ -1,0 +1,15 @@
+{
+  "id": "l0-bd436061",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "plan/progress",
+    "daily memory",
+    "双向关联"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/bd436061-cd20-4934-92fc-79ed6696d7ed",
+  "turns": 1,
+  "body": "本次聚焦 Human Memory Compression：先读 plan/progress 确认仍处原型长期观察阶段，继续补 observation check 与样本，缺失当日 daily 时先新建并同步更新主文档、进度与双向关联。"
+}

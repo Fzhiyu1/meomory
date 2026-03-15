@@ -1,0 +1,15 @@
+{
+  "id": "l0-8032af82",
+  "cue": [
+    "Human Memory Compression",
+    "workspace原型长期观察",
+    "observation check",
+    "progress文档",
+    "7天daily样本",
+    "暂无增量记录"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/8032af82-e89c-4654-b7cd-4e474c5790c6",
+  "turns": 1,
+  "body": "当前处于 workspace 原型长期观察阶段：先读两份 HMC 文档判定阶段，持续补 observation check，优先积累至少 7 天连续 daily 样本；若当日无 daily 文件则记“暂无新的 daily 样本增量”并更新 plan/progress。"
+}

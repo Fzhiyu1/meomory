@@ -1,0 +1,16 @@
+{
+  "id": "l0-272ed4ee",
+  "cue": [
+    "Human Memory Compression",
+    "workspace 原型长期观察阶段",
+    "observation check",
+    "today log",
+    "session 检测",
+    "main.jsonl",
+    "文档同步"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/272ed4ee-58c1-4b4c-aff8-1257552534ee",
+  "turns": 1,
+  "body": "本次围绕 Human Memory Compression 原型长期观察推进：截至 2026-03-15 完成 check 93，持续补充 observation check、同步两份文档，并细化 today log/session 检测及用 main.jsonl 作为 daily 缺失侧证。"
+}

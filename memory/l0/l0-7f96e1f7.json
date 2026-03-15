@@ -1,0 +1,15 @@
+{
+  "id": "l0-7f96e1f7",
+  "cue": [
+    "Human Memory Compression",
+    "workspace原型观察",
+    "main.jsonl",
+    "daily样本窗口",
+    "observation check",
+    "progress同步"
+  ],
+  "ts": "2026-03-15",
+  "source": "session/7f96e1f7-fa71-432d-b9b6-9a978653caf4",
+  "turns": 1,
+  "body": "本轮确认项目仍在 workspace 原型长期观察阶段；若缺失当日 daily，需查 main.jsonl 判断是否已有可沉淀素材，并补记 observation check、更新 plan/progress 与双向引用。"
+}

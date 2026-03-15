@@ -1,0 +1,15 @@
+{
+  "id": "l1-b5b8530f-004",
+  "cue": [
+    "Human Memory Compression autopilot",
+    "memory/YYYY-MM-DD.md",
+    "daily",
+    "summary",
+    "MEMORY",
+    "observation-check"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/b5b8530f-b833-4f30-9459-eed71f707496",
+  "model": "gpt-5.4",
+  "body": "Human Memory Compression autopilot 卡住时，先检查是否缺失 `memory/YYYY-MM-DD.md` 的 daily 文件。若 daily 不存在，流程会停在巡检并反复生成 `memory/experiments/human-memory-compression/*-observation-check-xx.md`，无法继续产出 summary 和 MEMORY 候选。处理顺序：先补 daily，再压 summary，最后筛 MEMORY，避免把巡检误当沉淀。"
+}

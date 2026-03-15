@@ -1,0 +1,15 @@
+{
+  "id": "l1-5c065895-000",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "workspace 原型长期观察阶段",
+    "human-memory-compression-progress.md",
+    "human-memory-compression.md",
+    "7天连续 daily 样本"
+  ],
+  "ts": "2026-03-13",
+  "source": "session/5c065895-638c-4681-aa4c-1d5a54909a6e",
+  "model": "gpt-5.4",
+  "body": "推进 Human Memory Compression 时，先读 human-memory-compression.md 与 human-memory-compression-progress.md 判断阶段与待办。若仍在 workspace 原型长期观察阶段，且当日 `memory/YYYY-MM-DD.md` 不存在，不要伪造 daily 样本；应新增一条 observation check 到 `memory/experiments/human-memory-compression/`。随后同步回写 plan 与 progress：更新 observation check 计数、记..."
+}

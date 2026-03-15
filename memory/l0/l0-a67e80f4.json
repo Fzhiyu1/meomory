@@ -1,0 +1,15 @@
+{
+  "id": "l0-a67e80f4",
+  "cue": [
+    "Human Memory Compression",
+    "workspace原型观察",
+    "observation check",
+    "daily文件",
+    "session识别链路",
+    "7天样本窗口"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/a67e80f4-b44a-40ac-be05-eca21b6739db",
+  "turns": 1,
+  "body": "该 session 记录 Human Memory Compression 在原型长期观察期的例行推进：缺 daily 但有 session 素材时新增 observation check 并同步进度，结论是继续积累至少 7 天连续样本并完善识别链路。"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "l0-9c1d41a7",
+  "cue": [
+    "Human Memory Compression",
+    "observation check",
+    "today log",
+    "daily",
+    "session detection",
+    "长期观察"
+  ],
+  "ts": "2026-03-14",
+  "source": "session/9c1d41a7-55c0-44b3-82b2-67e6b4fcc318",
+  "turns": 1,
+  "body": "项目处于原型长期观察阶段：先核验 today log/主会话再判定 daily，已确认 2026-03-14/15 有真实活动，后续累计至少 7 天连续 daily 并细化检测链路。"
+}
