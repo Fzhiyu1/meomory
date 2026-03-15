@@ -1,0 +1,7 @@
+=== DGD + auto feedback (20 rounds) ===
+  Round  1: P@1=57.1% P@3=71.4% P@5=78.6%  (updates: 29, correct: 55%)
+  Round  2: P@1=71.4% P@3=71.4% P@5=85.7%  (updates: 31, correct: 48%)
+  Round  4: P@1=57.1% P@3=78.6% P@5=85.7%  (updates: 28, correct: 50%)
+  Round  6: P@1=64.3% P@3=85.7% P@5=85.7%  (updates: 29, correct: 48%)
+  Round  8: P@1=64.3% P@3=78.6% P@5=85.7%  (updates: 30, correct: 43%)
+  Round 10: P@1=64.3% P@3=78.6% P@5=85.7%  (updates: 28, correct: 46%)
