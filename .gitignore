@@ -6,3 +6,4 @@ data/parsed/
 memory/vectors/
 .env
 .DS_Store
+experiments/cache/
