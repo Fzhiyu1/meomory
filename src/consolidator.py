@@ -71,13 +71,14 @@ async def consolidate(store: VectorStore, llm_chat, min_group_size: int = 2, sim
         bodies = [e["meta"].get("body", "") for _, e in group]
         combined = "\n---\n".join(bodies)
 
-        prompt = f"""以下是多条相关的记忆碎片，请压缩合并为一条简洁的概念性记忆。
+        prompt = f"""以下是多条相关的记忆碎片，请去重合并。
 
 要求：
-1. 保留所有重要信息和因果关系
-2. 如果有矛盾（如"喜欢X"和"不喜欢X"），保留转变过程
-3. 200字以内
-4. 只输出压缩后的内容，不要其他
+1. 去掉重复的信息，保留所有不重复的具体细节（人名、数字、事件、专有名词）
+2. 不要概括或抽象——"Howard 用 common field cricket 打赌"比"Howard 参与了一次打赌"好
+3. 如果有矛盾，保留转变过程和原因
+4. 合并后不超过 500 字
+5. 只输出合并后的内容，不要其他
 
 记忆碎片：
 {combined}"""
