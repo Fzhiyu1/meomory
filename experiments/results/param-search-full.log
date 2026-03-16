@@ -1,0 +1,273 @@
+Running 14 experiment(s) from experiments/configs/param-search.yaml
+
+============================================================
+  Experiment: ps-bigbang-baseline
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:16 acc:56% err:0 30.4s)
+  Round  2: P@1=64.3% P@3=78.6% P@5=85.7%  (upd:15 acc:60% err:0 19.5s)
+  Round  4: P@1=57.1% P@3=85.7% P@5=85.7%  (upd:14 acc:64% err:0 22.6s)
+  Round  6: P@1=64.3% P@3=85.7% P@5=85.7%  (upd:21 acc:67% err:0 27.8s)
+  Round  8: P@1=71.4% P@3=85.7% P@5=85.7%  (upd:17 acc:53% err:0 22.9s)
+  Round 10: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:11 acc:82% err:0 23.8s)
+  Round 12: P@1=78.6% P@3=85.7% P@5=85.7%  (upd:23 acc:65% err:0 25.8s)
+  Round 14: P@1=78.6% P@3=78.6% P@5=85.7%  (upd:19 acc:47% err:0 24.8s)
+  Round 16: P@1=78.6% P@3=78.6% P@5=78.6%  (upd:14 acc:50% err:0 23.0s)
+  Round 18: P@1=78.6% P@3=78.6% P@5=78.6%  (upd:16 acc:62% err:0 26.6s)
+  Round 20: P@1=78.6% P@3=78.6% P@5=78.6%  (upd:19 acc:58% err:0 21.8s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-bigbang-baseline.json
+
+============================================================
+  Experiment: ps-bigbang-mild-forget
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:23 acc:43% err:0 28.1s)
+  Round  2: P@1=35.7% P@3=71.4% P@5=71.4%  (upd:25 acc:48% err:0 25.6s)
+  Round  4: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:14 acc:21% err:0 26.1s)
+  Round  6: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:14 acc:14% err:0 22.8s)
+  Round  8: P@1=21.4% P@3=28.6% P@5=28.6%  (upd:16 acc:6% err:0 25.7s)
+  Round 10: P@1=28.6% P@3=28.6% P@5=35.7%  (upd:20 acc:5% err:0 26.7s)
+  Round 12: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:16 acc:19% err:0 30.4s)
+  Round 14: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:9 acc:0% err:0 22.0s)
+  Round 16: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:12 acc:8% err:0 26.5s)
+  Round 18: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:11 acc:0% err:0 24.9s)
+  Round 20: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:10 acc:0% err:0 21.8s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-bigbang-mild-forget.json
+
+============================================================
+  Experiment: ps-bigbang-strong-forget
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:16 acc:62% err:0 25.1s)
+  Round  2: P@1=21.4% P@3=50.0% P@5=57.1%  (upd:19 acc:42% err:0 24.9s)
+  Round  4: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:20 acc:10% err:0 23.1s)
+  Round  6: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:23 acc:22% err:0 25.8s)
+  Round  8: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:16 acc:19% err:0 34.0s)
+  Round 10: P@1=21.4% P@3=28.6% P@5=28.6%  (upd:20 acc:5% err:0 22.3s)
+  Round 12: P@1=21.4% P@3=28.6% P@5=28.6%  (upd:14 acc:21% err:0 33.7s)
+  Round 14: P@1=28.6% P@3=28.6% P@5=35.7%  (upd:6 acc:0% err:0 34.6s)
+  Round 16: P@1=28.6% P@3=28.6% P@5=35.7%  (upd:14 acc:14% err:0 27.4s)
+  Round 18: P@1=28.6% P@3=28.6% P@5=35.7%  (upd:13 acc:8% err:0 27.8s)
+  Round 20: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:20 acc:25% err:0 29.6s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-bigbang-strong-forget.json
+
+============================================================
+  Experiment: ps-bigbang-high-lr
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=64.3% P@3=85.7% P@5=85.7%  (upd:18 acc:61% err:0 23.7s)
+  Round  2: P@1=64.3% P@3=85.7% P@5=85.7%  (upd:22 acc:68% err:0 26.1s)
+  Round  4: P@1=71.4% P@3=78.6% P@5=78.6%  (upd:23 acc:57% err:0 26.1s)
+  Round  6: P@1=71.4% P@3=78.6% P@5=85.7%  (upd:15 acc:60% err:0 37.2s)
+  Round  8: P@1=78.6% P@3=78.6% P@5=85.7%  (upd:12 acc:75% err:0 25.6s)
+  Round 10: P@1=78.6% P@3=78.6% P@5=85.7%  (upd:21 acc:62% err:0 22.6s)
+  Round 12: P@1=71.4% P@3=78.6% P@5=85.7%  (upd:18 acc:67% err:0 32.3s)
+  Round 14: P@1=64.3% P@3=78.6% P@5=85.7%  (upd:21 acc:62% err:0 30.8s)
+  Round 16: P@1=64.3% P@3=78.6% P@5=85.7%  (upd:20 acc:55% err:0 33.1s)
+  Round 18: P@1=71.4% P@3=78.6% P@5=85.7%  (upd:22 acc:55% err:0 51.6s)
+  Round 20: P@1=64.3% P@3=78.6% P@5=85.7%  (upd:13 acc:77% err:0 24.5s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-bigbang-high-lr.json
+
+============================================================
+  Experiment: ps-bigbang-forget-high-lr
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=50.0% P@3=71.4% P@5=71.4%  (upd:20 acc:40% err:0 25.8s)
+  Round  2: P@1=14.3% P@3=42.9% P@5=42.9%  (upd:20 acc:45% err:0 25.0s)
+  Round  4: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:15 acc:7% err:0 23.1s)
+  Round  6: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:25 acc:4% err:0 24.5s)
+  Round  8: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:8 acc:0% err:0 20.6s)
+  Round 10: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:12 acc:8% err:0 22.8s)
+  Round 12: P@1=7.1% P@3=28.6% P@5=28.6%  (upd:17 acc:12% err:0 21.7s)
+  Round 14: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:23 acc:26% err:0 28.1s)
+  Round 16: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:16 acc:19% err:0 22.4s)
+  Round 18: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:16 acc:25% err:0 23.5s)
+  Round 20: P@1=28.6% P@3=28.6% P@5=28.6%  (upd:7 acc:0% err:0 22.1s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-bigbang-forget-high-lr.json
+
+============================================================
+  Experiment: ps-bigbang-small-dim
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=64.3% P@5=71.4%  (upd:23 acc:52% err:0 23.1s)
+  Round  2: P@1=57.1% P@3=64.3% P@5=71.4%  (upd:24 acc:50% err:0 27.5s)
+  Round  4: P@1=50.0% P@3=71.4% P@5=78.6%  (upd:14 acc:64% err:0 24.9s)
+  Round  6: P@1=50.0% P@3=71.4% P@5=78.6%  (upd:26 acc:46% err:0 27.0s)
+  Round  8: P@1=50.0% P@3=64.3% P@5=85.7%  (upd:20 acc:50% err:0 22.9s)
+  Round 10: P@1=50.0% P@3=71.4% P@5=78.6%  (upd:26 acc:46% err:0 24.8s)
+  Round 12: P@1=50.0% P@3=71.4% P@5=78.6%  (upd:22 acc:55% err:0 29.6s)
+  Round 14: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:17 acc:71% err:0 26.1s)
+  Round 16: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:9 acc:56% err:0 20.6s)
+  Round 18: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:17 acc:59% err:0 23.3s)
+  Round 20: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:17 acc:59% err:0 26.2s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-bigbang-small-dim.json
+
+============================================================
+  Experiment: ps-bigbang-large-dim
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=64.3% P@5=71.4%  (upd:23 acc:30% err:0 23.2s)
+  Round  2: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:15 acc:60% err:0 21.3s)
+  Round  4: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:19 acc:58% err:0 21.8s)
+  Round  6: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:23 acc:43% err:0 27.5s)
+  Round  8: P@1=57.1% P@3=71.4% P@5=85.7%  (upd:20 acc:60% err:0 27.9s)
+  Round 10: P@1=57.1% P@3=71.4% P@5=85.7%  (upd:28 acc:43% err:0 23.2s)
+  Round 12: P@1=57.1% P@3=71.4% P@5=85.7%  (upd:16 acc:44% err:0 26.5s)
+  Round 14: P@1=57.1% P@3=71.4% P@5=85.7%  (upd:17 acc:47% err:0 21.3s)
+  Round 16: P@1=57.1% P@3=71.4% P@5=85.7%  (upd:19 acc:53% err:0 24.4s)
+  Round 18: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:24 acc:50% err:0 23.6s)
+  Round 20: P@1=57.1% P@3=71.4% P@5=78.6%  (upd:25 acc:48% err:0 24.0s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-bigbang-large-dim.json
+
+============================================================
+  Experiment: ps-theoffice-baseline
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:11 acc:45% err:0 11.1s)
+  Round  2: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:8 acc:50% err:0 13.6s)
+  Round  4: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:8 acc:50% err:0 12.7s)
+  Round  6: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:11 acc:36% err:0 9.3s)
+  Round  8: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:10 acc:50% err:0 8.9s)
+  Round 10: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:15 acc:27% err:0 14.6s)
+  Round 12: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:10 acc:30% err:0 11.5s)
+  Round 14: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:13 acc:23% err:0 12.3s)
+  Round 16: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:33% err:0 9.9s)
+  Round 18: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:10 acc:40% err:0 10.1s)
+  Round 20: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:15 acc:27% err:0 15.5s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-theoffice-baseline.json
+
+============================================================
+  Experiment: ps-theoffice-mild-forget
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=12.5% P@3=62.5% P@5=62.5%  (upd:8 acc:38% err:0 13.0s)
+  Round  2: P@1=12.5% P@3=62.5% P@5=62.5%  (upd:10 acc:40% err:0 11.9s)
+  Round  4: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:11 acc:36% err:0 14.1s)
+  Round  6: P@1=50.0% P@3=50.0% P@5=62.5%  (upd:9 acc:44% err:0 9.6s)
+  Round  8: P@1=37.5% P@3=50.0% P@5=62.5%  (upd:4 acc:75% err:0 11.0s)
+  Round 10: P@1=25.0% P@3=50.0% P@5=50.0%  (upd:13 acc:31% err:0 15.1s)
+  Round 12: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:9 acc:33% err:0 13.1s)
+  Round 14: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:10 acc:40% err:0 9.8s)
+  Round 16: P@1=25.0% P@3=25.0% P@5=37.5%  (upd:14 acc:36% err:0 11.0s)
+  Round 18: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:11 acc:18% err:0 10.2s)
+  Round 20: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:10 acc:20% err:0 13.7s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-theoffice-mild-forget.json
+
+============================================================
+  Experiment: ps-theoffice-strong-forget
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:10 acc:40% err:0 11.5s)
+  Round  2: P@1=37.5% P@3=62.5% P@5=62.5%  (upd:11 acc:45% err:0 10.1s)
+  Round  4: P@1=37.5% P@3=62.5% P@5=62.5%  (upd:5 acc:80% err:0 8.0s)
+  Round  6: P@1=25.0% P@3=50.0% P@5=50.0%  (upd:6 acc:67% err:0 9.7s)
+  Round  8: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:4 acc:50% err:0 10.6s)
+  Round 10: P@1=25.0% P@3=25.0% P@5=37.5%  (upd:4 acc:50% err:0 12.2s)
+  Round 12: P@1=25.0% P@3=25.0% P@5=37.5%  (upd:8 acc:38% err:0 11.6s)
+  Round 14: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:5 acc:40% err:0 11.3s)
+  Round 16: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:10 acc:40% err:0 12.5s)
+  Round 18: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:9 acc:22% err:0 10.0s)
+  Round 20: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:10 acc:40% err:0 11.2s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-theoffice-strong-forget.json
+
+============================================================
+  Experiment: ps-theoffice-high-lr
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:44% err:0 11.2s)
+  Round  2: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:13 acc:31% err:0 17.2s)
+  Round  4: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:56% err:0 16.5s)
+  Round  6: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:7 acc:29% err:0 13.1s)
+  Round  8: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:13 acc:31% err:0 15.1s)
+  Round 10: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:33% err:0 14.2s)
+  Round 12: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:14 acc:29% err:0 20.4s)
+  Round 14: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:10 acc:40% err:0 12.8s)
+  Round 16: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:17 acc:35% err:0 13.1s)
+  Round 18: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:17 acc:29% err:0 15.9s)
+  Round 20: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:67% err:0 11.0s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-theoffice-high-lr.json
+
+============================================================
+  Experiment: ps-theoffice-forget-high-lr
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:44% err:0 12.3s)
+  Round  2: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:8 acc:50% err:0 11.4s)
+  Round  4: P@1=50.0% P@3=62.5% P@5=62.5%  (upd:9 acc:44% err:0 10.0s)
+  Round  6: P@1=62.5% P@3=62.5% P@5=62.5%  (upd:10 acc:40% err:0 10.7s)
+  Round  8: P@1=25.0% P@3=50.0% P@5=50.0%  (upd:11 acc:27% err:0 11.2s)
+  Round 10: P@1=25.0% P@3=25.0% P@5=37.5%  (upd:4 acc:50% err:0 14.5s)
+  Round 12: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:9 acc:22% err:0 12.1s)
+  Round 14: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:13 acc:23% err:0 11.9s)
+  Round 16: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:5 acc:40% err:0 11.7s)
+  Round 18: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:15 acc:13% err:0 12.7s)
+  Round 20: P@1=25.0% P@3=25.0% P@5=25.0%  (upd:18 acc:22% err:0 11.6s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-theoffice-forget-high-lr.json
+
+============================================================
+  Experiment: ps-theoffice-small-dim
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:5 acc:20% err:0 12.4s)
+  Round  2: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:7 acc:29% err:0 11.5s)
+  Round  4: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:13 acc:8% err:0 14.8s)
+  Round  6: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:13 acc:23% err:0 13.7s)
+  Round  8: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:8 acc:0% err:0 11.8s)
+  Round 10: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:10 acc:20% err:0 12.4s)
+  Round 12: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:13 acc:15% err:0 14.6s)
+  Round 14: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:11 acc:18% err:0 14.0s)
+  Round 16: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:18 acc:17% err:0 14.6s)
+  Round 18: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:8 acc:25% err:0 13.3s)
+  Round 20: P@1=25.0% P@3=37.5% P@5=37.5%  (upd:10 acc:20% err:0 15.7s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-theoffice-small-dim.json
+
+============================================================
+  Experiment: ps-theoffice-large-dim
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=37.5% P@5=50.0%  (upd:12 acc:25% err:0 11.8s)
+  Round  2: P@1=25.0% P@3=37.5% P@5=50.0%  (upd:15 acc:20% err:0 15.3s)
+  Round  4: P@1=25.0% P@3=50.0% P@5=50.0%  (upd:13 acc:23% err:0 12.3s)
+  Round  6: P@1=37.5% P@3=50.0% P@5=50.0%  (upd:13 acc:31% err:0 13.2s)
+  Round  8: P@1=37.5% P@3=50.0% P@5=50.0%  (upd:13 acc:23% err:0 12.6s)
+  Round 10: P@1=37.5% P@3=50.0% P@5=50.0%  (upd:13 acc:23% err:0 13.5s)
+  Round 12: P@1=37.5% P@3=50.0% P@5=50.0%  (upd:11 acc:27% err:0 13.9s)
+  Round 14: P@1=37.5% P@3=50.0% P@5=50.0%  (upd:10 acc:40% err:0 16.1s)
+  Round 16: P@1=37.5% P@3=50.0% P@5=50.0%  (upd:9 acc:33% err:0 15.5s)
+  Round 18: P@1=37.5% P@3=50.0% P@5=50.0%  (upd:8 acc:38% err:0 10.8s)
+  Round 20: P@1=37.5% P@3=50.0% P@5=50.0%  (upd:12 acc:25% err:0 15.0s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/ps-theoffice-large-dim.json
+
+============================================================
+  Summary
+============================================================
+  Name                                P@1      P@3      P@5
+  ------------------------------------------------------
+  ps-bigbang-baseline              78.6%   78.6%   78.6%
+  ps-bigbang-mild-forget            7.1%   28.6%   28.6%
+  ps-bigbang-strong-forget         28.6%   28.6%   28.6%
+  ps-bigbang-high-lr               64.3%   78.6%   85.7%
+  ps-bigbang-forget-high-lr        28.6%   28.6%   28.6%
+  ps-bigbang-small-dim             57.1%   71.4%   78.6%
+  ps-bigbang-large-dim             57.1%   71.4%   78.6%
+  ps-theoffice-baseline            50.0%   62.5%   62.5%
+  ps-theoffice-mild-forget         25.0%   25.0%   25.0%
+  ps-theoffice-strong-forget       25.0%   25.0%   25.0%
+  ps-theoffice-high-lr             50.0%   62.5%   62.5%
+  ps-theoffice-forget-high-lr      25.0%   25.0%   25.0%
+  ps-theoffice-small-dim           25.0%   37.5%   37.5%
+  ps-theoffice-large-dim           37.5%   50.0%   50.0%
