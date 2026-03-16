@@ -194,34 +194,41 @@ class DGDJudge(DGDMethod):
 
 
 class DGDCMSJudge(Method):
-    """CMS 三层 DGD + LLM Judge：不同遗忘率的三个 M 矩阵并行查询"""
+    """CMS 三层 DGD + LLM Judge：用更新频率区分时间尺度（非 α 区分）。
+
+    正确实现：所有层 α=1.0，区别在于更新频率。
+    高频层每次查询都更新，低频层每 N 次才更新。
+    层间串联：高频输出喂给中频，中频输出喂给低频。
+    """
     name = "dgd_cms_judge"
 
     def __init__(self, dim=256, eta=0.01):
         self.dim = dim
         self.eta = eta
-        # 三层：高频（快忘）、中频（慢忘）、低频（几乎不忘）
+        self._step = 0
+        # 三层：全部 α=1.0，靠更新频率区分
         self.layers = {
-            "high": {"alpha": 0.90, "weight": 0.5, "mem": None},
-            "mid":  {"alpha": 0.99, "weight": 0.3, "mem": None},
-            "low":  {"alpha": 0.999, "weight": 0.2, "mem": None},
+            "high": {"freq": 1, "weight": 0.5, "mem": None},    # 每次都更新
+            "mid":  {"freq": 5, "weight": 0.3, "mem": None},    # 每 5 次更新
+            "low":  {"freq": 20, "weight": 0.2, "mem": None},   # 每 20 次更新
         }
 
     def setup(self, proj_vecs):
         self.proj_vecs = proj_vecs
+        self._step = 0
         for layer in self.layers.values():
-            layer["mem"] = AssociativeMemory(dim=self.dim, alpha=layer["alpha"], eta=self.eta)
+            layer["mem"] = AssociativeMemory(dim=self.dim, alpha=1.0, eta=self.eta)
 
     def query(self, q_vec):
-        # 三层并行查询，加权合并
-        combined = [0.0] * self.dim
-        for layer in self.layers.values():
-            act = layer["mem"].query(q_vec)
-            w = layer["weight"]
-            for j in range(self.dim):
-                combined[j] += w * act[j]
+        # 串联：高频 → 中频 → 低频
+        act = q_vec
+        for name in ["high", "mid", "low"]:
+            layer_act = self.layers[name]["mem"].query(act)
+            w = self.layers[name]["weight"]
+            # 混合：当前层输出和输入的加权
+            act = [w * la + (1 - w) * a for la, a in zip(layer_act, act)]
 
-        scores = [(_cosine(combined, pv), i) for i, pv in enumerate(self.proj_vecs)]
+        scores = [(_cosine(act, pv), i) for i, pv in enumerate(self.proj_vecs)]
         scores.sort(reverse=True)
         return scores
 
@@ -255,15 +262,17 @@ class DGDCMSJudge(Method):
         except Exception:
             return {"updates": 0, "correct": 0}
 
+        self._step += 1
         answer_set = set(answer_indices)
         updates = 0
         correct = 0
         for local_idx in used:
             if 0 <= local_idx < len(top_3):
                 frag_idx = top_3[local_idx]
-                # 三层都更新（但因为 α 不同，遗忘速度不同）
+                # 按频率决定哪些层更新（所有层 α=1.0）
                 for layer in self.layers.values():
-                    layer["mem"].update(q_vec, proj_vecs[frag_idx])
+                    if self._step % layer["freq"] == 0:
+                        layer["mem"].update(q_vec, proj_vecs[frag_idx])
                 updates += 1
                 if frag_idx in answer_set:
                     correct += 1
