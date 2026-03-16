@@ -1,0 +1,117 @@
+# 实验 A：α 参数搜索
+# 2 数据集 × 7 参数组 = 14 次实验
+
+experiments:
+  # === BigBang ===
+  - name: ps-bigbang-baseline
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: ps-bigbang-mild-forget
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 0.95, eta: 0.01 }
+
+  - name: ps-bigbang-strong-forget
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 0.9, eta: 0.01 }
+
+  - name: ps-bigbang-high-lr
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.05 }
+
+  - name: ps-bigbang-forget-high-lr
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 0.95, eta: 0.05 }
+
+  - name: ps-bigbang-small-dim
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 128, alpha: 1.0, eta: 0.01 }
+
+  - name: ps-bigbang-large-dim
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 512, alpha: 1.0, eta: 0.01 }
+
+  # === TheOffice ===
+  - name: ps-theoffice-baseline
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01 }
+
+  - name: ps-theoffice-mild-forget
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 0.95, eta: 0.01 }
+
+  - name: ps-theoffice-strong-forget
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 0.9, eta: 0.01 }
+
+  - name: ps-theoffice-high-lr
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.05 }
+
+  - name: ps-theoffice-forget-high-lr
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 256, alpha: 0.95, eta: 0.05 }
+
+  - name: ps-theoffice-small-dim
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 128, alpha: 1.0, eta: 0.01 }
+
+  - name: ps-theoffice-large-dim
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: ollama, host: "http://100.94.126.19:11434", model: "qwen3.5:9b" }
+    dgd: { dim: 512, alpha: 1.0, eta: 0.01 }

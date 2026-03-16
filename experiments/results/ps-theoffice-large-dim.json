@@ -1,0 +1,240 @@
+{
+  "name": "ps-theoffice-large-dim",
+  "config": {
+    "name": "ps-theoffice-large-dim",
+    "dataset": "DialSim-theoffice",
+    "method": "dgd_llm_judge",
+    "rounds": 20,
+    "eval_every": 2,
+    "llm_backend": {
+      "type": "ollama",
+      "host": "http://100.94.126.19:11434",
+      "model": "qwen3.5:9b"
+    },
+    "dgd": {
+      "dim": 512,
+      "alpha": 1.0,
+      "eta": 0.01
+    }
+  },
+  "dataset": "DialSim-theoffice",
+  "n_fragments": 2343,
+  "n_questions": 8,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.375,
+        "5": 0.5
+      },
+      "updates": 12,
+      "correct": 3,
+      "feedback_accuracy": 0.25,
+      "errors": 0,
+      "elapsed": 11.8
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.375,
+        "5": 0.5
+      },
+      "updates": 15,
+      "correct": 3,
+      "feedback_accuracy": 0.2,
+      "errors": 0,
+      "elapsed": 15.3
+    },
+    {
+      "round": 3,
+      "updates": 6,
+      "correct": 2,
+      "feedback_accuracy": 0.333,
+      "errors": 0,
+      "elapsed": 12.3
+    },
+    {
+      "round": 4,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 13,
+      "correct": 3,
+      "feedback_accuracy": 0.231,
+      "errors": 0,
+      "elapsed": 12.3
+    },
+    {
+      "round": 5,
+      "updates": 10,
+      "correct": 4,
+      "feedback_accuracy": 0.4,
+      "errors": 0,
+      "elapsed": 12.1
+    },
+    {
+      "round": 6,
+      "metrics": {
+        "1": 0.375,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 13,
+      "correct": 4,
+      "feedback_accuracy": 0.308,
+      "errors": 0,
+      "elapsed": 13.2
+    },
+    {
+      "round": 7,
+      "updates": 18,
+      "correct": 3,
+      "feedback_accuracy": 0.167,
+      "errors": 0,
+      "elapsed": 16.9
+    },
+    {
+      "round": 8,
+      "metrics": {
+        "1": 0.375,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 13,
+      "correct": 3,
+      "feedback_accuracy": 0.231,
+      "errors": 0,
+      "elapsed": 12.6
+    },
+    {
+      "round": 9,
+      "updates": 9,
+      "correct": 2,
+      "feedback_accuracy": 0.222,
+      "errors": 0,
+      "elapsed": 35.1
+    },
+    {
+      "round": 10,
+      "metrics": {
+        "1": 0.375,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 13,
+      "correct": 3,
+      "feedback_accuracy": 0.231,
+      "errors": 0,
+      "elapsed": 13.5
+    },
+    {
+      "round": 11,
+      "updates": 8,
+      "correct": 2,
+      "feedback_accuracy": 0.25,
+      "errors": 0,
+      "elapsed": 13.6
+    },
+    {
+      "round": 12,
+      "metrics": {
+        "1": 0.375,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 11,
+      "correct": 3,
+      "feedback_accuracy": 0.273,
+      "errors": 0,
+      "elapsed": 13.9
+    },
+    {
+      "round": 13,
+      "updates": 13,
+      "correct": 3,
+      "feedback_accuracy": 0.231,
+      "errors": 0,
+      "elapsed": 13.5
+    },
+    {
+      "round": 14,
+      "metrics": {
+        "1": 0.375,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 10,
+      "correct": 4,
+      "feedback_accuracy": 0.4,
+      "errors": 0,
+      "elapsed": 16.1
+    },
+    {
+      "round": 15,
+      "updates": 11,
+      "correct": 4,
+      "feedback_accuracy": 0.364,
+      "errors": 0,
+      "elapsed": 13.5
+    },
+    {
+      "round": 16,
+      "metrics": {
+        "1": 0.375,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 9,
+      "correct": 3,
+      "feedback_accuracy": 0.333,
+      "errors": 0,
+      "elapsed": 15.5
+    },
+    {
+      "round": 17,
+      "updates": 14,
+      "correct": 3,
+      "feedback_accuracy": 0.214,
+      "errors": 0,
+      "elapsed": 14.5
+    },
+    {
+      "round": 18,
+      "metrics": {
+        "1": 0.375,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 8,
+      "correct": 3,
+      "feedback_accuracy": 0.375,
+      "errors": 0,
+      "elapsed": 10.8
+    },
+    {
+      "round": 19,
+      "updates": 7,
+      "correct": 4,
+      "feedback_accuracy": 0.571,
+      "errors": 0,
+      "elapsed": 10.9
+    },
+    {
+      "round": 20,
+      "metrics": {
+        "1": 0.375,
+        "3": 0.5,
+        "5": 0.5
+      },
+      "updates": 12,
+      "correct": 3,
+      "feedback_accuracy": 0.25,
+      "errors": 0,
+      "elapsed": 15.0
+    }
+  ]
+}

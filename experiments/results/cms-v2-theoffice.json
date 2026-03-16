@@ -1,0 +1,239 @@
+{
+  "name": "cms-v2-theoffice",
+  "config": {
+    "name": "cms-v2-theoffice",
+    "dataset": "DialSim-theoffice",
+    "method": "dgd_cms_judge",
+    "rounds": 20,
+    "eval_every": 2,
+    "llm_backend": {
+      "type": "deepseek",
+      "api_key": "sk-4682199cd4bb4d69826a838cd318578c",
+      "model": "deepseek-chat"
+    },
+    "dgd": {
+      "dim": 256,
+      "eta": 0.01
+    }
+  },
+  "dataset": "DialSim-theoffice",
+  "n_fragments": 2343,
+  "n_questions": 8,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 4,
+      "correct": 4,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 9.1
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 3,
+      "correct": 3,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 9.5
+    },
+    {
+      "round": 3,
+      "updates": 7,
+      "correct": 4,
+      "feedback_accuracy": 0.571,
+      "errors": 0,
+      "elapsed": 11.1
+    },
+    {
+      "round": 4,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 5,
+      "correct": 3,
+      "feedback_accuracy": 0.6,
+      "errors": 0,
+      "elapsed": 9.4
+    },
+    {
+      "round": 5,
+      "updates": 3,
+      "correct": 3,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 9.2
+    },
+    {
+      "round": 6,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 3,
+      "correct": 3,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 9.7
+    },
+    {
+      "round": 7,
+      "updates": 4,
+      "correct": 3,
+      "feedback_accuracy": 0.75,
+      "errors": 0,
+      "elapsed": 9.4
+    },
+    {
+      "round": 8,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 7,
+      "correct": 4,
+      "feedback_accuracy": 0.571,
+      "errors": 0,
+      "elapsed": 9.4
+    },
+    {
+      "round": 9,
+      "updates": 5,
+      "correct": 3,
+      "feedback_accuracy": 0.6,
+      "errors": 0,
+      "elapsed": 9.4
+    },
+    {
+      "round": 10,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 5,
+      "correct": 3,
+      "feedback_accuracy": 0.6,
+      "errors": 0,
+      "elapsed": 9.2
+    },
+    {
+      "round": 11,
+      "updates": 4,
+      "correct": 3,
+      "feedback_accuracy": 0.75,
+      "errors": 0,
+      "elapsed": 9.3
+    },
+    {
+      "round": 12,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 3,
+      "correct": 3,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 8.9
+    },
+    {
+      "round": 13,
+      "updates": 5,
+      "correct": 4,
+      "feedback_accuracy": 0.8,
+      "errors": 0,
+      "elapsed": 9.9
+    },
+    {
+      "round": 14,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 3,
+      "correct": 3,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 9.3
+    },
+    {
+      "round": 15,
+      "updates": 8,
+      "correct": 4,
+      "feedback_accuracy": 0.5,
+      "errors": 0,
+      "elapsed": 9.6
+    },
+    {
+      "round": 16,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 9,
+      "correct": 4,
+      "feedback_accuracy": 0.444,
+      "errors": 0,
+      "elapsed": 9.2
+    },
+    {
+      "round": 17,
+      "updates": 4,
+      "correct": 4,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 9.1
+    },
+    {
+      "round": 18,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 3,
+      "correct": 3,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 9.1
+    },
+    {
+      "round": 19,
+      "updates": 3,
+      "correct": 3,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 10.6
+    },
+    {
+      "round": 20,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 4,
+      "correct": 3,
+      "feedback_accuracy": 0.75,
+      "errors": 0,
+      "elapsed": 9.1
+    }
+  ]
+}

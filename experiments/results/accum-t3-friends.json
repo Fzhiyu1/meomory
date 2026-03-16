@@ -1,0 +1,241 @@
+{
+  "name": "accum-t3-friends",
+  "config": {
+    "name": "accum-t3-friends",
+    "dataset": "DialSim-friends",
+    "method": "dgd_judge_accumulate",
+    "rounds": 20,
+    "eval_every": 2,
+    "llm_backend": {
+      "type": "deepseek",
+      "api_key": "sk-4682199cd4bb4d69826a838cd318578c",
+      "model": "deepseek-chat"
+    },
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01,
+      "threshold": 3
+    }
+  },
+  "dataset": "DialSim-friends",
+  "n_fragments": 787,
+  "n_questions": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.5
+      },
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.2
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.5
+      },
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.0
+    },
+    {
+      "round": 3,
+      "updates": 1,
+      "correct": 0,
+      "feedback_accuracy": 0.0,
+      "errors": 0,
+      "elapsed": 9.1
+    },
+    {
+      "round": 4,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.5
+      },
+      "updates": 1,
+      "correct": 0,
+      "feedback_accuracy": 0.0,
+      "errors": 0,
+      "elapsed": 9.0
+    },
+    {
+      "round": 5,
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 8.5
+    },
+    {
+      "round": 6,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 2,
+      "correct": 0,
+      "feedback_accuracy": 0.0,
+      "errors": 0,
+      "elapsed": 8.5
+    },
+    {
+      "round": 7,
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.1
+    },
+    {
+      "round": 8,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 8.9
+    },
+    {
+      "round": 9,
+      "updates": 3,
+      "correct": 0,
+      "feedback_accuracy": 0.0,
+      "errors": 0,
+      "elapsed": 9.4
+    },
+    {
+      "round": 10,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 8.9
+    },
+    {
+      "round": 11,
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.3
+    },
+    {
+      "round": 12,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 3,
+      "correct": 0,
+      "feedback_accuracy": 0.0,
+      "errors": 0,
+      "elapsed": 9.3
+    },
+    {
+      "round": 13,
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.5
+    },
+    {
+      "round": 14,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.6
+    },
+    {
+      "round": 15,
+      "updates": 3,
+      "correct": 0,
+      "feedback_accuracy": 0.0,
+      "errors": 0,
+      "elapsed": 8.9
+    },
+    {
+      "round": 16,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.0
+    },
+    {
+      "round": 17,
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.2
+    },
+    {
+      "round": 18,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 2,
+      "correct": 0,
+      "feedback_accuracy": 0.0,
+      "errors": 0,
+      "elapsed": 8.8
+    },
+    {
+      "round": 19,
+      "updates": 1,
+      "correct": 0,
+      "feedback_accuracy": 0.0,
+      "errors": 0,
+      "elapsed": 9.2
+    },
+    {
+      "round": 20,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 0,
+      "correct": 0,
+      "feedback_accuracy": 0,
+      "errors": 0,
+      "elapsed": 9.2
+    }
+  ]
+}
