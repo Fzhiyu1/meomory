@@ -1,0 +1,59 @@
+{
+  "name": "dgd-gt-dialsim-friends",
+  "config": {
+    "name": "dgd-gt-dialsim-friends",
+    "dataset": "DialSim-friends",
+    "method": "dgd_gt",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1
+  },
+  "dataset": "DialSim-friends",
+  "n_fragments": 787,
+  "n_questions": 12,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.4166666666666667
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.2
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.5
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.2
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.4166666666666667,
+        "5": 0.5
+      },
+      "updates": 12,
+      "correct": 12,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.2
+    }
+  ]
+}

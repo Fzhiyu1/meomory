@@ -1,0 +1,59 @@
+{
+  "name": "dgd-gt-locomo-7",
+  "config": {
+    "name": "dgd-gt-locomo-7",
+    "dataset": "LoCoMo-full-7",
+    "method": "dgd_gt",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1
+  },
+  "dataset": "LoCoMo-full-7",
+  "n_fragments": 30,
+  "n_questions": 239,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.2175732217573222,
+        "3": 0.3472803347280335,
+        "5": 0.40585774058577406
+      },
+      "updates": 239,
+      "correct": 239,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 2.2
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.23430962343096234,
+        "3": 0.36401673640167365,
+        "5": 0.4351464435146444
+      },
+      "updates": 239,
+      "correct": 239,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 2.2
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.2510460251046025,
+        "3": 0.38493723849372385,
+        "5": 0.48535564853556484
+      },
+      "updates": 239,
+      "correct": 239,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 2.2
+    }
+  ]
+}

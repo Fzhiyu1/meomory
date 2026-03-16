@@ -1,0 +1,59 @@
+{
+  "name": "dgd-gt-dialsim-theoffice",
+  "config": {
+    "name": "dgd-gt-dialsim-theoffice",
+    "dataset": "DialSim-theoffice",
+    "method": "dgd_gt",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1
+  },
+  "dataset": "DialSim-theoffice",
+  "n_fragments": 2343,
+  "n_questions": 8,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 8,
+      "correct": 8,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.4
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 8,
+      "correct": 8,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.4
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 8,
+      "correct": 8,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.4
+    }
+  ]
+}

@@ -58,7 +58,7 @@ def create_backend(config: dict) -> LLMBackend:
     t = config["type"]
     if t == "deepseek":
         return DeepSeekBackend(
-            api_key=config["api_key"],
+            api_key=config.get("api_key") or config.get("key", ""),
             model=config.get("model", "deepseek-chat"),
             url=config.get("url", "https://api.deepseek.com/v1"),
         )

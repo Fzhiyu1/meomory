@@ -1,0 +1,65 @@
+{
+  "name": "dgd-judge-dialsim-theoffice",
+  "config": {
+    "name": "dgd-judge-dialsim-theoffice",
+    "dataset": "DialSim-theoffice",
+    "method": "dgd_llm_judge",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1,
+    "llm_backend": {
+      "type": "deepseek",
+      "url": "https://api.deepseek.com/v1",
+      "key": "sk-4682199cd4bb4d69826a838cd318578c",
+      "model": "deepseek-chat"
+    }
+  },
+  "dataset": "DialSim-theoffice",
+  "n_fragments": 2343,
+  "n_questions": 8,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 4,
+      "correct": 4,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 8.4
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 3,
+      "correct": 3,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 8.3
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.25,
+        "3": 0.625,
+        "5": 0.625
+      },
+      "updates": 4,
+      "correct": 3,
+      "feedback_accuracy": 0.75,
+      "errors": 0,
+      "elapsed": 7.7
+    }
+  ]
+}

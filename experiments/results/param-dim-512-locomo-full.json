@@ -1,0 +1,59 @@
+{
+  "name": "param-dim-512-locomo-full",
+  "config": {
+    "name": "param-dim-512-locomo-full",
+    "dataset": "LoCoMo-full-all",
+    "method": "dgd_gt",
+    "dgd": {
+      "dim": 512,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1
+  },
+  "dataset": "LoCoMo-full-all",
+  "n_fragments": 272,
+  "n_questions": 1976,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.2651821862348178,
+        "3": 0.37196356275303644,
+        "5": 0.4342105263157895
+      },
+      "updates": 1976,
+      "correct": 1976,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 90.2
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.27479757085020245,
+        "3": 0.38461538461538464,
+        "5": 0.4610323886639676
+      },
+      "updates": 1976,
+      "correct": 1976,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 90.3
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.28289473684210525,
+        "3": 0.40536437246963564,
+        "5": 0.49291497975708504
+      },
+      "updates": 1976,
+      "correct": 1976,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 90.4
+    }
+  ]
+}

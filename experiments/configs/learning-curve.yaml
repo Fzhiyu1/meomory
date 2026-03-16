@@ -1,0 +1,50 @@
+experiments:
+  - name: curve-dgd-gt-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 10
+    eval_every: 1
+
+  - name: curve-dgd-judge-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 10
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  - name: curve-dgd-gt-longmemeval
+    dataset: LongMemEval-oracle
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 10
+    eval_every: 1
+
+  - name: curve-dgd-judge-longmemeval
+    dataset: LongMemEval-oracle
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 10
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat

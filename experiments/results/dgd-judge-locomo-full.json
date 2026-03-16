@@ -1,0 +1,65 @@
+{
+  "name": "dgd-judge-locomo-full",
+  "config": {
+    "name": "dgd-judge-locomo-full",
+    "dataset": "LoCoMo-full-all",
+    "method": "dgd_llm_judge",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1,
+    "llm_backend": {
+      "type": "deepseek",
+      "url": "https://api.deepseek.com/v1",
+      "key": "sk-4682199cd4bb4d69826a838cd318578c",
+      "model": "deepseek-chat"
+    }
+  },
+  "dataset": "LoCoMo-full-all",
+  "n_fragments": 272,
+  "n_questions": 1976,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.23582995951417005,
+        "3": 0.3441295546558704,
+        "5": 0.4018218623481781
+      },
+      "updates": 970,
+      "correct": 326,
+      "feedback_accuracy": 0.336,
+      "errors": 2,
+      "elapsed": 355.2
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.23684210526315788,
+        "3": 0.3476720647773279,
+        "5": 0.40030364372469635
+      },
+      "updates": 992,
+      "correct": 341,
+      "feedback_accuracy": 0.344,
+      "errors": 0,
+      "elapsed": 340.6
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.24139676113360323,
+        "3": 0.34868421052631576,
+        "5": 0.3982793522267207
+      },
+      "updates": 1026,
+      "correct": 335,
+      "feedback_accuracy": 0.327,
+      "errors": 0,
+      "elapsed": 339.5
+    }
+  ]
+}

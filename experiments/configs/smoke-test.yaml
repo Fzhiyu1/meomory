@@ -1,0 +1,32 @@
+# 冒烟测试：LoCoMo-full-0 单段对话 (19片段, ~144题)
+# 验证完整 pipeline: embedding → projection → 检索 → DGD → LLM feedback
+
+experiments:
+  - name: smoke-cosine-locomo0
+    dataset: LoCoMo-full-0
+    method: cosine
+
+  - name: smoke-dgd-gt-locomo0
+    dataset: LoCoMo-full-0
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 1
+    eval_every: 1
+
+  - name: smoke-dgd-judge-locomo0
+    dataset: LoCoMo-full-0
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 1
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat

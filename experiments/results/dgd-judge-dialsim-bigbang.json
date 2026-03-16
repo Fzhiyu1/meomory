@@ -1,0 +1,65 @@
+{
+  "name": "dgd-judge-dialsim-bigbang",
+  "config": {
+    "name": "dgd-judge-dialsim-bigbang",
+    "dataset": "DialSim-bigbang",
+    "method": "dgd_llm_judge",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1,
+    "llm_backend": {
+      "type": "deepseek",
+      "url": "https://api.deepseek.com/v1",
+      "key": "sk-4682199cd4bb4d69826a838cd318578c",
+      "model": "deepseek-chat"
+    }
+  },
+  "dataset": "DialSim-bigbang",
+  "n_fragments": 805,
+  "n_questions": 14,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.5714285714285714,
+        "3": 0.7142857142857143,
+        "5": 0.7142857142857143
+      },
+      "updates": 11,
+      "correct": 8,
+      "feedback_accuracy": 0.727,
+      "errors": 0,
+      "elapsed": 8.3
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.7142857142857143,
+        "3": 0.7142857142857143,
+        "5": 0.7142857142857143
+      },
+      "updates": 11,
+      "correct": 7,
+      "feedback_accuracy": 0.636,
+      "errors": 0,
+      "elapsed": 12.0
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.7142857142857143,
+        "3": 0.7142857142857143,
+        "5": 0.7857142857142857
+      },
+      "updates": 5,
+      "correct": 3,
+      "feedback_accuracy": 0.6,
+      "errors": 0,
+      "elapsed": 8.4
+    }
+  ]
+}

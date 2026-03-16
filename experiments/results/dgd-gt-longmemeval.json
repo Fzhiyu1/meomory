@@ -1,0 +1,59 @@
+{
+  "name": "dgd-gt-longmemeval",
+  "config": {
+    "name": "dgd-gt-longmemeval",
+    "dataset": "LongMemEval-oracle",
+    "method": "dgd_gt",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1
+  },
+  "dataset": "LongMemEval-oracle",
+  "n_fragments": 882,
+  "n_questions": 470,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.48936170212765956,
+        "3": 0.6595744680851063,
+        "5": 0.7170212765957447
+      },
+      "updates": 470,
+      "correct": 470,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 10.6
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.6680851063829787,
+        "5": 0.7276595744680852
+      },
+      "updates": 470,
+      "correct": 470,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 10.5
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.5,
+        "3": 0.674468085106383,
+        "5": 0.7361702127659574
+      },
+      "updates": 470,
+      "correct": 470,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 10.5
+    }
+  ]
+}

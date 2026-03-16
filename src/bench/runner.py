@@ -3,7 +3,7 @@ import json
 import time
 from pathlib import Path
 
-from src.embedder import get_embedding
+from src.embedder import get_embedding, get_embeddings_batch
 from src.projection import create_projection_matrix, project
 from src.bench.datasets import Dataset
 from src.bench.methods import create_method, BM25Method, _norm
@@ -45,9 +45,17 @@ async def run_experiment(config: dict) -> dict:
     if ds_name.startswith("DialSim-"):
         sub = ds_name.split("-", 1)[1].lower()
         dataset = Dataset.load_dialsim(sub)
+    elif ds_name == "LoCoMo-full-all":
+        dataset = Dataset.load_locomo_full_all()
+    elif ds_name.startswith("LoCoMo-full-"):
+        index = int(ds_name.split("-")[-1])
+        dataset = Dataset.load_locomo_full(index)
     elif ds_name.startswith("LoCoMo-"):
         index = int(ds_name.split("-", 1)[1])
         dataset = Dataset.load_locomo(index)
+    elif ds_name.startswith("LongMemEval-"):
+        variant = ds_name.split("-", 1)[1].lower()
+        dataset = Dataset.load_longmemeval(variant)
     else:
         raise ValueError(f"Unknown dataset: {ds_name}")
 
@@ -74,15 +82,19 @@ async def run_experiment(config: dict) -> dict:
         frag_vecs = cached["frag_vecs"]
         q_vecs_raw = cached["q_vecs"]
     else:
-        print(f"  Embedding {len(dataset.fragments)} fragments...")
-        frag_vecs = []
-        for i, f in enumerate(dataset.fragments):
-            frag_vecs.append(get_embedding(f["body"][:400]))
-            if (i + 1) % 100 == 0:
-                print(f"    {i + 1}/{len(dataset.fragments)}")
+        # 批量 embedding（比逐条快 10-20 倍）
+        frag_texts = [f["body"][:400] for f in dataset.fragments]
+        q_texts = [q["question"][:300] for q in dataset.questions]
 
-        print(f"  Embedding {len(dataset.questions)} questions...")
-        q_vecs_raw = [get_embedding(q["question"][:300]) for q in dataset.questions]
+        print(f"  Batch embedding {len(frag_texts)} fragments...")
+        t_embed = time.time()
+        frag_vecs = get_embeddings_batch(frag_texts, batch_size=50)
+        print(f"    Done ({time.time()-t_embed:.1f}s)")
+
+        print(f"  Batch embedding {len(q_texts)} questions...")
+        t_embed = time.time()
+        q_vecs_raw = get_embeddings_batch(q_texts, batch_size=50)
+        print(f"    Done ({time.time()-t_embed:.1f}s)")
 
         # 保存缓存
         import json as _json
@@ -143,18 +155,21 @@ async def run_experiment(config: dict) -> dict:
             total_correct = 0
             errors = 0
 
-            # 并发执行所有题的 feedback（DGD 更新在 gather 后批量进行）
-            async def _process_one(qi, q):
-                scores = method.query(q_vecs[qi])
-                top_indices = [idx for _, idx in scores[:3]]
-                fb = await method.feedback(
-                    q_vecs[qi], top_indices, q["answer_indices"],
-                    dataset.fragments, proj_vecs, backend,
-                    question_text=q.get("question", ""),
-                )
-                return fb
-
+            # 并发执行所有题的 feedback，限制同时 50 个连接
             import asyncio
+            sem = asyncio.Semaphore(50)
+
+            async def _process_one(qi, q):
+                async with sem:
+                    scores = method.query(q_vecs[qi])
+                    top_indices = [idx for _, idx in scores[:3]]
+                    fb = await method.feedback(
+                        q_vecs[qi], top_indices, q["answer_indices"],
+                        dataset.fragments, proj_vecs, backend,
+                        question_text=q.get("question", ""),
+                    )
+                    return fb
+
             fbs = await asyncio.gather(*[
                 _process_one(qi, q) for qi, q in enumerate(dataset.questions)
             ])
@@ -206,9 +221,17 @@ async def run_experiment(config: dict) -> dict:
 
 
 async def run_all(configs: list[dict]) -> list[dict]:
-    """顺序运行多个实验"""
+    """顺序运行多个实验，自动跳过已有结果的实验。"""
     results = []
     for config in configs:
+        name = config["name"]
+        result_path = RESULTS_DIR / f"{name}.json"
+        if result_path.exists():
+            print(f"\n  [SKIP] {name} — 已有结果，跳过")
+            with open(result_path) as f:
+                result = json.load(f)
+            results.append(result)
+            continue
         result = await run_experiment(config)
         results.append(result)
 
@@ -223,6 +246,10 @@ async def run_all(configs: list[dict]) -> list[dict]:
             last = [rd for rd in r["rounds"] if "metrics" in rd]
             if last:
                 m = last[-1]["metrics"]
-                print(f"  {r['name']:<30} {m[1]:>7.1%} {m[3]:>7.1%} {m[5]:>7.1%}")
+                # JSON 读回来 key 可能是 str，兼容两种
+                p1 = m.get(1, m.get("1", 0))
+                p3 = m.get(3, m.get("3", 0))
+                p5 = m.get(5, m.get("5", 0))
+                print(f"  {r['name']:<30} {p1:>7.1%} {p3:>7.1%} {p5:>7.1%}")
 
     return results

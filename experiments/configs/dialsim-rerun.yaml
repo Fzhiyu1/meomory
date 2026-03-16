@@ -1,0 +1,90 @@
+experiments:
+  # DialSim-bigbang
+  - name: cosine-dialsim-bigbang
+    dataset: DialSim-bigbang
+    method: cosine
+
+  - name: dgd-gt-dialsim-bigbang
+    dataset: DialSim-bigbang
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-dialsim-bigbang
+    dataset: DialSim-bigbang
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # DialSim-friends
+  - name: cosine-dialsim-friends
+    dataset: DialSim-friends
+    method: cosine
+
+  - name: dgd-gt-dialsim-friends
+    dataset: DialSim-friends
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-dialsim-friends
+    dataset: DialSim-friends
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # DialSim-theoffice
+  - name: cosine-dialsim-theoffice
+    dataset: DialSim-theoffice
+    method: cosine
+
+  - name: dgd-gt-dialsim-theoffice
+    dataset: DialSim-theoffice
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-dialsim-theoffice
+    dataset: DialSim-theoffice
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat

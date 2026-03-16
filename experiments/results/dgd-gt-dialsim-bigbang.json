@@ -1,0 +1,59 @@
+{
+  "name": "dgd-gt-dialsim-bigbang",
+  "config": {
+    "name": "dgd-gt-dialsim-bigbang",
+    "dataset": "DialSim-bigbang",
+    "method": "dgd_gt",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.01
+    },
+    "rounds": 3,
+    "eval_every": 1
+  },
+  "dataset": "DialSim-bigbang",
+  "n_fragments": 805,
+  "n_questions": 14,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.6428571428571429,
+        "3": 0.7142857142857143,
+        "5": 0.7857142857142857
+      },
+      "updates": 14,
+      "correct": 14,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.7142857142857143,
+        "3": 0.7142857142857143,
+        "5": 0.7857142857142857
+      },
+      "updates": 14,
+      "correct": 14,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.7142857142857143,
+        "3": 0.7857142857142857,
+        "5": 0.8571428571428571
+      },
+      "updates": 14,
+      "correct": 14,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 0.3
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "param-eta-0.05-locomo-full",
+  "config": {
+    "name": "param-eta-0.05-locomo-full",
+    "dataset": "LoCoMo-full-all",
+    "method": "dgd_gt",
+    "dgd": {
+      "dim": 256,
+      "alpha": 1.0,
+      "eta": 0.05
+    },
+    "rounds": 3,
+    "eval_every": 1
+  },
+  "dataset": "LoCoMo-full-all",
+  "n_fragments": 272,
+  "n_questions": 1976,
+  "rounds": [
+    {
+      "round": 1,
+      "metrics": {
+        "1": 0.2692307692307692,
+        "3": 0.4144736842105263,
+        "5": 0.5005060728744939
+      },
+      "updates": 1976,
+      "correct": 1976,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 25.9
+    },
+    {
+      "round": 2,
+      "metrics": {
+        "1": 0.3097165991902834,
+        "3": 0.4817813765182186,
+        "5": 0.5561740890688259
+      },
+      "updates": 1976,
+      "correct": 1976,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 25.9
+    },
+    {
+      "round": 3,
+      "metrics": {
+        "1": 0.3441295546558704,
+        "3": 0.5080971659919028,
+        "5": 0.5905870445344129
+      },
+      "updates": 1976,
+      "correct": 1976,
+      "feedback_accuracy": 1.0,
+      "errors": 0,
+      "elapsed": 25.9
+    }
+  ]
+}

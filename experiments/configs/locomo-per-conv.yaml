@@ -1,0 +1,300 @@
+experiments:
+  # Conv 0
+  - name: cosine-locomo-0
+    dataset: LoCoMo-full-0
+    method: cosine
+
+  - name: dgd-gt-locomo-0
+    dataset: LoCoMo-full-0
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-0
+    dataset: LoCoMo-full-0
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 1
+  - name: cosine-locomo-1
+    dataset: LoCoMo-full-1
+    method: cosine
+
+  - name: dgd-gt-locomo-1
+    dataset: LoCoMo-full-1
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-1
+    dataset: LoCoMo-full-1
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 2
+  - name: cosine-locomo-2
+    dataset: LoCoMo-full-2
+    method: cosine
+
+  - name: dgd-gt-locomo-2
+    dataset: LoCoMo-full-2
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-2
+    dataset: LoCoMo-full-2
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 3
+  - name: cosine-locomo-3
+    dataset: LoCoMo-full-3
+    method: cosine
+
+  - name: dgd-gt-locomo-3
+    dataset: LoCoMo-full-3
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-3
+    dataset: LoCoMo-full-3
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 4
+  - name: cosine-locomo-4
+    dataset: LoCoMo-full-4
+    method: cosine
+
+  - name: dgd-gt-locomo-4
+    dataset: LoCoMo-full-4
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-4
+    dataset: LoCoMo-full-4
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 5
+  - name: cosine-locomo-5
+    dataset: LoCoMo-full-5
+    method: cosine
+
+  - name: dgd-gt-locomo-5
+    dataset: LoCoMo-full-5
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-5
+    dataset: LoCoMo-full-5
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 6
+  - name: cosine-locomo-6
+    dataset: LoCoMo-full-6
+    method: cosine
+
+  - name: dgd-gt-locomo-6
+    dataset: LoCoMo-full-6
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-6
+    dataset: LoCoMo-full-6
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 7
+  - name: cosine-locomo-7
+    dataset: LoCoMo-full-7
+    method: cosine
+
+  - name: dgd-gt-locomo-7
+    dataset: LoCoMo-full-7
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-7
+    dataset: LoCoMo-full-7
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 8
+  - name: cosine-locomo-8
+    dataset: LoCoMo-full-8
+    method: cosine
+
+  - name: dgd-gt-locomo-8
+    dataset: LoCoMo-full-8
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-8
+    dataset: LoCoMo-full-8
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # Conv 9
+  - name: cosine-locomo-9
+    dataset: LoCoMo-full-9
+    method: cosine
+
+  - name: dgd-gt-locomo-9
+    dataset: LoCoMo-full-9
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-9
+    dataset: LoCoMo-full-9
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat

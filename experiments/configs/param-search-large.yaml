@@ -1,0 +1,123 @@
+experiments:
+  # Alpha search
+  - name: param-alpha-0.9-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 0.9
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: param-alpha-0.95-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 0.95
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: param-alpha-0.99-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 0.99
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: param-alpha-1.0-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  # Dim search
+  - name: param-dim-64-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 64
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: param-dim-128-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 128
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: param-dim-256-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: param-dim-512-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 512
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  # Eta search
+  - name: param-eta-0.005-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.005
+    rounds: 3
+    eval_every: 1
+
+  - name: param-eta-0.01-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: param-eta-0.02-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.02
+    rounds: 3
+    eval_every: 1
+
+  - name: param-eta-0.05-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.05
+    rounds: 3
+    eval_every: 1

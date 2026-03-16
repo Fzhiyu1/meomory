@@ -1,0 +1,110 @@
+# 大规模实验：LoCoMo 全量 (1976题) + LongMemEval (470题) = 2446题
+# 5 种方法 × 2 数据集 = 10 个实验
+#
+# 用法:
+#   export MEOMORY_EMBED_URL=http://192.168.1.100:11435
+#   export MEOMORY_LLM_KEY=sk-4682199cd4bb4d69826a838cd318578c
+#   .venv/bin/python scripts/run_bench.py experiments/configs/large-scale.yaml
+#
+# 预估时间: 40min ~ 1.5h（主要瓶颈 DeepSeek API 调用）
+
+experiments:
+  # ============================================================
+  # LoCoMo 全量 (10段对话合并，1976题，272片段)
+  # ============================================================
+  - name: cosine-locomo-full
+    dataset: LoCoMo-full-all
+    method: cosine
+
+  - name: bm25-locomo-full
+    dataset: LoCoMo-full-all
+    method: bm25
+
+  - name: dgd-gt-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  - name: dgd-cms-locomo-full
+    dataset: LoCoMo-full-all
+    method: dgd_cms_judge
+    dgd:
+      dim: 256
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  # ============================================================
+  # LongMemEval Oracle (470题，882片段)
+  # ============================================================
+  - name: cosine-longmemeval
+    dataset: LongMemEval-oracle
+    method: cosine
+
+  - name: bm25-longmemeval
+    dataset: LongMemEval-oracle
+    method: bm25
+
+  - name: dgd-gt-longmemeval
+    dataset: LongMemEval-oracle
+    method: dgd_gt
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+
+  - name: dgd-judge-longmemeval
+    dataset: LongMemEval-oracle
+    method: dgd_llm_judge
+    dgd:
+      dim: 256
+      alpha: 1.0
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
+
+  - name: dgd-cms-longmemeval
+    dataset: LongMemEval-oracle
+    method: dgd_cms_judge
+    dgd:
+      dim: 256
+      eta: 0.01
+    rounds: 3
+    eval_every: 1
+    llm_backend:
+      type: deepseek
+      url: https://api.deepseek.com/v1
+      key: ${MEOMORY_LLM_KEY}
+      model: deepseek-chat
