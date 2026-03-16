@@ -9,7 +9,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # 设置 API key
-os.environ.setdefault("MEOMORY_LLM_KEY", "cpa_Sc-u_63M5sRFF45J-CN33OlQ6PnMJ0Yn")
+os.environ.setdefault("MEOMORY_LLM_KEY", "")
 
 from src.parser import parse_all_sessions
 from src.compressor import compress_session_to_l1_llm, compress_l1_to_l0_llm

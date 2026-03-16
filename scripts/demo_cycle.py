@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-os.environ.setdefault("MEOMORY_LLM_KEY", "cpa_Sc-u_63M5sRFF45J-CN33OlQ6PnMJ0Yn")
+os.environ.setdefault("MEOMORY_LLM_KEY", "")
 
 from src.store import VectorStore
 from src.embedder import get_embedding
