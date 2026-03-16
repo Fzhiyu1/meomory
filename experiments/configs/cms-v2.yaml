@@ -1,0 +1,23 @@
+# CMS v2：用更新频率区分（α 全部 1.0），对比单层 baseline
+experiments:
+  - name: cms-v2-bigbang
+    dataset: DialSim-bigbang
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, eta: 0.01 }
+
+  - name: cms-v2-theoffice
+    dataset: DialSim-theoffice
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, eta: 0.01 }
