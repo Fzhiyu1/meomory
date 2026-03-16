@@ -21,7 +21,7 @@ LLM_MODEL = os.environ.get("MEOMORY_LLM_MODEL", "deepseek-chat")
 
 import httpx
 from src.store import VectorStore
-from src.embedder import get_embedding
+from src.embedder import get_embedding, get_embeddings_batch
 from src.writer import MemoryWriter
 from src.consolidator import consolidate
 
@@ -86,13 +86,20 @@ def load_questions():
     return questions
 
 
-def evaluate(store, questions, label):
-    """评测当前向量库的检索质量。"""
+def evaluate(store, questions, label, q_vecs_cache={}):
+    """评测当前向量库的检索质量。缓存问题向量避免重复 embedding。"""
+    # 缓存问题向量
+    cache_key = tuple(q["question"] for q in questions)
+    if cache_key not in q_vecs_cache:
+        q_texts = [q["question"][:300] for q in questions]
+        q_vecs_cache[cache_key] = get_embeddings_batch(q_texts, batch_size=50)
+
+    q_vecs = q_vecs_cache[cache_key]
     hits = {1: 0, 3: 0, 5: 0}
     total_valid = 0
 
-    for q in questions:
-        q_vec = get_embedding(q["question"][:300])
+    for qi, q in enumerate(questions):
+        q_vec = q_vecs[qi]
         results = store.query(q_vec, top_k=5)
         answer = q["golden_answer"].lower()
 
@@ -130,17 +137,28 @@ async def main():
                 break
     print(f"语料: {len(fragments)} 片段, 有效测试题: {len(valid_questions)}")
 
-    # === Phase 1: 预填充 ===
-    print(f"\n=== Phase 1: 预填充前 400 个片段 ===")
+    # === Phase 1: 预填充（批量 embedding）===
+    print(f"\n=== Phase 1: 批量预填充前 400 个片段 ===")
     store = VectorStore()
-    writer = MemoryWriter(store)
 
+    prefill_texts = [f["body"][:500] for f in fragments[:400]]
     t0 = time.time()
+    print(f"  批量 embedding {len(prefill_texts)} 条...")
+    prefill_vecs = get_embeddings_batch(prefill_texts, batch_size=50)
+    print(f"  Embedding 完成 ({time.time()-t0:.1f}s)")
+
     for i, frag in enumerate(fragments[:400]):
-        writer.write(frag["body"], source="prefill", meta={"original_id": frag["id"]})
-        if (i + 1) % 50 == 0:
-            print(f"  {i+1}/400")
-    print(f"  预填充完成 ({time.time()-t0:.1f}s), 向量库: {len(store)} 条")
+        frag_id = f"input-prefill-{i:04d}"
+        store.add(frag_id, prefill_vecs[i], {
+            "body": frag["body"][:500],
+            "source": "prefill",
+            "layer": "input",
+            "original_id": frag["id"],
+            "consolidated": False,
+        })
+    print(f"  预填充完成, 向量库: {len(store)} 条")
+
+    writer = MemoryWriter(store)
 
     # 评测预填充状态
     metrics_prefill = evaluate(store, valid_questions, "预填充")
