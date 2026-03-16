@@ -1,0 +1,11 @@
+experiments:
+  - name: cms-v2-friends
+    dataset: DialSim-friends
+    method: dgd_cms_judge
+    rounds: 20
+    eval_every: 2
+    llm_backend:
+      type: deepseek
+      api_key: "${MEOMORY_LLM_KEY}"
+      model: deepseek-chat
+    dgd: { dim: 256, eta: 0.01 }

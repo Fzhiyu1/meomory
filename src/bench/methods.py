@@ -193,6 +193,68 @@ class DGDJudge(DGDMethod):
         return {"updates": updates, "correct": correct}
 
 
+class DGDJudgeAccumulate(DGDMethod):
+    """DGD + LLM Judge + 反馈累积阈值：同一关联被确认 N 次后才更新 M。"""
+    name = "dgd_judge_accumulate"
+
+    def __init__(self, dim=256, alpha=1.0, eta=0.01, threshold=3):
+        super().__init__(dim, alpha, eta)
+        self.threshold = threshold
+        self._counts = {}  # (q_bucket, frag_idx) → count
+
+    def _bucket(self, q_vec):
+        """将 query 向量粗粒度分桶（取前 8 维符号作为 key）。"""
+        return tuple(1 if v > 0 else 0 for v in q_vec[:8])
+
+    async def feedback(self, q_vec, top_indices, answer_indices, fragments, proj_vecs, backend, question_text=""):
+        if backend is None:
+            return {"updates": 0, "correct": 0}
+
+        top_3 = top_indices[:3]
+        top_bodies = [fragments[idx]["body"][:200] for idx in top_3]
+
+        injection = "\n".join(f"- {b}" for b in top_bodies)
+        prompt = f"[Context]\n{injection}\n\n[Question] {question_text}\n\nAnswer briefly based on context."
+        try:
+            response = await backend.chat(prompt, max_tokens=200)
+        except Exception:
+            return {"updates": 0, "correct": 0, "error": True}
+
+        mem_list = "\n".join(f"[{i}] {b}" for i, b in enumerate(top_bodies))
+        judge_prompt = (
+            f"Injected memories:\n{mem_list}\n\nAgent response:\n{response[:500]}\n\n"
+            f"Which memories were used? Output JSON array only."
+        )
+        try:
+            raw = await backend.chat(judge_prompt, system=JUDGE_SYSTEM, max_tokens=50)
+            text = raw.strip()
+            if text.startswith("```"):
+                text = text.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+            used = json.loads(text)
+        except Exception:
+            return {"updates": 0, "correct": 0}
+
+        answer_set = set(answer_indices)
+        updates = 0
+        correct = 0
+        q_key = self._bucket(q_vec)
+
+        for local_idx in used:
+            if 0 <= local_idx < len(top_3):
+                frag_idx = top_3[local_idx]
+                pair = (q_key, frag_idx)
+                self._counts[pair] = self._counts.get(pair, 0) + 1
+
+                if self._counts[pair] >= self.threshold:
+                    self.mem.update(q_vec, proj_vecs[frag_idx])
+                    self._counts[pair] = 0  # 重置计数
+                    updates += 1
+                    if frag_idx in answer_set:
+                        correct += 1
+
+        return {"updates": updates, "correct": correct}
+
+
 class DGDCMSJudge(Method):
     """CMS 三层 DGD + LLM Judge：用更新频率区分时间尺度（非 α 区分）。
 
@@ -298,6 +360,13 @@ def create_method(config: dict) -> Method:
             dim=dgd_cfg.get("dim", 256),
             alpha=dgd_cfg.get("alpha", 1.0),
             eta=dgd_cfg.get("eta", 0.01),
+        )
+    elif name == "dgd_judge_accumulate":
+        return DGDJudgeAccumulate(
+            dim=dgd_cfg.get("dim", 256),
+            alpha=dgd_cfg.get("alpha", 1.0),
+            eta=dgd_cfg.get("eta", 0.01),
+            threshold=dgd_cfg.get("threshold", 3),
         )
     elif name == "dgd_cms_judge":
         return DGDCMSJudge(

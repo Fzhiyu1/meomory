@@ -1,0 +1,51 @@
+# 反馈累积阈值实验：同一关联确认 N 次后才更新 M
+# 在三个数据集上测试，重点看 Friends（噪声最大的）
+
+experiments:
+  - name: accum-t2-bigbang
+    dataset: DialSim-bigbang
+    method: dgd_judge_accumulate
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: deepseek, api_key: "${MEOMORY_LLM_KEY}", model: deepseek-chat }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01, threshold: 2 }
+
+  - name: accum-t3-bigbang
+    dataset: DialSim-bigbang
+    method: dgd_judge_accumulate
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: deepseek, api_key: "${MEOMORY_LLM_KEY}", model: deepseek-chat }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01, threshold: 3 }
+
+  - name: accum-t2-friends
+    dataset: DialSim-friends
+    method: dgd_judge_accumulate
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: deepseek, api_key: "${MEOMORY_LLM_KEY}", model: deepseek-chat }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01, threshold: 2 }
+
+  - name: accum-t3-friends
+    dataset: DialSim-friends
+    method: dgd_judge_accumulate
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: deepseek, api_key: "${MEOMORY_LLM_KEY}", model: deepseek-chat }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01, threshold: 3 }
+
+  - name: accum-t2-theoffice
+    dataset: DialSim-theoffice
+    method: dgd_judge_accumulate
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: deepseek, api_key: "${MEOMORY_LLM_KEY}", model: deepseek-chat }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01, threshold: 2 }
+
+  - name: accum-t3-theoffice
+    dataset: DialSim-theoffice
+    method: dgd_judge_accumulate
+    rounds: 20
+    eval_every: 2
+    llm_backend: { type: deepseek, api_key: "${MEOMORY_LLM_KEY}", model: deepseek-chat }
+    dgd: { dim: 256, alpha: 1.0, eta: 0.01, threshold: 3 }
