@@ -17,25 +17,30 @@ from src.funsearch.specification import INITIAL_IMPLEMENTATION, EVOLVE_FUNCTION_
 
 
 def _eval_in_subprocess(code: str, dataset_name: str, dim: int, alpha: float,
-                        eta: float, n_rounds: int, max_questions: int) -> dict | None:
-    """在子进程中评测一个 update 函数或类。"""
+                        eta: float, n_rounds: int, max_questions: int,
+                        random_offset: int = 0) -> dict | None:
+    """在子进程中评测一个 update 函数或类。
+
+    random_offset > 0 时，从数据集的 offset 位置开始取 max_questions 题（循环取），
+    每次迭代用不同 offset 防止过拟合固定子集。
+    """
     from src.funsearch.sandbox import compile_update_function as _compile_fn
     from src.funsearch.sandbox import compile_class as _compile_cls
     from src.funsearch.evaluator import evaluate_update_fn as _eval
 
     code_stripped = code.strip()
     if code_stripped.startswith("class "):
-        cls = _compile_cls(code_stripped)
-        if cls is None:
+        obj = _compile_cls(code_stripped)
+        if obj is None:
             return None
-        return _eval(cls, dataset_name=dataset_name, dim=dim, alpha=alpha,
-                     eta=eta, n_rounds=n_rounds, max_questions=max_questions)
     else:
-        fn = _compile_fn(code_stripped)
-        if fn is None:
+        obj = _compile_fn(code_stripped)
+        if obj is None:
             return None
-        return _eval(fn, dataset_name=dataset_name, dim=dim, alpha=alpha,
-                     eta=eta, n_rounds=n_rounds, max_questions=max_questions)
+
+    return _eval(obj, dataset_name=dataset_name, dim=dim, alpha=alpha,
+                 eta=eta, n_rounds=n_rounds, max_questions=max_questions,
+                 random_offset=random_offset)
 
 
 class ModelEnsemble:
@@ -232,20 +237,23 @@ async def run_funsearch(
             successes = 0
             EVAL_TIMEOUT = 300  # 5 分钟
 
-            def _eval_with_kill_timeout(code, ds, d, a, e, r, mq, q_out):
+            def _eval_with_kill_timeout(code, ds, d, a, e, r, mq, q_out, offset=0):
                 """在独立进程中评测，结果通过 Queue 返回。"""
                 try:
-                    res = _eval_in_subprocess(code, ds, d, a, e, r, mq)
+                    res = _eval_in_subprocess(code, ds, d, a, e, r, mq, random_offset=offset)
                     q_out.put(res)
                 except Exception:
                     q_out.put(None)
 
             if candidates:
                 procs = []
+                # 每迭代用不同的随机 offset，防止过拟合固定子集
+                iter_offset = iteration * 500  # 每迭代偏移 500 题
                 for prog in candidates:
                     q = Queue()
                     p = Process(target=_eval_with_kill_timeout, args=(
                         prog.code, eval_dataset, dim, alpha, eta, eval_rounds, eval_max_questions, q,
+                        iter_offset,
                     ))
                     p.start()
                     procs.append((prog, p, q))
@@ -302,48 +310,7 @@ async def run_funsearch(
                             except Exception as e:
                                 print(f"    → 全量验证异常: {e}")
 
-            # 自动扩大评测集：基于过拟合比率而非固定阈值
-            if best_ever:
-                full_p1 = best_ever.eval_details.get("full_p1", 0)
-                if full_p1 > 0:
-                    overfit = best_ever.score / full_p1
-                else:
-                    overfit = 1.0
-                scale_thresholds = [
-                    (2.0, 500, 1000),    # 膨胀比 >2x → 切 1000
-                    (1.8, 1000, 1500),   # 膨胀比 >1.8x → 切 1500
-                    (1.5, 1500, 9999),   # 膨胀比 >1.5x → 全量
-                ]
-                for threshold, current_max, next_max in scale_thresholds:
-                    if overfit > threshold and eval_max_questions == current_max:
-                        old_max = eval_max_questions
-                        eval_max_questions = next_max
-                        label = "全量" if next_max >= 9999 else f"{next_max}"
-                        print(f"  ⚡ 评测集自动扩大: {current_max} → {label} 题 (膨胀比={overfit:.1f}x > {threshold}x)")
-
-                        # 重新评测 top-10，用新评测集重新打分
-                        print(f"  ⚡ 重新评测 top-10 程序...")
-                        top_progs = sorted(db.all_programs.values(), key=lambda p: p.score, reverse=True)[:10]
-                        for tp in top_progs:
-                            try:
-                                re_result = _eval_in_subprocess(
-                                    tp.code, eval_dataset, dim, alpha, eta,
-                                    eval_rounds, eval_max_questions,
-                                )
-                                if re_result and not re_result.get("error"):
-                                    old_score = tp.score
-                                    new_spt = re_result.get("scores_per_test", {"overall": re_result["p_at_1"]})
-                                    tp.score = _reduce_score(new_spt)
-                                    tp.scores_per_test = dict(new_spt)
-                                    tp.eval_details.update(re_result)
-                                    print(f"    {tp.id}: {old_score:.1%} → {tp.score:.1%} ({label}题)")
-                            except Exception:
-                                pass
-                        # 重新选 best
-                        best_ever = db.get_best()
-                        db.save()
-                        print(f"  ⚡ 重新评测完成，新 best: {best_ever.score:.1%} ({best_ever.id})")
-                        break
+            # 不再需要自动扩大评测集——每迭代随机 500 题 + NEW BEST 时全量验证
 
             elapsed = time.time() - t0
             best = db.get_best()

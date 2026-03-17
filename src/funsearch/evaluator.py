@@ -98,6 +98,7 @@ def evaluate_update_fn(
     eta: float = 0.01,
     n_rounds: int = 3,
     max_questions: int = 500,
+    random_offset: int = 0,
 ) -> dict:
     """评测一个 update 函数或 AssociativeMemory 类的 P@1。
 
@@ -109,6 +110,7 @@ def evaluate_update_fn(
         dim, alpha, eta: DGD 参数
         n_rounds: GT 反馈轮数
         max_questions: 最多评测多少题
+        random_offset: >0 时从 offset 位置循环取题（防止过拟合固定子集）
 
     Returns:
         {
@@ -119,11 +121,21 @@ def evaluate_update_fn(
     """
     t0 = time.time()
 
-    ds, proj_vecs_np, q_vecs_np, proj_vecs_list, q_vecs_list = _load_dataset_and_embeddings(dataset_name, dim)
+    ds, proj_vecs_np, q_vecs_np_all, proj_vecs_list, q_vecs_list_all = _load_dataset_and_embeddings(dataset_name, dim)
 
-    questions = ds.questions[:max_questions]
-    q_vecs_np = q_vecs_np[:max_questions]
-    q_vecs_list = q_vecs_list[:max_questions]
+    # 随机 offset 取题：从 offset 位置循环取 max_questions 题
+    total_q = len(ds.questions)
+    if random_offset > 0 and max_questions < total_q:
+        import numpy as _np
+        offset = random_offset % total_q
+        indices = [(offset + i) % total_q for i in range(max_questions)]
+        questions = [ds.questions[i] for i in indices]
+        q_vecs_np = q_vecs_np_all[indices]
+        q_vecs_list = [q_vecs_list_all[i] for i in indices]
+    else:
+        questions = ds.questions[:max_questions]
+        q_vecs_np = q_vecs_np_all[:max_questions]
+        q_vecs_list = q_vecs_list_all[:max_questions]
 
     # 判断是函数还是类
     is_class = isinstance(update_fn_or_class, type)
