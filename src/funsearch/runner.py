@@ -283,6 +283,25 @@ async def run_funsearch(
                             print(f"  ★ NEW BEST: {score:.1%} ({prog.id}, model={model})")
                             db.save()
 
+                            # 自动全量验证
+                            print(f"    → 全量验证中...")
+                            try:
+                                full_result = _eval_in_subprocess(
+                                    prog.code, eval_dataset, dim, alpha, eta,
+                                    eval_rounds, 9999,
+                                )
+                                if full_result and not full_result.get("error"):
+                                    full_p1 = full_result["p_at_1"]
+                                    ratio = score / full_p1 if full_p1 > 0 else float('inf')
+                                    print(f"    → 全量 P@1: {full_p1:.1%} (膨胀比: {ratio:.1f}x)")
+                                    prog.eval_details["full_p1"] = full_p1
+                                    prog.eval_details["overfit_ratio"] = round(ratio, 2)
+                                    db.save()
+                                else:
+                                    print(f"    → 全量验证失败")
+                            except Exception as e:
+                                print(f"    → 全量验证异常: {e}")
+
             elapsed = time.time() - t0
             best = db.get_best()
 
