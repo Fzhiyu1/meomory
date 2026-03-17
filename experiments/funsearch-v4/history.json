@@ -1,0 +1,90 @@
+[
+  {
+    "register_count": 1,
+    "total_programs": 1,
+    "best_per_island": [
+      0.268,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "clusters_per_island": [
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "global_best": 0.268,
+    "global_avg": 0.268,
+    "avg_code_length": 1508.0,
+    "timestamp": "2026-03-17 16:10:10"
+  },
+  {
+    "register_count": 22,
+    "total_programs": 22,
+    "best_per_island": [
+      0.268,
+      0.612,
+      0.26,
+      0.724,
+      -1.0
+    ],
+    "clusters_per_island": [
+      4,
+      4,
+      6,
+      6,
+      0
+    ],
+    "global_best": 0.724,
+    "global_avg": 0.157,
+    "avg_code_length": 3231.6363636363635,
+    "timestamp": "2026-03-17 17:25:55"
+  },
+  {
+    "register_count": 34,
+    "total_programs": 34,
+    "best_per_island": [
+      0.268,
+      0.612,
+      0.574,
+      0.794,
+      -1.0
+    ],
+    "clusters_per_island": [
+      4,
+      5,
+      12,
+      8,
+      0
+    ],
+    "global_best": 0.794,
+    "global_avg": 0.21,
+    "avg_code_length": 3519.5588235294117,
+    "timestamp": "2026-03-17 17:55:40"
+  },
+  {
+    "register_count": 50,
+    "total_programs": 50,
+    "best_per_island": [
+      0.612,
+      0.612,
+      0.612,
+      0.794,
+      0.732
+    ],
+    "clusters_per_island": [
+      1,
+      5,
+      1,
+      8,
+      11
+    ],
+    "global_best": 0.794,
+    "global_avg": 0.204,
+    "avg_code_length": 3333.94,
+    "timestamp": "2026-03-17 18:12:46"
+  }
+]

@@ -1,0 +1,1527 @@
+{
+  "all_programs": [
+    {
+      "id": "seed-island0",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    \"\"\"Update the associative memory matrix M.\n\n    Args:\n        M: dim x dim weight matrix (list of lists)\n        key: query vector (list of floats, length dim)\n        target: target vector (list of floats, length dim)\n        dim: dimension\n        alpha: forgetting rate (1.0 = no time decay)\n        eta: learning rate\n\n    Returns:\n        Updated M (modify in-place and return)\n    \"\"\"\n    # Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Standard Hebbian/DGD update\n    for i in range(dim):\n        for j in range(dim):\n            identity_term = alpha if i == j else 0.0\n            forget = M[i][j] * (identity_term - eta * key[i] * key[j])\n            learn = -eta * error[i] * key[j]\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 0,
+      "island_id": 0,
+      "parent_ids": [],
+      "eval_details": {},
+      "created_at": "2026-03-17 11:05:22"
+    },
+    {
+      "id": "seed-island1",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    \"\"\"Update the associative memory matrix M.\n\n    Args:\n        M: dim x dim weight matrix (list of lists)\n        key: query vector (list of floats, length dim)\n        target: target vector (list of floats, length dim)\n        dim: dimension\n        alpha: forgetting rate (1.0 = no time decay)\n        eta: learning rate\n\n    Returns:\n        Updated M (modify in-place and return)\n    \"\"\"\n    # Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Standard Hebbian/DGD update\n    for i in range(dim):\n        for j in range(dim):\n            identity_term = alpha if i == j else 0.0\n            forget = M[i][j] * (identity_term - eta * key[i] * key[j])\n            learn = -eta * error[i] * key[j]\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 0,
+      "island_id": 1,
+      "parent_ids": [],
+      "eval_details": {},
+      "created_at": "2026-03-17 11:05:22"
+    },
+    {
+      "id": "seed-island2",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    \"\"\"Update the associative memory matrix M.\n\n    Args:\n        M: dim x dim weight matrix (list of lists)\n        key: query vector (list of floats, length dim)\n        target: target vector (list of floats, length dim)\n        dim: dimension\n        alpha: forgetting rate (1.0 = no time decay)\n        eta: learning rate\n\n    Returns:\n        Updated M (modify in-place and return)\n    \"\"\"\n    # Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Standard Hebbian/DGD update\n    for i in range(dim):\n        for j in range(dim):\n            identity_term = alpha if i == j else 0.0\n            forget = M[i][j] * (identity_term - eta * key[i] * key[j])\n            learn = -eta * error[i] * key[j]\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 0,
+      "island_id": 2,
+      "parent_ids": [],
+      "eval_details": {},
+      "created_at": "2026-03-17 11:05:22"
+    },
+    {
+      "id": "seed-island3",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    \"\"\"Update the associative memory matrix M.\n\n    Args:\n        M: dim x dim weight matrix (list of lists)\n        key: query vector (list of floats, length dim)\n        target: target vector (list of floats, length dim)\n        dim: dimension\n        alpha: forgetting rate (1.0 = no time decay)\n        eta: learning rate\n\n    Returns:\n        Updated M (modify in-place and return)\n    \"\"\"\n    # Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Standard Hebbian/DGD update\n    for i in range(dim):\n        for j in range(dim):\n            identity_term = alpha if i == j else 0.0\n            forget = M[i][j] * (identity_term - eta * key[i] * key[j])\n            learn = -eta * error[i] * key[j]\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 0,
+      "island_id": 3,
+      "parent_ids": [],
+      "eval_details": {},
+      "created_at": "2026-03-17 11:05:22"
+    },
+    {
+      "id": "seed-island4",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    \"\"\"Update the associative memory matrix M.\n\n    Args:\n        M: dim x dim weight matrix (list of lists)\n        key: query vector (list of floats, length dim)\n        target: target vector (list of floats, length dim)\n        dim: dimension\n        alpha: forgetting rate (1.0 = no time decay)\n        eta: learning rate\n\n    Returns:\n        Updated M (modify in-place and return)\n    \"\"\"\n    # Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Standard Hebbian/DGD update\n    for i in range(dim):\n        for j in range(dim):\n            identity_term = alpha if i == j else 0.0\n            forget = M[i][j] * (identity_term - eta * key[i] * key[j])\n            learn = -eta * error[i] * key[j]\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 0,
+      "island_id": 4,
+      "parent_ids": [],
+      "eval_details": {},
+      "created_at": "2026-03-17 11:05:22"
+    },
+    {
+      "id": "gen001-island3-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error: activation - target\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # Forgetting term: (alpha * delta_ij - eta * ki * kj) * M[i][j]\n            forget = (alpha if i == j else 0.0) - eta * ki * kj\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * ei * kj\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 1,
+      "island_id": 3,
+      "parent_ids": [
+        "seed-island3"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 69.08321523666382,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:05:30"
+    },
+    {
+      "id": "gen001-island3-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Precompute key squared norm\n    key_norm_sq = sum(k * k for k in key)\n    # Adaptive learning rate scaling\n    scale = 1.0 / (1.0 + key_norm_sq) if key_norm_sq > 0 else 1.0\n    eta_scaled = eta * scale\n    # Update matrix\n    for i in range(dim):\n        for j in range(dim):\n            # Forgetting term: decay toward alpha * identity\n            forget = M[i][j] * (alpha - eta_scaled * key[i] * key[j]) if i == j else M[i][j] * (1.0 - eta_scaled * key[i] * key[j])\n            # Learning term: error-driven update\n            learn = -eta_scaled * error[i] * key[j]\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.3,
+      "generation": 1,
+      "island_id": 3,
+      "parent_ids": [
+        "seed-island3"
+      ],
+      "eval_details": {
+        "p_at_1": 0.3,
+        "p_at_3": 0.396,
+        "p_at_5": 0.466,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.272,
+            "p_at_3": 0.39,
+            "p_at_5": 0.432
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.294,
+            "p_at_3": 0.39,
+            "p_at_5": 0.452
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.3,
+            "p_at_3": 0.396,
+            "p_at_5": 0.466
+          }
+        ],
+        "elapsed": 72.40552186965942,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:06:48"
+    },
+    {
+      "id": "gen002-island0-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute scaled key for forgetting term\n    scaled_key = [eta * key[i] for i in range(dim)]\n    \n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        ski = scaled_key[i]\n        for j in range(dim):\n            # Forgetting term: M[i][j] * (delta - eta * key[i] * key[j])\n            forget = row[j] * (alpha if i == j else 0.0 - ski * key[j])\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * ei * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.26,
+      "generation": 2,
+      "island_id": 0,
+      "parent_ids": [
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.26,
+        "p_at_3": 0.376,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.63304305076599,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:08:09"
+    },
+    {
+      "id": "gen002-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            forget = alpha if i == j else 0.0\n            row[j] = row[j] * forget - eta * (ei * kj + ki * kj * row[j])\n    return M",
+      "score": 0.258,
+      "generation": 2,
+      "island_id": 0,
+      "parent_ids": [
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.305584192276,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:09:25"
+    },
+    {
+      "id": "gen003-island3-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Compute key norm squared\n    key_norm_sq = sum(k * k for k in key)\n    # Adaptive learning rate scaling\n    scale = 1.0 / (1.0 + key_norm_sq) if key_norm_sq > 0 else 1.0\n    eta_scaled = eta * scale\n    # Update matrix\n    for i in range(dim):\n        for j in range(dim):\n            # Forgetting term: decay toward identity scaled by alpha\n            forget = M[i][j] * (alpha - eta_scaled * key[i] * key[j]) if i == j else M[i][j] * (1.0 - eta_scaled * key[i] * key[j])\n            # Learning term: error-driven update\n            learn = -eta_scaled * error[i] * key[j]\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.3,
+      "generation": 3,
+      "island_id": 3,
+      "parent_ids": [
+        "gen001-island3-001",
+        "seed-island3"
+      ],
+      "eval_details": {
+        "p_at_1": 0.3,
+        "p_at_3": 0.396,
+        "p_at_5": 0.466,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.272,
+            "p_at_3": 0.39,
+            "p_at_5": 0.432
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.294,
+            "p_at_3": 0.39,
+            "p_at_5": 0.452
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.3,
+            "p_at_3": 0.396,
+            "p_at_5": 0.466
+          }
+        ],
+        "elapsed": 72.71927404403687,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:10:49"
+    },
+    {
+      "id": "gen004-island4-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error: activation - target\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key squared norm for forgetting term\n    key_norm_sq = sum(key[i] * key[i] for i in range(dim))\n    \n    # Update matrix\n    for i in range(dim):\n        row = M[i]\n        e_i = error[i]\n        k_i = key[i]\n        for j in range(dim):\n            # Forgetting term: M[i][j] * (alpha * delta_ij - eta * key[i] * key[j])\n            forget = row[j] * (alpha if i == j else 0.0 - eta * k_i * key[j])\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * e_i * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.26,
+      "generation": 4,
+      "island_id": 4,
+      "parent_ids": [
+        "seed-island4"
+      ],
+      "eval_details": {
+        "p_at_1": 0.26,
+        "p_at_3": 0.376,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 70.15716600418091,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:12:10"
+    },
+    {
+      "id": "gen004-island4-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key squared norm\n    key_norm2 = sum(k * k for k in key)\n    \n    # Update\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # Forgetting term: (alpha - eta * ki * kj) * M[i][j]\n            # Learning term: -eta * ei * kj\n            row[j] = (alpha - eta * ki * kj) * row[j] - eta * ei * kj\n    return M",
+      "score": 0.306,
+      "generation": 4,
+      "island_id": 4,
+      "parent_ids": [
+        "seed-island4"
+      ],
+      "eval_details": {
+        "p_at_1": 0.306,
+        "p_at_3": 0.412,
+        "p_at_5": 0.488,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.294,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.404,
+            "p_at_5": 0.472
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.306,
+            "p_at_3": 0.412,
+            "p_at_5": 0.488
+          }
+        ],
+        "elapsed": 67.49049806594849,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:13:29"
+    },
+    {
+      "id": "gen007-island1-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error = activation - target\n    error = [0.0] * dim\n    for i in range(dim):\n        error[i] = activation[i] - target[i]\n    \n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # Forgetting term: M[i][j] * (alpha * delta_ij - eta * ki * kj)\n            forget = row[j] * (alpha if i == j else 0.0 - eta * ki * kj)\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * ei * kj\n            row[j] = forget + learn\n    return M",
+      "score": 0.26,
+      "generation": 7,
+      "island_id": 1,
+      "parent_ids": [
+        "seed-island1"
+      ],
+      "eval_details": {
+        "p_at_1": 0.26,
+        "p_at_3": 0.376,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 69.00594472885132,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:15:09"
+    },
+    {
+      "id": "gen007-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key squared norm\n    key_norm2 = sum(k * k for k in key)\n    if key_norm2 == 0:\n        return M\n    \n    # Compute delta = error / (key_norm2 + epsilon)\n    epsilon = 1e-12\n    scale = 1.0 / (key_norm2 + epsilon)\n    delta = [error[i] * scale for i in range(dim)]\n    \n    # Update M\n    for i in range(dim):\n        row = M[i]\n        di = delta[i]\n        ki = key[i]\n        for j in range(dim):\n            # Forgetting term: alpha only on diagonal\n            forget = alpha if i == j else 0.0\n            # Learning term: -eta * delta[i] * key[j]\n            learn = -eta * di * key[j]\n            # Update\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.26,
+      "generation": 7,
+      "island_id": 1,
+      "parent_ids": [
+        "seed-island1"
+      ],
+      "eval_details": {
+        "p_at_1": 0.26,
+        "p_at_3": 0.376,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 67.19862103462219,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:16:27"
+    },
+    {
+      "id": "gen008-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key outer product factor\n    key_outer_factor = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        ki = key[i]\n        for j in range(dim):\n            s += M[i][j] * key[j]\n        key_outer_factor[i] = s * ki\n    \n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        kofi = key_outer_factor[i]\n        for j in range(dim):\n            kj = key[j]\n            # Forgetting term: alpha on diagonal, minus eta * ki * kj\n            forget = alpha if i == j else 0.0\n            # Learning term: -eta * (error[i] * key[j] + key[i] * (M @ key)[j])\n            learn = -eta * (ei * kj + ki * activation[j])\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 8,
+      "island_id": 1,
+      "parent_ids": [
+        "gen007-island1-000",
+        "gen007-island1-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.426,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.426
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.426
+          }
+        ],
+        "elapsed": 70.84702825546265,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:17:50"
+    },
+    {
+      "id": "gen010-island1-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error = activation - target\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute key outer product factor for forgetting\n    # and error-key outer product for learning\n    for i in range(dim):\n        row = M[i]\n        ki = key[i]\n        ei = error[i]\n        for j in range(dim):\n            # Forgetting: decay diagonal by alpha, subtract eta * (key * key^T) component\n            forget = alpha if i == j else 0.0\n            forget -= eta * ki * key[j]\n            # Learning: gradient descent term\n            learn = -eta * ei * key[j]\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 10,
+      "island_id": 1,
+      "parent_ids": [
+        "gen007-island1-000",
+        "gen007-island1-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.57357740402222,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:19:22"
+    },
+    {
+      "id": "gen010-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error = activation - target\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key outer product factor\n    key_outer_factor = eta * sum(key[i] * key[i] for i in range(dim))\n    \n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # Forgetting term: alpha on diagonal, subtract eta * ki * kj elsewhere\n            forget = alpha if i == j else 0.0\n            forget -= eta * ki * kj\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * ei * kj\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 10,
+      "island_id": 1,
+      "parent_ids": [
+        "gen007-island1-000",
+        "gen007-island1-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 69.59842586517334,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:20:40"
+    },
+    {
+      "id": "gen013-island1-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key squared norm\n    key_norm2 = 0.0\n    for k in key:\n        key_norm2 += k * k\n    \n    # Compute delta = error / (key_norm2 + epsilon)\n    epsilon = 1e-12\n    if key_norm2 < epsilon:\n        return M\n    scale = 1.0 / (key_norm2 + epsilon)\n    delta = [0.0] * dim\n    for i in range(dim):\n        delta[i] = error[i] * scale\n    \n    # Update M\n    for i in range(dim):\n        row = M[i]\n        di = delta[i]\n        ki = key[i]\n        for j in range(dim):\n            # Forgetting term: alpha only on diagonal\n            forget = alpha if i == j else 0.0\n            # Learning term: -eta * delta[i] * key[j]\n            learn = -eta * di * key[j]\n            # Update\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.26,
+      "generation": 13,
+      "island_id": 1,
+      "parent_ids": [
+        "gen007-island1-001",
+        "seed-island1"
+      ],
+      "eval_details": {
+        "p_at_1": 0.26,
+        "p_at_3": 0.376,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 66.44082689285278,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:22:27"
+    },
+    {
+      "id": "gen013-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            # Forgetting term: alpha only on diagonal\n            forget = alpha if i == j else 0.0\n            # Learning term: -eta * (error[i] * key[j] + key[i] * key[j] * M[i][j])\n            learn = -eta * (ei * key[j] + ki * key[j] * row[j])\n            # Update\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 13,
+      "island_id": 1,
+      "parent_ids": [
+        "gen007-island1-001",
+        "seed-island1"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 67.98121809959412,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:23:41"
+    },
+    {
+      "id": "gen017-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute eta * key[i] for efficiency\n    eta_key = [eta * key[i] for i in range(dim)]\n    \n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        err_i = error[i]\n        key_i = key[i]\n        eta_key_i = eta_key[i]\n        for j in range(dim):\n            # Forgetting term: M[i][j] * (delta - eta * key[i] * key[j])\n            delta = alpha if i == j else 0.0\n            forget = row[j] * (delta - eta_key_i * key[j])\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * err_i * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 17,
+      "island_id": 0,
+      "parent_ids": [
+        "seed-island0",
+        "gen002-island0-000"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.93667817115784,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:25:50"
+    },
+    {
+      "id": "gen019-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute scaled key for forgetting term\n    scaled_key = [eta * key[i] for i in range(dim)]\n    \n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        ski = scaled_key[i]\n        for j in range(dim):\n            # Forgetting term: M[i][j] * (delta - eta * key[i] * key[j])\n            forget = row[j] * ((alpha if i == j else 0.0) - ski * key[j])\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * ei * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 19,
+      "island_id": 0,
+      "parent_ids": [
+        "seed-island0",
+        "gen002-island0-000"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.04390501976013,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:27:29"
+    },
+    {
+      "id": "gen020-island0-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute eta * key[i] for forgetting term\n    eta_key = [eta * key[i] for i in range(dim)]\n\n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        eki = eta_key[i]\n        for j in range(dim):\n            # Forgetting term: M[i][j] * (delta - eta * key[i] * key[j])\n            delta = alpha if i == j else 0.0\n            forget = row[j] * (delta - eki * key[j])\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * ei * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 20,
+      "island_id": 0,
+      "parent_ids": [
+        "gen002-island0-000",
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.8946943283081,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:28:46"
+    },
+    {
+      "id": "gen022-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            # Forgetting term: alpha only on diagonal\n            forget = alpha if i == j else 0.0\n            # Learning term: -eta * (error[i] * key[j] + key[i] * key[j] * M[i][j])\n            learn = -eta * (ei * key[j] + ki * key[j] * row[j])\n            # Update\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 22,
+      "island_id": 1,
+      "parent_ids": [
+        "gen007-island1-001",
+        "seed-island1"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.90807104110718,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:30:31"
+    },
+    {
+      "id": "gen023-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error = activation - target\n    error = [0.0] * dim\n    for i in range(dim):\n        error[i] = activation[i] - target[i]\n\n    # Compute key squared norm\n    key_norm2 = 0.0\n    for v in key:\n        key_norm2 += v * v\n\n    # Compute delta = error / (key_norm2 + epsilon)\n    epsilon = 1e-12\n    if key_norm2 < epsilon:\n        return M\n    scale = 1.0 / (key_norm2 + epsilon)\n    delta = [0.0] * dim\n    for i in range(dim):\n        delta[i] = error[i] * scale\n\n    # Update M\n    for i in range(dim):\n        row = M[i]\n        di = delta[i]\n        ki = key[i]\n        for j in range(dim):\n            # Forgetting term: alpha only on diagonal\n            forget = alpha if i == j else 0.0\n            # Learning term: -eta * delta[i] * key[j]\n            learn = -eta * di * key[j]\n            # Update\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.26,
+      "generation": 23,
+      "island_id": 1,
+      "parent_ids": [
+        "gen013-island1-000",
+        "gen007-island1-000"
+      ],
+      "eval_details": {
+        "p_at_1": 0.26,
+        "p_at_3": 0.376,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 67.12757706642151,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:31:58"
+    },
+    {
+      "id": "gen024-island4-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Update matrix\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # DGD update: M_ij = α M_ij - η (M_ij * ki * kj + ei * kj)\n            row[j] = alpha * row[j] - eta * (row[j] * ki * kj + ei * kj)\n    return M",
+      "score": 0.306,
+      "generation": 24,
+      "island_id": 4,
+      "parent_ids": [
+        "gen004-island4-000",
+        "gen004-island4-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.306,
+        "p_at_3": 0.412,
+        "p_at_5": 0.488,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.294,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.404,
+            "p_at_5": 0.472
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.306,
+            "p_at_3": 0.412,
+            "p_at_5": 0.488
+          }
+        ],
+        "elapsed": 67.59963893890381,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:33:19"
+    },
+    {
+      "id": "gen027-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key squared norm\n    key_norm2 = sum(k * k for k in key)\n    if key_norm2 == 0:\n        return M\n    \n    # Compute delta = error / (key_norm2 + epsilon)\n    epsilon = 1e-12\n    scale = 1.0 / (key_norm2 + epsilon)\n    delta = [error[i] * scale for i in range(dim)]\n    \n    # Update M\n    for i in range(dim):\n        row = M[i]\n        di = delta[i]\n        for j in range(dim):\n            # Forgetting term: alpha only on diagonal\n            forget = alpha if i == j else 0.0\n            # Learning term: -eta * delta[i] * key[j]\n            learn = -eta * di * key[j]\n            # Update\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.26,
+      "generation": 27,
+      "island_id": 1,
+      "parent_ids": [
+        "gen007-island1-001",
+        "gen007-island1-000"
+      ],
+      "eval_details": {
+        "p_at_1": 0.26,
+        "p_at_3": 0.376,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 67.13925671577454,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:35:13"
+    },
+    {
+      "id": "gen028-island0-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute scaled key for forgetting term\n    scaled_key = [eta * key[i] for i in range(dim)]\n    \n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        ski = scaled_key[i]\n        for j in range(dim):\n            # Forgetting term: M[i][j] * (delta - eta * key[i] * key[j])\n            forget = row[j] * ((alpha if i == j else 0.0) - ski * key[j])\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * ei * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 28,
+      "island_id": 0,
+      "parent_ids": [
+        "gen002-island0-000",
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.28916096687317,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:36:28"
+    },
+    {
+      "id": "gen028-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute scaled key for forgetting term\n    scaled_key = [eta * key[i] for i in range(dim)]\n\n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        ski = scaled_key[i]\n        for j in range(dim):\n            # Forgetting term: M[i][j] * (delta - eta * key[i] * key[j])\n            forget = row[j] * ((alpha if i == j else 0.0) - ski * key[j])\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * ei * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 28,
+      "island_id": 0,
+      "parent_ids": [
+        "gen002-island0-000",
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.90586590766907,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:37:45"
+    },
+    {
+      "id": "gen032-island2-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Precompute key norms and scaling\n    key_norm_sq = sum(k * k for k in key)\n    scale = 1.0 / (1.0 + key_norm_sq) if key_norm_sq > 0 else 1.0\n    # Update\n    for i in range(dim):\n        for j in range(dim):\n            forget = alpha * M[i][j] if i == j else M[i][j]\n            learn = -eta * error[i] * key[j] * scale\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.298,
+      "generation": 32,
+      "island_id": 2,
+      "parent_ids": [
+        "seed-island2"
+      ],
+      "eval_details": {
+        "p_at_1": 0.298,
+        "p_at_3": 0.4,
+        "p_at_5": 0.464,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.272,
+            "p_at_3": 0.39,
+            "p_at_5": 0.436
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.292,
+            "p_at_3": 0.39,
+            "p_at_5": 0.452
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.298,
+            "p_at_3": 0.4,
+            "p_at_5": 0.464
+          }
+        ],
+        "elapsed": 69.71796679496765,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:39:46"
+    },
+    {
+      "id": "gen032-island2-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    # Precompute key squared norm\n    key_norm2 = sum(k * k for k in key)\n    # Adaptive scaling factor\n    scale = 1.0 / (1.0 + key_norm2) if key_norm2 > 0 else 1.0\n    # Update\n    for i in range(dim):\n        for j in range(dim):\n            forget = alpha * M[i][j] - eta * scale * activation[i] * key[j]\n            learn = eta * scale * target[i] * key[j]\n            M[i][j] = forget + learn\n    return M",
+      "score": 0.298,
+      "generation": 32,
+      "island_id": 2,
+      "parent_ids": [
+        "seed-island2"
+      ],
+      "eval_details": {
+        "p_at_1": 0.298,
+        "p_at_3": 0.4,
+        "p_at_5": 0.464,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.272,
+            "p_at_3": 0.39,
+            "p_at_5": 0.436
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.292,
+            "p_at_3": 0.39,
+            "p_at_5": 0.452
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.298,
+            "p_at_3": 0.4,
+            "p_at_5": 0.464
+          }
+        ],
+        "elapsed": 72.48901319503784,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:41:03"
+    },
+    {
+      "id": "gen034-island0-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute key squared terms for diagonal\n    key_sq = [key[i] * key[i] for i in range(dim)]\n\n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            if i == j:\n                # Diagonal: special forgetting + decay\n                row[j] = row[j] * alpha - eta * (ei * kj + key_sq[i] * row[j])\n            else:\n                # Off-diagonal: only decay from key interaction\n                row[j] = row[j] - eta * (ei * kj + ki * kj * row[j])\n    return M",
+      "score": 0.306,
+      "generation": 34,
+      "island_id": 0,
+      "parent_ids": [
+        "gen002-island0-001",
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.306,
+        "p_at_3": 0.412,
+        "p_at_5": 0.488,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.294,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.404,
+            "p_at_5": 0.472
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.306,
+            "p_at_3": 0.412,
+            "p_at_5": 0.488
+          }
+        ],
+        "elapsed": 67.59776997566223,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:42:37"
+    },
+    {
+      "id": "gen034-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        Mi = M[i]\n        for j in range(dim):\n            s += Mi[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Update M\n    for i in range(dim):\n        Mi = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # Forgetting: only diagonal decays\n            forget = alpha if i == j else 1.0\n            # DGD update: -eta * (error_i * key_j + key_i * key_j * M_ij)\n            Mi[j] = forget * Mi[j] - eta * (ei * kj + ki * kj * Mi[j])\n    return M",
+      "score": 0.306,
+      "generation": 34,
+      "island_id": 0,
+      "parent_ids": [
+        "gen002-island0-001",
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.306,
+        "p_at_3": 0.412,
+        "p_at_5": 0.488,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.294,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.404,
+            "p_at_5": 0.472
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.306,
+            "p_at_3": 0.412,
+            "p_at_5": 0.488
+          }
+        ],
+        "elapsed": 68.44727301597595,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:43:52"
+    },
+    {
+      "id": "gen036-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error = activation - target\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Compute key squared norm\n    key_norm2 = 0.0\n    for v in key:\n        key_norm2 += v * v\n\n    # Early return if key norm is zero\n    if key_norm2 < 1e-12:\n        return M\n\n    # Compute delta = error / key_norm2\n    inv_norm2 = 1.0 / key_norm2\n    delta = [error[i] * inv_norm2 for i in range(dim)]\n\n    # Update M\n    for i in range(dim):\n        row = M[i]\n        di = delta[i]\n        for j in range(dim):\n            # Forgetting term: alpha only on diagonal\n            if i == j:\n                row[j] = row[j] * alpha - eta * di * key[j]\n            else:\n                row[j] = row[j] - eta * di * key[j]\n    return M",
+      "score": 0.312,
+      "generation": 36,
+      "island_id": 1,
+      "parent_ids": [
+        "gen023-island1-001",
+        "gen027-island1-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.312,
+        "p_at_3": 0.412,
+        "p_at_5": 0.486,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.292,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.4,
+            "p_at_5": 0.47
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.312,
+            "p_at_3": 0.412,
+            "p_at_5": 0.486
+          }
+        ],
+        "elapsed": 65.7822949886322,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:45:33"
+    },
+    {
+      "id": "gen037-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute eta * key[j] for j\n    eta_key = [eta * key[j] for j in range(dim)]\n\n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        # Diagonal forgetting factor\n        diag_factor = alpha - eta * ki * key[i]\n        off_factor = -eta * ki\n        for j in range(dim):\n            if i == j:\n                forget = row[j] * diag_factor\n            else:\n                forget = row[j] * off_factor * key[j]\n            learn = -ei * eta_key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 37,
+      "island_id": 0,
+      "parent_ids": [
+        "seed-island0",
+        "gen002-island0-000"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 67.09166717529297,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:46:54"
+    },
+    {
+      "id": "gen039-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Update M\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # Combined update: forget + learn\n            row[j] = row[j] * (alpha if i == j else 0.0) - eta * (ei * kj + ki * kj * row[j])\n    return M",
+      "score": 0.258,
+      "generation": 39,
+      "island_id": 0,
+      "parent_ids": [
+        "seed-island0",
+        "gen002-island0-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 68.25947499275208,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:48:26"
+    },
+    {
+      "id": "gen061-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute eta * key[j] for learning term\n    eta_key = [eta * key[j] for j in range(dim)]\n\n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        err_i = error[i]\n        key_i = key[i]\n        # Forgetting term: M[i][j] * (delta_ij - eta * key[i] * key[j])\n        # Learning term: -eta * error[i] * key[j]\n        for j in range(dim):\n            delta = 1.0 if i == j else 0.0\n            forget_factor = delta - eta * key_i * key[j]\n            row[j] = row[j] * forget_factor - eta_key[j] * err_i\n    return M",
+      "score": 0.258,
+      "generation": 61,
+      "island_id": 0,
+      "parent_ids": [
+        "gen017-island0-001",
+        "gen002-island0-000"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 67.6511287689209,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:54:34"
+    },
+    {
+      "id": "gen065-island0-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute eta * key[i] for efficiency\n    eta_key = [eta * key[i] for i in range(dim)]\n    \n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        err_i = error[i]\n        key_i = key[i]\n        eta_key_i = eta_key[i]\n        for j in range(dim):\n            # Forgetting term: M[i][j] * (delta - eta * key[i] * key[j])\n            delta = alpha if i == j else 0.0\n            forget = row[j] * (delta - eta_key_i * key[j])\n            # Learning term: -eta * error[i] * key[j]\n            learn = -eta * err_i * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 65,
+      "island_id": 0,
+      "parent_ids": [
+        "gen017-island0-001",
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 69.55528998374939,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:56:27"
+    },
+    {
+      "id": "gen065-island0-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute eta * key[j] for efficiency\n    eta_key = [eta * key[j] for j in range(dim)]\n    \n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        err_i = error[i]\n        key_i = key[i]\n        for j in range(dim):\n            delta = alpha if i == j else 0.0\n            forget = row[j] * (delta - key_i * eta_key[j])\n            learn = -eta * err_i * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 65,
+      "island_id": 0,
+      "parent_ids": [
+        "gen017-island0-001",
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 69.29447865486145,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:57:44"
+    },
+    {
+      "id": "gen069-island1-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute key squared norm\n    key_norm2 = sum(k * k for k in key)\n    if key_norm2 == 0:\n        # Apply only forgetting if key is zero\n        for i in range(dim):\n            M[i][i] *= alpha\n        return M\n\n    # Compute delta = error / key_norm2\n    inv_norm2 = 1.0 / key_norm2\n    delta = [error[i] * inv_norm2 for i in range(dim)]\n\n    # Update M\n    for i in range(dim):\n        row = M[i]\n        di = delta[i]\n        ki = key[i]\n        for j in range(dim):\n            # Forgetting on diagonal\n            forget = alpha if i == j else 1.0\n            # DGD learning term: -eta * delta[i] * key[j]\n            learn = -eta * di * key[j]\n            row[j] = row[j] * forget + learn\n    return M",
+      "score": 0.312,
+      "generation": 69,
+      "island_id": 1,
+      "parent_ids": [
+        "gen027-island1-001",
+        "gen007-island1-000"
+      ],
+      "eval_details": {
+        "p_at_1": 0.312,
+        "p_at_3": 0.412,
+        "p_at_5": 0.486,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.292,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.4,
+            "p_at_5": 0.47
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.312,
+            "p_at_3": 0.412,
+            "p_at_5": 0.486
+          }
+        ],
+        "elapsed": 67.21375727653503,
+        "error": false
+      },
+      "created_at": "2026-03-17 11:59:46"
+    },
+    {
+      "id": "gen076-island4-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute key outer product scaling factor\n    # DGD update: M <- αM - η( (key @ key.T) * M + error @ key.T )\n    # Compute (key @ key.T) * M efficiently per element\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # Combined update: αM[i][j] - η*(ki*kj*M[i][j] + ei*kj)\n            row[j] = alpha * row[j] - eta * (ki * kj * row[j] + ei * kj)\n    return M",
+      "score": 0.306,
+      "generation": 76,
+      "island_id": 4,
+      "parent_ids": [
+        "gen024-island4-001",
+        "gen004-island4-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.306,
+        "p_at_3": 0.412,
+        "p_at_5": 0.488,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.294,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.404,
+            "p_at_5": 0.472
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.306,
+            "p_at_3": 0.412,
+            "p_at_5": 0.488
+          }
+        ],
+        "elapsed": 68.30995392799377,
+        "error": false
+      },
+      "created_at": "2026-03-17 12:02:28"
+    },
+    {
+      "id": "gen081-island4-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key outer product scaling factor\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            kj = key[j]\n            # Original DGD: M_ij <- αM_ij - η(M_ij * ki * kj + ei * kj)\n            row[j] = alpha * row[j] - eta * (row[j] * ki * kj + ei * kj)\n    return M",
+      "score": 0.306,
+      "generation": 81,
+      "island_id": 4,
+      "parent_ids": [
+        "gen004-island4-001",
+        "gen024-island4-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.306,
+        "p_at_3": 0.412,
+        "p_at_5": 0.488,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.294,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.404,
+            "p_at_5": 0.472
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.306,
+            "p_at_3": 0.412,
+            "p_at_5": 0.488
+          }
+        ],
+        "elapsed": 68.19134998321533,
+        "error": false
+      },
+      "created_at": "2026-03-17 12:04:39"
+    },
+    {
+      "id": "gen093-island0-000",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n    \n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n    \n    # Precompute key products and scaled key\n    key_key = [[0.0] * dim for _ in range(dim)]\n    for i in range(dim):\n        for j in range(dim):\n            key_key[i][j] = key[i] * key[j]\n    \n    eta_key = [eta * key[j] for j in range(dim)]\n    \n    # Update M in-place\n    for i in range(dim):\n        row = M[i]\n        err_i = error[i]\n        for j in range(dim):\n            delta = alpha if i == j else 0.0\n            forget = row[j] * (delta - eta * key_key[i][j])\n            learn = -eta * err_i * key[j]\n            row[j] = forget + learn\n    return M",
+      "score": 0.258,
+      "generation": 93,
+      "island_id": 0,
+      "parent_ids": [
+        "gen017-island0-001",
+        "seed-island0"
+      ],
+      "eval_details": {
+        "p_at_1": 0.258,
+        "p_at_3": 0.378,
+        "p_at_5": 0.424,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.376,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.258,
+            "p_at_3": 0.378,
+            "p_at_5": 0.424
+          }
+        ],
+        "elapsed": 72.91627097129822,
+        "error": false
+      },
+      "created_at": "2026-03-17 12:08:32"
+    },
+    {
+      "id": "gen099-island4-001",
+      "code": "def dgd_update(M, key, target, dim, alpha, eta):\n# Compute activation: M @ key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    # Precompute key outer product scaling factors\n    key_outer = [[key[i] * key[j] for j in range(dim)] for i in range(dim)]\n\n    # Update matrix\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        for j in range(dim):\n            # DGD update: M_ij = α M_ij - η (M_ij * key_i * key_j + error_i * key_j)\n            row[j] = alpha * row[j] - eta * (row[j] * key_outer[i][j] + ei * key[j])\n    return M",
+      "score": 0.306,
+      "generation": 99,
+      "island_id": 4,
+      "parent_ids": [
+        "gen024-island4-001",
+        "gen004-island4-001"
+      ],
+      "eval_details": {
+        "p_at_1": 0.306,
+        "p_at_3": 0.412,
+        "p_at_5": 0.488,
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.294,
+            "p_at_3": 0.388,
+            "p_at_5": 0.456
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.306,
+            "p_at_3": 0.404,
+            "p_at_5": 0.472
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.306,
+            "p_at_3": 0.412,
+            "p_at_5": 0.488
+          }
+        ],
+        "elapsed": 70.28459596633911,
+        "error": false
+      },
+      "created_at": "2026-03-17 12:11:07"
+    }
+  ],
+  "register_count": 43
+}

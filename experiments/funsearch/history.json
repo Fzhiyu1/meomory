@@ -1,0 +1,324 @@
+[
+  {
+    "register_count": 5,
+    "total_programs": 5,
+    "best_per_island": [
+      0.258,
+      0.258,
+      0.258,
+      0.258,
+      0.258
+    ],
+    "global_best": 0.258,
+    "global_avg": 0.258,
+    "timestamp": "2026-03-17 11:05:22"
+  },
+  {
+    "register_count": 7,
+    "total_programs": 7,
+    "best_per_island": [
+      0.258,
+      0.258,
+      0.258,
+      0.3,
+      0.258
+    ],
+    "global_best": 0.3,
+    "global_avg": 0.264,
+    "timestamp": "2026-03-17 11:08:01"
+  },
+  {
+    "register_count": 12,
+    "total_programs": 12,
+    "best_per_island": [
+      0.26,
+      0.258,
+      0.258,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.306,
+    "global_avg": 0.26933333333333337,
+    "timestamp": "2026-03-17 11:14:48"
+  },
+  {
+    "register_count": 17,
+    "total_programs": 17,
+    "best_per_island": [
+      0.26,
+      0.26,
+      0.258,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.306,
+    "global_avg": 0.26623529411764707,
+    "timestamp": "2026-03-17 11:21:49"
+  },
+  {
+    "register_count": 19,
+    "total_programs": 19,
+    "best_per_island": [
+      0.26,
+      0.26,
+      0.258,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.306,
+    "global_avg": 0.26547368421052636,
+    "timestamp": "2026-03-17 11:25:19"
+  },
+  {
+    "register_count": 22,
+    "total_programs": 22,
+    "best_per_island": [
+      0.26,
+      0.26,
+      0.258,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.306,
+    "global_avg": 0.2644545454545455,
+    "timestamp": "2026-03-17 11:30:02"
+  },
+  {
+    "register_count": 25,
+    "total_programs": 25,
+    "best_per_island": [
+      0.26,
+      0.26,
+      0.258,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.306,
+    "global_avg": 0.26568,
+    "timestamp": "2026-03-17 11:34:42"
+  },
+  {
+    "register_count": 28,
+    "total_programs": 28,
+    "best_per_island": [
+      0.26,
+      0.26,
+      0.258,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.306,
+    "global_avg": 0.26492857142857146,
+    "timestamp": "2026-03-17 11:39:23"
+  },
+  {
+    "register_count": 32,
+    "total_programs": 32,
+    "best_per_island": [
+      0.306,
+      0.26,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.306,
+    "global_avg": 0.2695625,
+    "timestamp": "2026-03-17 11:45:16"
+  },
+  {
+    "register_count": 35,
+    "total_programs": 35,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.27011428571428575,
+    "timestamp": "2026-03-17 11:49:46"
+  },
+  {
+    "register_count": 35,
+    "total_programs": 35,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.27011428571428575,
+    "timestamp": "2026-03-17 11:50:55"
+  },
+  {
+    "register_count": 35,
+    "total_programs": 35,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.27011428571428575,
+    "timestamp": "2026-03-17 11:51:58"
+  },
+  {
+    "register_count": 35,
+    "total_programs": 35,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.27011428571428575,
+    "timestamp": "2026-03-17 11:53:08"
+  },
+  {
+    "register_count": 35,
+    "total_programs": 35,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.27011428571428575,
+    "timestamp": "2026-03-17 11:54:19"
+  },
+  {
+    "register_count": 38,
+    "total_programs": 38,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.2691578947368421,
+    "timestamp": "2026-03-17 11:58:53"
+  },
+  {
+    "register_count": 39,
+    "total_programs": 39,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.2702564102564103,
+    "timestamp": "2026-03-17 12:01:06"
+  },
+  {
+    "register_count": 39,
+    "total_programs": 39,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.2702564102564103,
+    "timestamp": "2026-03-17 12:02:14"
+  },
+  {
+    "register_count": 40,
+    "total_programs": 40,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.27115,
+    "timestamp": "2026-03-17 12:04:32"
+  },
+  {
+    "register_count": 41,
+    "total_programs": 41,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.272,
+    "timestamp": "2026-03-17 12:06:49"
+  },
+  {
+    "register_count": 41,
+    "total_programs": 41,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.272,
+    "timestamp": "2026-03-17 12:07:54"
+  },
+  {
+    "register_count": 42,
+    "total_programs": 42,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.27166666666666667,
+    "timestamp": "2026-03-17 12:10:15"
+  },
+  {
+    "register_count": 43,
+    "total_programs": 43,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.2724651162790698,
+    "timestamp": "2026-03-17 12:12:30"
+  },
+  {
+    "register_count": 43,
+    "total_programs": 43,
+    "best_per_island": [
+      0.306,
+      0.312,
+      0.298,
+      0.3,
+      0.306
+    ],
+    "global_best": 0.312,
+    "global_avg": 0.2724651162790698,
+    "timestamp": "2026-03-17 12:12:30"
+  }
+]

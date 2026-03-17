@@ -1,0 +1,130 @@
+[
+  {
+    "generation": 0,
+    "best_fitness": 0.7857142857142857,
+    "avg_fitness": 0.5599632190636862,
+    "population_size": 10,
+    "best_id": "gen000-005",
+    "timestamp": "2026-03-17 10:26:47"
+  },
+  {
+    "generation": 1,
+    "best_fitness": 0.8333333333333334,
+    "avg_fitness": 0.7429443518298007,
+    "population_size": 10,
+    "best_id": "gen001-008",
+    "timestamp": "2026-03-17 10:32:36"
+  },
+  {
+    "generation": 2,
+    "best_fitness": 0.8333333333333334,
+    "avg_fitness": 0.7671874616611458,
+    "population_size": 10,
+    "best_id": "gen001-008",
+    "timestamp": "2026-03-17 10:39:21"
+  },
+  {
+    "generation": 3,
+    "best_fitness": 0.8333333333333334,
+    "avg_fitness": 0.7904491999228842,
+    "population_size": 10,
+    "best_id": "gen001-008",
+    "timestamp": "2026-03-17 10:45:07"
+  },
+  {
+    "generation": 4,
+    "best_fitness": 0.8461538461538461,
+    "avg_fitness": 0.8191038785775628,
+    "population_size": 10,
+    "best_id": "gen004-006",
+    "timestamp": "2026-03-17 10:52:01"
+  },
+  {
+    "generation": 5,
+    "best_fitness": 0.8461538461538461,
+    "avg_fitness": 0.8313519813519814,
+    "population_size": 10,
+    "best_id": "gen004-006",
+    "timestamp": "2026-03-17 10:58:21"
+  },
+  {
+    "generation": 6,
+    "best_fitness": 0.8888888888888888,
+    "avg_fitness": 0.8438339438339438,
+    "population_size": 10,
+    "best_id": "gen006-004",
+    "timestamp": "2026-03-17 11:03:25"
+  },
+  {
+    "generation": 7,
+    "best_fitness": 0.8888888888888888,
+    "avg_fitness": 0.8545482295482296,
+    "population_size": 10,
+    "best_id": "gen006-004",
+    "timestamp": "2026-03-17 11:09:43"
+  },
+  {
+    "generation": 8,
+    "best_fitness": 0.9090909090909091,
+    "avg_fitness": 0.8645049395049395,
+    "population_size": 10,
+    "best_id": "gen008-006",
+    "timestamp": "2026-03-17 11:13:57"
+  },
+  {
+    "generation": 9,
+    "best_fitness": 0.9090909090909091,
+    "avg_fitness": 0.8803932178932179,
+    "population_size": 10,
+    "best_id": "gen008-006",
+    "timestamp": "2026-03-17 11:20:23"
+  },
+  {
+    "generation": 10,
+    "best_fitness": 0.9090909090909091,
+    "avg_fitness": 0.8928535353535354,
+    "population_size": 10,
+    "best_id": "gen008-006",
+    "timestamp": "2026-03-17 11:26:25"
+  },
+  {
+    "generation": 11,
+    "best_fitness": 0.9090909090909091,
+    "avg_fitness": 0.8964646464646464,
+    "population_size": 10,
+    "best_id": "gen008-006",
+    "timestamp": "2026-03-17 11:32:33"
+  },
+  {
+    "generation": 12,
+    "best_fitness": 0.9090909090909091,
+    "avg_fitness": 0.8986868686868688,
+    "population_size": 10,
+    "best_id": "gen008-006",
+    "timestamp": "2026-03-17 11:38:33"
+  },
+  {
+    "generation": 13,
+    "best_fitness": 0.9090909090909091,
+    "avg_fitness": 0.8997979797979798,
+    "population_size": 10,
+    "best_id": "gen008-006",
+    "timestamp": "2026-03-17 11:45:01"
+  },
+  {
+    "generation": 14,
+    "best_fitness": 0.9090909090909091,
+    "avg_fitness": 0.8997979797979798,
+    "population_size": 10,
+    "best_id": "gen008-006",
+    "timestamp": "2026-03-17 11:51:21"
+  },
+  {
+    "generation": 15,
+    "best_fitness": 0.9090909090909091,
+    "avg_fitness": 0.8997979797979798,
+    "population_size": 10,
+    "best_id": "gen008-006",
+    "timestamp": "2026-03-17 11:56:56"
+  }
+]
