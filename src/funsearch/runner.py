@@ -302,10 +302,18 @@ async def run_funsearch(
                             except Exception as e:
                                 print(f"    → 全量验证异常: {e}")
 
-            # 自动扩大评测集：best > 90% 且当前用 500 题 → 切到 1000 题
-            if best_ever and best_ever.score > 0.90 and eval_max_questions <= 500:
-                eval_max_questions = 1000
-                print(f"  ⚡ 评测集自动扩大: 500 → 1000 题 (best={best_ever.score:.1%} > 90%)")
+            # 自动扩大评测集：分阶段递增
+            if best_ever:
+                scale_thresholds = [
+                    (0.90, 500, 1000),   # 500 题上 >90% → 切 1000
+                    (0.85, 1000, 1500),  # 1000 题上 >85% → 切 1500
+                    (0.80, 1500, 9999),  # 1500 题上 >80% → 全量
+                ]
+                for threshold, current_max, next_max in scale_thresholds:
+                    if best_ever.score > threshold and eval_max_questions == current_max:
+                        eval_max_questions = next_max
+                        label = "全量" if next_max >= 9999 else f"{next_max}"
+                        print(f"  ⚡ 评测集自动扩大: {current_max} → {label} 题 (best={best_ever.score:.1%} > {threshold:.0%})")
 
             elapsed = time.time() - t0
             best = db.get_best()
