@@ -316,9 +316,34 @@ async def run_funsearch(
                 ]
                 for threshold, current_max, next_max in scale_thresholds:
                     if overfit > threshold and eval_max_questions == current_max:
+                        old_max = eval_max_questions
                         eval_max_questions = next_max
                         label = "全量" if next_max >= 9999 else f"{next_max}"
                         print(f"  ⚡ 评测集自动扩大: {current_max} → {label} 题 (膨胀比={overfit:.1f}x > {threshold}x)")
+
+                        # 重新评测 top-10，用新评测集重新打分
+                        print(f"  ⚡ 重新评测 top-10 程序...")
+                        top_progs = sorted(db.all_programs.values(), key=lambda p: p.score, reverse=True)[:10]
+                        for tp in top_progs:
+                            try:
+                                re_result = _eval_in_subprocess(
+                                    tp.code, eval_dataset, dim, alpha, eta,
+                                    eval_rounds, eval_max_questions,
+                                )
+                                if re_result and not re_result.get("error"):
+                                    old_score = tp.score
+                                    new_spt = re_result.get("scores_per_test", {"overall": re_result["p_at_1"]})
+                                    tp.score = _reduce_score(new_spt)
+                                    tp.scores_per_test = dict(new_spt)
+                                    tp.eval_details.update(re_result)
+                                    print(f"    {tp.id}: {old_score:.1%} → {tp.score:.1%} ({label}题)")
+                            except Exception:
+                                pass
+                        # 重新选 best
+                        best_ever = db.get_best()
+                        db.save()
+                        print(f"  ⚡ 重新评测完成，新 best: {best_ever.score:.1%} ({best_ever.id})")
+                        break
 
             elapsed = time.time() - t0
             best = db.get_best()
