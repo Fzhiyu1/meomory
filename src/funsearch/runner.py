@@ -302,18 +302,23 @@ async def run_funsearch(
                             except Exception as e:
                                 print(f"    → 全量验证异常: {e}")
 
-            # 自动扩大评测集：分阶段递增
+            # 自动扩大评测集：基于过拟合比率而非固定阈值
             if best_ever:
+                full_p1 = best_ever.eval_details.get("full_p1", 0)
+                if full_p1 > 0:
+                    overfit = best_ever.score / full_p1
+                else:
+                    overfit = 1.0
                 scale_thresholds = [
-                    (0.90, 500, 1000),   # 500 题上 >90% → 切 1000
-                    (0.85, 1000, 1500),  # 1000 题上 >85% → 切 1500
-                    (0.80, 1500, 9999),  # 1500 题上 >80% → 全量
+                    (2.0, 500, 1000),    # 膨胀比 >2x → 切 1000
+                    (1.8, 1000, 1500),   # 膨胀比 >1.8x → 切 1500
+                    (1.5, 1500, 9999),   # 膨胀比 >1.5x → 全量
                 ]
                 for threshold, current_max, next_max in scale_thresholds:
-                    if best_ever.score > threshold and eval_max_questions == current_max:
+                    if overfit > threshold and eval_max_questions == current_max:
                         eval_max_questions = next_max
                         label = "全量" if next_max >= 9999 else f"{next_max}"
-                        print(f"  ⚡ 评测集自动扩大: {current_max} → {label} 题 (best={best_ever.score:.1%} > {threshold:.0%})")
+                        print(f"  ⚡ 评测集自动扩大: {current_max} → {label} 题 (膨胀比={overfit:.1f}x > {threshold}x)")
 
             elapsed = time.time() - t0
             best = db.get_best()
