@@ -247,6 +247,14 @@ pre {
   <pre id="bestCode">加载中...</pre>
 </div>
 
+<!-- 实时日志 -->
+<div class="card" style="margin-top: 15px;">
+  <h2>实时运行日志 <span style="font-size:12px;color:#8b949e;font-weight:normal">每 10 秒刷新</span></h2>
+  <div id="logPanel" style="background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:12px;max-height:350px;overflow-y:auto;font-family:monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;color:#c9d1d9;">
+    加载中...
+  </div>
+</div>
+
 <script>
 let historyChart = null;
 let modelChart = null;
@@ -419,9 +427,56 @@ function updateDashboard(data) {
 
 fetchData();
 setInterval(fetchData, 30000);
+
+// 实时日志
+async function fetchLog() {
+  try {
+    const resp = await fetch('/api/log');
+    const data = await resp.json();
+    const panel = document.getElementById('logPanel');
+    if (data.lines) {
+      panel.innerHTML = data.lines.map(line => {
+        // 高亮关键事件
+        if (line.includes('NEW BEST')) return `<span style="color:#39d353;font-weight:bold">${esc(line)}</span>`;
+        if (line.includes('全量')) return `<span style="color:#58a6ff">${esc(line)}</span>`;
+        if (line.includes('⚡')) return `<span style="color:#f0883e;font-weight:bold">${esc(line)}</span>`;
+        if (line.includes('model=gpt54')) return `<span style="color:#bc8cff">${esc(line)}</span>`;
+        if (line.includes('model=9b')) return `<span style="color:#f0883e">${esc(line)}</span>`;
+        if (line.includes('model=deepseek')) return `<span style="color:#58a6ff">${esc(line)}</span>`;
+        if (line.includes('Error') || line.includes('error') || line.includes('Warning')) return `<span style="color:#f85149">${esc(line)}</span>`;
+        return esc(line);
+      }).join('\\n');
+      panel.scrollTop = panel.scrollHeight;
+    }
+  } catch(e) {}
+}
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+fetchLog();
+setInterval(fetchLog, 10000);
 </script>
 </body>
 </html>'''
+
+
+def fetch_5070_log():
+    """从 5070 获取最新日志。"""
+    # 先尝试 rsync 日志
+    try:
+        subprocess.run(
+            'rsync -az -e "ssh -p 2222 -o ConnectTimeout=5" '
+            'ubuntu@100.94.126.19:~/meomory/experiments/funsearch-v4.log '
+            'experiments/funsearch-v4.log 2>/dev/null',
+            shell=True, timeout=10,
+        )
+    except Exception:
+        pass
+
+    # 读本地日志
+    log_file = Path("experiments/funsearch-v4.log")
+    if log_file.exists():
+        lines = log_file.read_text().splitlines()
+        return lines[-50:]  # 最后 50 行
+    return ["No log available"]
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -433,6 +488,13 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(data.encode())
+        elif self.path == '/api/log':
+            lines = fetch_5070_log()
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.end_headers()
+            self.wfile.write(json.dumps({"lines": lines}).encode())
         else:
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
