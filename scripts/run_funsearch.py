@@ -53,9 +53,11 @@ def main():
     parser.add_argument("--ollama-host", default=None, help="Ollama API URL (e.g. http://localhost:11434)")
     parser.add_argument("--ollama-model", default="qwen3.5:9b")
     parser.add_argument("--deepseek-key", default=os.environ.get("MEOMORY_LLM_KEY", ""))
-    parser.add_argument("--gpt54-url", default="", help="GPT-5.4 API URL (e.g. https://cliproxy.fzhiyu2333.top/v1)")
+    parser.add_argument("--gpt54-url", default="", help="GPT-5.4 API URL")
     parser.add_argument("--gpt54-key", default="", help="GPT-5.4 API key")
-    parser.add_argument("--model-weights", default="60,30,10", help="ollama,deepseek,gpt54 weights")
+    parser.add_argument("--opus-key", default=os.environ.get("ANTHROPIC_AUTH_TOKEN", ""), help="Opus 4.6 API key")
+    parser.add_argument("--opus-url", default="https://code.newcli.com/claude/droid/v1", help="Opus 4.6 API URL")
+    parser.add_argument("--model-weights", default="60,30,10", help="ollama,deepseek,opus weights")
 
     args = parser.parse_args()
 
@@ -76,6 +78,8 @@ def main():
         deepseek_key=args.deepseek_key,
         gpt54_url=args.gpt54_url,
         gpt54_key=args.gpt54_key,
+        opus_key=args.opus_key,
+        opus_url=args.opus_url,
         model_weights=args.model_weights,
     ))
 

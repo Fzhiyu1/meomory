@@ -11,7 +11,7 @@ from concurrent.futures import ProcessPoolExecutor, TimeoutError as FuturesTimeo
 from multiprocessing import Process, Queue
 from pathlib import Path
 
-from src.bench.backends import DeepSeekBackend, OllamaBackend, LLMBackend
+from src.bench.backends import DeepSeekBackend, OllamaBackend, AnthropicBackend, LLMBackend
 from src.funsearch.database import ProgramsDatabase, Program, ScoresPerTest, _reduce_score
 from src.funsearch.sandbox import compile_update_function, _calls_ancestor
 from src.funsearch.evaluator import evaluate_update_fn
@@ -166,7 +166,9 @@ async def run_funsearch(
     deepseek_key: str = "",
     gpt54_url: str = "",
     gpt54_key: str = "",
-    model_weights: str = "60,30,10",  # ollama,deepseek,gpt54
+    opus_key: str = "",
+    opus_url: str = "https://code.newcli.com/claude/droid/v1",
+    model_weights: str = "60,30,10",  # ollama,deepseek,opus(or gpt54)
 ):
     """运行 FunSearch 进化循环。
 
@@ -183,6 +185,10 @@ async def run_funsearch(
         models.append(("deepseek", DeepSeekBackend(api_key=deepseek_key), weights[1] if len(weights) > 1 else 30))
     if gpt54_url and gpt54_key:
         models.append(("gpt54", DeepSeekBackend(api_key=gpt54_key, url=gpt54_url, model="gpt-5.4"), weights[2] if len(weights) > 2 else 10))
+    if opus_key:
+        # Opus with DeepSeek fallback: 2 retries then fallback
+        ds_fallback = DeepSeekBackend(api_key=deepseek_key) if deepseek_key else None
+        models.append(("opus", AnthropicBackend(api_key=opus_key, url=opus_url, fallback=ds_fallback), weights[2] if len(weights) > 2 else 10))
 
     # 如果没有任何模型配置，fallback 到 DeepSeek
     if not models:
