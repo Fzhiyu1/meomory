@@ -14,14 +14,20 @@ meomory replaces static retrieval with **online-learning associative memory**. A
 
 ## Results
 
-| Method | LoCoMo (1976 Q) | LongMemEval (470 Q) |
+Embedding: qwen3-embedding 8B → random projection to 256d. The DGD learning layer is a 256×256 weight matrix on top.
+
+| Method | LoCoMo P@1 (1976 Q) | LongMemEval P@1 (470 Q) |
 |--------|:---:|:---:|
 | Cosine similarity (no learning) | 22.4% | 41.7% |
 | BM25 keyword matching | 30.9% | 48.3% |
 | Hand-written DGD | 32.8% | 56.0% |
-| **AI-evolved algorithm** | **56.6%** | **92.3%** |
+| **AI-evolved algorithm** | **60.1%** | **95.5%** |
 
-92.3% on LongMemEval approaches current SOTA (Hindsight+TEMPR 91.4%, EverMemOS 93.0%) — but those systems use GPT-4o + knowledge graphs + multi-strategy fusion. We use a single matrix.
+The core contribution is the **+37.7pp gain from online learning** (22.4% → 60.1% on LoCoMo, same embedding). The DGD layer learns which associations are correct through feedback — static similarity can't distinguish semantically similar but wrong fragments.
+
+**vs. existing retrieval:** The [LoCoMo paper](https://arxiv.org/abs/2402.17753) (ACL 2024) reports DRAGON (110M) achieving R@5=58.8% on dialog retrieval. Our P@1=60.1% uses a stricter metric (top-1 must be correct vs. correct anywhere in top-5). At the same level, our P@5=82.7% vs their R@5=58.8%. Note: our embedding model (8B) is larger than DRAGON — the advantage comes from online learning, not model size.
+
+**vs. end-to-end memory systems:** Systems like MemR3 (86.75%) and Mem0 (68.4%) report LLM-as-Judge QA accuracy (retrieve + LLM answers + judge), a different metric. Our numbers are retrieval-only P@K — plugging our retrieval into an LLM answering pipeline would be the next step.
 
 ## Evolution
 
@@ -33,7 +39,7 @@ DeepSeek (30%)    — precise optimization, came from behind to win
 GPT-5.4 (10%)    — innovation scout, first breakthrough
 ```
 
-From 26.8% to 88.4% in two hours (500 Q subset), 56.6% on full validation. The evolved algorithm independently reinvented Hebbian learning (1949), Momentum (1980s), Adam optimizer (2014), and BatchNorm (2015) — LLMs discovered neural network layer structure without being told about neural networks.
+From 26.8% to 88.4% in two hours (500 Q subset), 60.1% on full 1976-question validation. The evolved algorithm independently reinvented Hebbian learning (1949), Momentum (1980s), Adam optimizer (2014), and BatchNorm (2015) — LLMs discovered neural network layer structure without being told about neural networks.
 
 ## Usage
 
