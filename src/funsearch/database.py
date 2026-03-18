@@ -234,14 +234,28 @@ class ProgramsDatabase:
         with open(self.data_dir / "history.json", "w") as f:
             json.dump(self.history, f, ensure_ascii=False, indent=2)
 
-        # Best top-10（综合分数和代码长度排序）
-        top10 = sorted(
-            self.all_programs.values(),
-            key=lambda p: (p.score, -p.code_length),  # 同分时偏好短代码
-            reverse=True,
-        )[:10]
-        with open(self.data_dir / "best.json", "w") as f:
-            json.dump([asdict(p) for p in top10], f, ensure_ascii=False, indent=2)
+        # Best top-20（累积合并：只加不删，保留历史最佳）
+        best_file = self.data_dir / "best.json"
+        existing_best: dict[str, dict] = {}
+        if best_file.exists():
+            try:
+                with open(best_file) as f:
+                    for p in json.load(f):
+                        existing_best[p["id"]] = p
+            except Exception:
+                pass
+
+        # 合并当前 population 的 top 程序
+        for p in self.all_programs.values():
+            pid = p.id
+            pd = asdict(p)
+            if pid not in existing_best or pd["score"] > existing_best[pid]["score"]:
+                existing_best[pid] = pd
+
+        # 按分数排序，保留 top 20
+        merged = sorted(existing_best.values(), key=lambda x: (x["score"], -x.get("code_length", 0)), reverse=True)[:20]
+        with open(best_file, "w") as f:
+            json.dump(merged, f, ensure_ascii=False, indent=2)
 
     def get_prompt_programs(self) -> tuple[list[Program], int]:
         """从随机岛中采样 2 个程序。"""
