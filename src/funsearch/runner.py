@@ -45,6 +45,40 @@ def _eval_in_subprocess(code: str, dataset_name: str, dim: int, alpha: float,
                  random_offset=random_offset, noise_accuracy=noise_accuracy)
 
 
+# 混合 fitness 常量（模块级，seed 和主循环共用）
+NOISE_ACCURACY = 0.8
+CLEAN_WEIGHT = 0.7
+NOISE_WEIGHT = 0.3
+
+
+def _eval_mixed_in_subprocess(code: str, dataset_name: str, dim: int, alpha: float,
+                               eta: float, n_rounds: int, max_questions: int,
+                               random_offset: int = 0) -> dict | None:
+    """混合 fitness 评测：clean + noisy，加权合并。用于 seed 和主循环。"""
+    clean = _eval_in_subprocess(code, dataset_name, dim, alpha, eta, n_rounds, max_questions,
+                                 random_offset=random_offset, noise_accuracy=1.0)
+    noisy = _eval_in_subprocess(code, dataset_name, dim, alpha, eta, n_rounds, max_questions,
+                                 random_offset=random_offset, noise_accuracy=NOISE_ACCURACY)
+    if clean is None or noisy is None:
+        return None
+    if clean.get("error") or noisy.get("error"):
+        return clean
+    mixed_p1 = CLEAN_WEIGHT * clean["p_at_1"] + NOISE_WEIGHT * noisy["p_at_1"]
+    spt = {}
+    clean_spt = clean.get("scores_per_test", {})
+    noisy_spt = noisy.get("scores_per_test", {})
+    for k in clean_spt:
+        spt[k] = CLEAN_WEIGHT * clean_spt.get(k, 0) + NOISE_WEIGHT * noisy_spt.get(k, 0)
+    spt["clean_overall"] = clean["p_at_1"]
+    spt["noisy_overall"] = noisy["p_at_1"]
+    result = dict(clean)
+    result["p_at_1"] = mixed_p1
+    result["clean_p1"] = clean["p_at_1"]
+    result["noisy_p1"] = noisy["p_at_1"]
+    result["scores_per_test"] = spt
+    return result
+
+
 class ModelEnsemble:
     """多模型混合采样器。按权重随机选模型。"""
 
@@ -156,12 +190,12 @@ async def run_funsearch(
         else:
             seed_programs = [INITIAL_IMPLEMENTATION.strip()]
 
-        print(f"Evaluating {len(seed_programs)} seeds (parallel)...")
+        print(f"Evaluating {len(seed_programs)} seeds (parallel, mixed fitness)...")
         seed_futures = []
         with ProcessPoolExecutor(max_workers=min(len(seed_programs), 4)) as pool:
             for i, code in enumerate(seed_programs):
                 f = pool.submit(
-                    _eval_in_subprocess, code,
+                    _eval_mixed_in_subprocess, code,
                     eval_dataset, dim, alpha, eta, eval_rounds, eval_max_questions,
                 )
                 seed_futures.append((i, code, f))
@@ -238,44 +272,14 @@ async def run_funsearch(
                 program.eval_details["model"] = model_name
                 candidates.append(program)
 
-            # 并行评测（带强制超时：子进程超 5 分钟直接 kill）
-            # 混合 fitness: 70% clean GT + 30% noisy (80% accuracy)
-            NOISE_ACCURACY = 0.8
-            CLEAN_WEIGHT = 0.7
-            NOISE_WEIGHT = 0.3
-
+            # 并行评测（带强制超时：子进程超 10 分钟直接 kill）
             successes = 0
             EVAL_TIMEOUT = 600  # 10 分钟（允许单次操作 ≤100ms 的复杂算法）
 
-            def _eval_mixed_fitness(code, ds, d, a, e, r, mq, q_out, offset=0):
-                """混合 fitness：clean + noisy 两轮评测，加权合并。"""
+            def _eval_mixed_worker(code, ds, d, a, e, r, mq, q_out, offset=0):
+                """在独立进程中跑混合 fitness，结果通过 Queue 返回。"""
                 try:
-                    clean = _eval_in_subprocess(code, ds, d, a, e, r, mq,
-                                                random_offset=offset, noise_accuracy=1.0)
-                    noisy = _eval_in_subprocess(code, ds, d, a, e, r, mq,
-                                                random_offset=offset, noise_accuracy=NOISE_ACCURACY)
-                    if clean is None or noisy is None:
-                        q_out.put(None)
-                        return
-                    if clean.get("error") or noisy.get("error"):
-                        q_out.put(clean)
-                        return
-                    # 混合分数
-                    mixed_p1 = CLEAN_WEIGHT * clean["p_at_1"] + NOISE_WEIGHT * noisy["p_at_1"]
-                    # 合并 scores_per_test + 加入 clean/noisy 独立维度用于 Signature 分簇
-                    spt = {}
-                    clean_spt = clean.get("scores_per_test", {})
-                    noisy_spt = noisy.get("scores_per_test", {})
-                    for k in clean_spt:
-                        spt[k] = CLEAN_WEIGHT * clean_spt.get(k, 0) + NOISE_WEIGHT * noisy_spt.get(k, 0)
-                    # 独立维度：让精度型和鲁棒型程序被分到不同 Cluster
-                    spt["clean_overall"] = clean["p_at_1"]
-                    spt["noisy_overall"] = noisy["p_at_1"]
-                    result = dict(clean)
-                    result["p_at_1"] = mixed_p1
-                    result["clean_p1"] = clean["p_at_1"]
-                    result["noisy_p1"] = noisy["p_at_1"]
-                    result["scores_per_test"] = spt
+                    result = _eval_mixed_in_subprocess(code, ds, d, a, e, r, mq, random_offset=offset)
                     q_out.put(result)
                 except Exception:
                     q_out.put(None)
@@ -286,7 +290,7 @@ async def run_funsearch(
                 iter_offset = iteration * 500  # 每迭代偏移 500 题
                 for prog in candidates:
                     q = Queue()
-                    p = Process(target=_eval_mixed_fitness, args=(
+                    p = Process(target=_eval_mixed_worker, args=(
                         prog.code, eval_dataset, dim, alpha, eta, eval_rounds, eval_max_questions, q,
                         iter_offset,
                     ))
