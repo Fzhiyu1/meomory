@@ -289,6 +289,14 @@ class ProgramsDatabase:
         # 保存 scores_per_test 到 program（用于持久化）
         program.scores_per_test = dict(scores_per_test)
 
+        # 追加到永久归档（append-only，永不删除）
+        archive_file = self.data_dir / "archive.jsonl"
+        try:
+            with open(archive_file, "a") as f:
+                f.write(json.dumps(asdict(program), ensure_ascii=False) + "\n")
+        except Exception:
+            pass
+
         self.all_programs[program.id] = program
 
         if island_id is None:
