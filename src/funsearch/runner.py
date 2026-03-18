@@ -200,7 +200,14 @@ async def run_funsearch(
     start_iter = len(db.all_programs)
     if start_iter == 0:
         seed_data_raw = []  # list of dicts (with score/spt) or strings (code only)
-        if seed_from:
+        if seed_from == "multi-arch":
+            # v6: 5 种架构 seed，每个分配到对应岛
+            from src.funsearch.seeds import load_all_seeds
+            arch_seeds = load_all_seeds()
+            for name, code in arch_seeds:
+                seed_data_raw.append(code)
+            print(f"  Loaded {len(seed_data_raw)} multi-arch seeds: {[n for n,_ in arch_seeds]}")
+        elif seed_from:
             import json as _json
             print(f"Loading seeds from {seed_from}...")
             with open(seed_from) as _f:

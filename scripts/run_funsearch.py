@@ -36,13 +36,15 @@ def main():
     parser.add_argument("--iterations", type=int, default=0, help="0 = infinite")
     parser.add_argument("--islands", type=int, default=5)
     parser.add_argument("--samples", type=int, default=6)
-    parser.add_argument("--seed-from", default=None)
+    parser.add_argument("--seed-from", default=None, help="JSON file or 'multi-arch' for 5 architecture seeds")
+    parser.add_argument("--seed-mode", default="file", choices=["file", "multi-arch"],
+        help="file: load from JSON; multi-arch: use 5 architecture seeds from seeds.py")
     parser.add_argument("--data-dir", default="experiments/funsearch")
 
     # 评测参数
     parser.add_argument("--dataset", default="LoCoMo-full-all")
-    parser.add_argument("--max-questions", type=int, default=500)
-    parser.add_argument("--rounds", type=int, default=10)
+    parser.add_argument("--max-questions", type=int, default=9999, help="v6 default: full dataset")
+    parser.add_argument("--rounds", type=int, default=1, help="v6 default: 1 round (online streaming)")
     parser.add_argument("--dim", type=int, default=256)
     parser.add_argument("--alpha", type=float, default=1.0)
     parser.add_argument("--eta", type=float, default=0.01)
