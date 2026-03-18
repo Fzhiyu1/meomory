@@ -208,7 +208,23 @@ class ProgramsDatabase:
                 self.history = json.load(f)
 
     def save(self):
-        """持久化。"""
+        """持久化（写入前自动备份）。"""
+        # 自动备份：保留最近 5 个版本，防止覆盖丢数据
+        backup_dir = self.data_dir / "backups"
+        backup_dir.mkdir(exist_ok=True)
+        ts = time.strftime("%Y%m%d-%H%M%S")
+        for fname in ["population.json", "best.json", "history.json"]:
+            src = self.data_dir / fname
+            if src.exists():
+                dst = backup_dir / f"{fname}.{ts}"
+                import shutil
+                shutil.copy2(src, dst)
+        # 清理旧备份：每类文件只保留最近 5 个
+        for fname in ["population.json", "best.json", "history.json"]:
+            backups = sorted(backup_dir.glob(f"{fname}.*"))
+            for old in backups[:-5]:
+                old.unlink()
+
         with open(self.data_dir / "population.json", "w") as f:
             json.dump({
                 "all_programs": [asdict(p) for p in self.all_programs.values()],
