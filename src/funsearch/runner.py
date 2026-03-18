@@ -396,7 +396,8 @@ async def run_funsearch(
             island_bests = [f"{isl.best_score:.1%}" for isl in db.islands]
             print(
                 f"  Iter {iteration:3d}: {successes}/{len(candidates)} valid, "
-                f"best={best.score:.1%}, islands=[{', '.join(island_bests)}] ({elapsed:.0f}s)"
+                f"best={best.score:.1%}, islands=[{', '.join(island_bests)}] "
+                f"[{ensemble.stats()}] ({elapsed:.0f}s)"
             )
 
             # 保存策略
