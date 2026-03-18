@@ -158,10 +158,14 @@ def evaluate_update_fn(
 
     if is_class:
         try:
-            obj = update_fn_or_class(dim=dim, alpha=alpha, eta=eta)
+            obj = update_fn_or_class(dim=dim)
         except Exception:
-            return {"p_at_1": 0.0, "error": True, "elapsed": time.time() - t0,
-                    "scores_per_test": {"overall": 0.0}}
+            try:
+                # 兼容旧算法（接受 alpha/eta 参数）
+                obj = update_fn_or_class(dim=dim, alpha=alpha, eta=eta)
+            except Exception:
+                return {"p_at_1": 0.0, "error": True, "elapsed": time.time() - t0,
+                        "scores_per_test": {"overall": 0.0}}
 
         def _query_top5(qi):
             """用 numpy 加速的 query + cosine top-5。"""
@@ -203,20 +207,11 @@ def evaluate_update_fn(
 
     rounds = []
     for r in range(1, n_rounds + 1):
-        # GT feedback
-        for qi, q in enumerate(questions):
-            try:
-                _update(qi, q)
-            except Exception:
-                return {
-                    "p_at_1": 0.0, "error": True, "elapsed": time.time() - t0,
-                    "scores_per_test": {"overall": 0.0},
-                }
-
-        # 评测（使用 numpy 加速的 top-5）
+        # 在线流式评测：先测再学（模拟真实部署）
         hits = {1: 0, 3: 0, 5: 0}
         per_question_hit = [False] * len(questions)
         for qi, q in enumerate(questions):
+            # 1. 先评测（DGD 还没见过这题的答案）
             answer_set = set(q["answer_indices"])
             top_ids = _query_top5(qi)
             for k in [1, 3, 5]:
@@ -224,6 +219,15 @@ def evaluate_update_fn(
                     hits[k] += 1
             if top_ids and top_ids[0] in answer_set:
                 per_question_hit[qi] = True
+
+            # 2. 再学习（GT/noisy 反馈）
+            try:
+                _update(qi, q)
+            except Exception:
+                return {
+                    "p_at_1": 0.0, "error": True, "elapsed": time.time() - t0,
+                    "scores_per_test": {"overall": 0.0},
+                }
 
         total = len(questions)
         metrics = {k: hits[k] / total for k in hits}
