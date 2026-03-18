@@ -1,0 +1,531 @@
+[
+  {
+    "id": "gen028-island0-003",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        for j in range(dim):\n            s += M[i][j] * key[j]\n        activation[i] = s\n\n    error = [0.0] * dim\n    for i in range(dim):\n        error[i] = target[i] - activation[i]\n\n    for i in range(dim):\n        for j in range(dim):\n            M[i][j] = alpha * M[i][j] + eta * error[i] * key[j]",
+    "score": 0.312,
+    "generation": 28,
+    "island_id": 0,
+    "parent_ids": [
+      "gen023-island0-003",
+      "gen023-island0-003"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 69.47163105010986,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:38:48"
+  },
+  {
+    "id": "gen012-island2-001",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            row[j] = alpha * row[j] - eta * ei * key[j]",
+    "score": 0.312,
+    "generation": 12,
+    "island_id": 2,
+    "parent_ids": [
+      "gen010-island2-000",
+      "gen010-island2-000"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 67.4185209274292,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:11:55"
+  },
+  {
+    "id": "gen012-island2-003",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    for i in range(dim):\n        row = M[i]\n        ei = error[i]\n        ki = key[i]\n        for j in range(dim):\n            row[j] = alpha * row[j] - eta * (ei * key[j] + ki * error[j] * activation[j])",
+    "score": 0.312,
+    "generation": 12,
+    "island_id": 2,
+    "parent_ids": [
+      "gen010-island2-000",
+      "gen010-island2-000"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.414,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.39,
+          "p_at_5": 0.454
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.304,
+          "p_at_3": 0.4,
+          "p_at_5": 0.472
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.414,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 69.58367013931274,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:12:07"
+  },
+  {
+    "id": "gen016-island4-001",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    key_norm2 = 0.0\n    for v in key:\n        key_norm2 += v * v\n\n    if key_norm2 < 1e-12:\n        return M\n\n    inv_norm2 = 1.0 / key_norm2\n    for i in range(dim):\n        row = M[i]\n        delta_i = (activation[i] - target[i]) * inv_norm2\n        for j in range(dim):\n            row[j] = row[j] * (alpha if i == j else 1.0) - eta * delta_i * key[j]\n    return M",
+    "score": 0.312,
+    "generation": 16,
+    "island_id": 4,
+    "parent_ids": [
+      "gen011-island4-003",
+      "gen011-island4-000"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 67.86139106750488,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:18:19"
+  },
+  {
+    "id": "gen028-island0-000",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    # Compute activation = M * key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error = target - activation\n    error = [0.0] * dim\n    for i in range(dim):\n        error[i] = target[i] - activation[i]\n\n    # Update M: M = alpha * M + eta * (error * key^T)\n    for i in range(dim):\n        row = M[i]\n        e_i = error[i]\n        for j in range(dim):\n            row[j] = alpha * row[j] + eta * e_i * key[j]",
+    "score": 0.312,
+    "generation": 28,
+    "island_id": 0,
+    "parent_ids": [
+      "gen023-island0-003",
+      "gen023-island0-003"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 67.68726229667664,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:38:28"
+  },
+  {
+    "id": "gen028-island0-001",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    # Compute activation = M * key\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    # Compute error = target - activation\n    error = [0.0] * dim\n    for i in range(dim):\n        error[i] = target[i] - activation[i]\n\n    # Update M: M = alpha * M + eta * (error ⊗ key)\n    for i in range(dim):\n        row = M[i]\n        err_i = error[i]\n        for j in range(dim):\n            row[j] = alpha * row[j] + eta * err_i * key[j]\n\n    return M",
+    "score": 0.312,
+    "generation": 28,
+    "island_id": 0,
+    "parent_ids": [
+      "gen023-island0-003",
+      "gen023-island0-003"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 67.69809889793396,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:38:35"
+  },
+  {
+    "id": "gen016-island4-000",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    key_norm2 = 0.0\n    for v in key:\n        key_norm2 += v * v\n\n    if key_norm2 < 1e-12:\n        return M\n\n    inv_norm2 = 1.0 / key_norm2\n    for i in range(dim):\n        row = M[i]\n        di = error[i] * inv_norm2\n        for j in range(dim):\n            row[j] = row[j] * (alpha if i == j else 1.0) - eta * di * key[j]\n    return M",
+    "score": 0.312,
+    "generation": 16,
+    "island_id": 4,
+    "parent_ids": [
+      "gen011-island4-003",
+      "gen011-island4-000"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 67.8603789806366,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:18:12"
+  },
+  {
+    "id": "gen016-island4-002",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    key_norm2 = 0.0\n    for v in key:\n        key_norm2 += v * v\n\n    if key_norm2 < 1e-12:\n        return M\n\n    inv_norm2 = 1.0 / key_norm2\n    for i in range(dim):\n        row = M[i]\n        di = error[i] * inv_norm2\n        for j in range(dim):\n            row[j] = row[j] * (alpha if i == j else 1.0) - eta * di * key[j]\n    return M",
+    "score": 0.312,
+    "generation": 16,
+    "island_id": 4,
+    "parent_ids": [
+      "gen011-island4-003",
+      "gen011-island4-000"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 67.7849690914154,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:18:26"
+  },
+  {
+    "id": "gen021-island1-000",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    error = [activation[i] - target[i] for i in range(dim)]\n\n    key_norm2 = sum(k * k for k in key)\n    if key_norm2 == 0:\n        for i in range(dim):\n            M[i][i] *= alpha\n        return M\n\n    inv_norm2 = 1.0 / key_norm2\n    for i in range(dim):\n        row = M[i]\n        delta_i = error[i] * inv_norm2\n        for j in range(dim):\n            row[j] = row[j] * alpha - eta * delta_i * key[j]\n    return M",
+    "score": 0.312,
+    "generation": 21,
+    "island_id": 1,
+    "parent_ids": [
+      "gen015-island1-003",
+      "gen015-island1-003"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 67.33478713035583,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:27:07"
+  },
+  {
+    "id": "gen011-island4-003",
+    "code": "def dgd_update(M, key, target, dim, alpha, eta):\n    activation = [0.0] * dim\n    for i in range(dim):\n        s = 0.0\n        row = M[i]\n        for j in range(dim):\n            s += row[j] * key[j]\n        activation[i] = s\n\n    key_norm2 = 0.0\n    for v in key:\n        key_norm2 += v * v\n\n    if key_norm2 < 1e-12:\n        return M\n\n    inv_norm2 = 1.0 / key_norm2\n    for i in range(dim):\n        row = M[i]\n        delta_i = (activation[i] - target[i]) * inv_norm2\n        for j in range(dim):\n            if i == j:\n                row[j] = row[j] * alpha - eta * delta_i * key[j]\n            else:\n                row[j] = row[j] - eta * delta_i * key[j]\n    return M",
+    "score": 0.312,
+    "generation": 11,
+    "island_id": 4,
+    "parent_ids": [
+      "reset-50-island4"
+    ],
+    "eval_details": {
+      "p_at_1": 0.312,
+      "p_at_3": 0.412,
+      "p_at_5": 0.486,
+      "scores_per_test": {
+        "conv0": 0.29842931937172773,
+        "conv1": 0.2761904761904762,
+        "conv2": 0.32642487046632124,
+        "conv3": 0.6363636363636364,
+        "overall": 0.312
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.292,
+          "p_at_3": 0.388,
+          "p_at_5": 0.456
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.306,
+          "p_at_3": 0.4,
+          "p_at_5": 0.47
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.312,
+          "p_at_3": 0.412,
+          "p_at_5": 0.486
+        }
+      ],
+      "elapsed": 67.08193469047546,
+      "error": false
+    },
+    "scores_per_test": {
+      "conv0": 0.29842931937172773,
+      "conv1": 0.2761904761904762,
+      "conv2": 0.32642487046632124,
+      "conv3": 0.6363636363636364,
+      "overall": 0.312
+    },
+    "created_at": "2026-03-17 13:10:35"
+  }
+]

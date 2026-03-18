@@ -1,0 +1,590 @@
+{
+  "all_programs": [
+    {
+      "id": "seed-000",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        return [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        M = self.M\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        for i in range(dim):\n            for j in range(dim):\n                identity_term = alpha if i == j else 0.0\n                forget = M[i][j] * (identity_term - eta * key[i] * key[j])\n                learn = -eta * error[i] * key[j]\n                M[i][j] = forget + learn",
+      "score": 0.26,
+      "generation": 0,
+      "island_id": 0,
+      "parent_ids": [],
+      "eval_details": {
+        "p_at_1": 0.26,
+        "p_at_3": 0.37,
+        "p_at_5": 0.425,
+        "scores_per_test": {
+          "conv0": 0.2513089005235602,
+          "conv1": 0.4444444444444444,
+          "overall": 0.26
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.37,
+            "p_at_5": 0.425
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.37,
+            "p_at_5": 0.425
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.37,
+            "p_at_5": 0.425
+          }
+        ],
+        "elapsed": 59.563270807266235,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.2513089005235602,
+        "conv1": 0.4444444444444444,
+        "overall": 0.26
+      },
+      "created_at": "2026-03-17 15:50:17"
+    },
+    {
+      "id": "gen001-island1-000",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        self.key_history = []\n        self.target_history = []\n        self.beta = 0.9\n        self.momentum = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.iteration = 0\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        M = self.M\n        activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        \n        if self.key_history:\n            weights = [1.0 / (len(self.key_history) - k + 1) for k in range(len(self.key_history))]\n            total_weight = sum(weights)\n            for idx, (hist_key, hist_target) in enumerate(zip(self.key_history, self.target_history)):\n                sim = sum(hist_key[j] * key[j] for j in range(dim))\n                if sim > 0.5:\n                    w = weights[idx] / total_weight\n                    activation = [activation[i] + w * hist_target[i] for i in range(dim)]\n        return activation\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        M = self.M\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        grad = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        for i in range(dim):\n            for j in range(dim):\n                grad[i][j] = error[i] * key[j]\n        \n        self.iteration += 1\n        lr = eta / (1 + 0.001 * self.iteration)\n        \n        for i in range(dim):\n            for j in range(dim):\n                self.momentum[i][j] = self.beta * self.momentum[i][j] + (1 - self.beta) * grad[i][j]\n                M[i][j] = alpha * M[i][j] - lr * self.momentum[i][j]\n        \n        self.key_history.append(key[:])\n        self.target_history.append(target[:])\n        if len(self.key_history) > 10:\n            self.key_history.pop(0)\n            self.target_history.pop(0)",
+      "score": 0.285,
+      "generation": 1,
+      "island_id": 1,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.285,
+        "p_at_3": 0.37,
+        "p_at_5": 0.41,
+        "scores_per_test": {
+          "conv0": 0.2670157068062827,
+          "conv1": 0.6666666666666666,
+          "overall": 0.285
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.29,
+            "p_at_3": 0.38,
+            "p_at_5": 0.425
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.295,
+            "p_at_3": 0.37,
+            "p_at_5": 0.41
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.285,
+            "p_at_3": 0.37,
+            "p_at_5": 0.41
+          }
+        ],
+        "elapsed": 63.40499782562256,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.2670157068062827,
+        "conv1": 0.6666666666666666,
+        "overall": 0.285
+      },
+      "created_at": "2026-03-17 15:50:35"
+    },
+    {
+      "id": "gen001-island1-001",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1, epsilon=1e-8):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n            beta: momentum factor\n            gamma: regularization strength\n            epsilon: small constant for numerical stability\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        self.epsilon = epsilon\n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum for each weight\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        # Running average of key magnitudes for adaptive learning\n        self.key_mag_avg = [0.0 for _ in range(dim)]\n        # Decay for running averages\n        self.avg_decay = 0.99\n        # History of recent errors for adaptive scaling\n        self.error_history = []\n        self.history_size = 10\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key with non-linear enhancement.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        # Linear projection\n        linear = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        \n        # Non-linear enhancement: amplify strong components\n        max_abs = max(abs(val) for val in linear) + self.epsilon\n        scaled = [val / max_abs for val in linear]\n        enhanced = [linear[i] * (1.0 + 0.5 * scaled[i] * abs(scaled[i])) for i in range(dim)]\n        \n        # Update key magnitude running average\n        for j in range(dim):\n            self.key_mag_avg[j] = self.avg_decay * self.key_mag_avg[j] + (1 - self.avg_decay) * abs(key[j])\n        \n        return enhanced\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        beta = self.beta\n        gamma = self.gamma\n        M = self.M\n        V = self.V\n        \n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Store error magnitude for adaptive learning\n        error_mag = sum(e*e for e in error) ** 0.5\n        self.error_history.append(error_mag)\n        if len(self.error_history) > self.history_size:\n            self.error_history.pop(0)\n        \n        avg_error = sum(self.error_history) / len(self.error_history) if self.error_history else 1.0\n        \n        # Adaptive learning rate based on error and key magnitude\n        key_norm = sum(abs(k) for k in key) / dim + self.epsilon\n        adaptive_eta = eta * min(1.0, avg_error) / key_norm\n        \n        for i in range(dim):\n            for j in range(dim):\n                # Gradient with regularization\n                grad = error[i] * key[j] + gamma * M[i][j] / (abs(M[i][j]) + self.epsilon)\n                \n                # Momentum update\n                V[i][j] = beta * V[i][j] - adaptive_eta * grad\n                \n                # Update with forgetting and momentum\n                identity_term = alpha if i == j else 0.0\n                forget = M[i][j] * identity_term\n                M[i][j] = forget + V[i][j]\n                \n                # Soft bounding to prevent explosion\n                if abs(M[i][j]) > 10.0:\n                    M[i][j] = 10.0 if M[i][j] > 0 else -10.0",
+      "score": 0.0,
+      "generation": 1,
+      "island_id": 1,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.0,
+        "p_at_3": 0.04,
+        "p_at_5": 0.045,
+        "scores_per_test": {
+          "conv0": 0.0,
+          "conv1": 0.0,
+          "overall": 0.0
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.0,
+            "p_at_3": 0.04,
+            "p_at_5": 0.045
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.0,
+            "p_at_3": 0.045,
+            "p_at_5": 0.045
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.0,
+            "p_at_3": 0.04,
+            "p_at_5": 0.045
+          }
+        ],
+        "elapsed": 63.99894905090332,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.0,
+        "conv1": 0.0,
+        "overall": 0.0
+      },
+      "created_at": "2026-03-17 15:50:59"
+    },
+    {
+      "id": "gen001-island1-002",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n            beta: momentum factor\n            gamma: regularization strength\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum for each weight\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        # Running average of key statistics\n        self.key_mean = [0.0 for _ in range(dim)]\n        self.key_var = [1.0 for _ in range(dim)]\n        self.step = 0\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key with normalization.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        # Normalize key using running statistics\n        norm_key = [0.0 for _ in range(dim)]\n        for i in range(dim):\n            if self.key_var[i] > 0:\n                norm_key[i] = (key[i] - self.key_mean[i]) / (self.key_var[i] ** 0.5 + 1e-8)\n            else:\n                norm_key[i] = key[i] - self.key_mean[i]\n        \n        # Compute activation with non-linear transform\n        activation = [0.0 for _ in range(dim)]\n        for i in range(dim):\n            linear = sum(self.M[i][j] * norm_key[j] for j in range(dim))\n            # Add non-linearity for better representation\n            activation[i] = linear * (1.0 / (1.0 + abs(linear) / dim))\n        return activation\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        self.step += 1\n        \n        # Update running statistics of keys\n        for i in range(dim):\n            delta = key[i] - self.key_mean[i]\n            self.key_mean[i] += delta / self.step\n            delta2 = key[i] - self.key_mean[i]\n            self.key_var[i] += delta * delta2\n        \n        # Normalize key\n        norm_key = [0.0 for _ in range(dim)]\n        for i in range(dim):\n            if self.key_var[i] > 0:\n                norm_key[i] = (key[i] - self.key_mean[i]) / (self.key_var[i] ** 0.5 + 1e-8)\n            else:\n                norm_key[i] = key[i] - self.key_mean[i]\n        \n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Compute weight updates\n        for i in range(dim):\n            for j in range(dim):\n                # Gradient with regularization\n                grad = error[i] * norm_key[j] + self.gamma * self.M[i][j] / (1.0 + abs(self.M[i][j]))\n                \n                # Momentum update\n                self.V[i][j] = self.beta * self.V[i][j] + self.eta * grad\n                \n                # Update with forgetting and momentum\n                identity_term = self.alpha if i == j else 0.0\n                forget = self.M[i][j] * (identity_term - self.eta * norm_key[i] * norm_key[j] * 0.1)\n                self.M[i][j] = forget - self.V[i][j]\n                \n                # Soft bounding to prevent explosion\n                if abs(self.M[i][j]) > 10.0:\n                    self.M[i][j] = 10.0 * self.M[i][j] / abs(self.M[i][j])",
+      "score": 0.21,
+      "generation": 1,
+      "island_id": 1,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.21,
+        "p_at_3": 0.29,
+        "p_at_5": 0.305,
+        "scores_per_test": {
+          "conv0": 0.17801047120418848,
+          "conv1": 0.8888888888888888,
+          "overall": 0.21
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.19,
+            "p_at_3": 0.27,
+            "p_at_5": 0.285
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.2,
+            "p_at_3": 0.28,
+            "p_at_5": 0.3
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.21,
+            "p_at_3": 0.29,
+            "p_at_5": 0.305
+          }
+        ],
+        "elapsed": 66.01225423812866,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.17801047120418848,
+        "conv1": 0.8888888888888888,
+        "overall": 0.21
+      },
+      "created_at": "2026-03-17 15:51:23"
+    },
+    {
+      "id": "gen001-island1-003",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1, capacity=100):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n            beta: momentum factor\n            gamma: regularization strength\n            capacity: size of key/target history buffer\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        self.capacity = capacity\n        \n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        \n        # Momentum for gradient updates\n        self.momentum = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        \n        # Running averages for adaptive learning\n        self.key_norm_avg = 1.0\n        self.error_norm_avg = 1.0\n        \n        # History buffer for replay\n        self.key_history = []\n        self.target_history = []\n        \n        # Counter for adaptive decay\n        self.step = 0\n\n    def query(self, key):\n        \"\"\"Return activation with non-linear transformation.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        # Linear projection\n        linear = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        \n        # Add non-linear gating based on key magnitude\n        key_norm = sum(x*x for x in key)**0.5 + 1e-8\n        scale = 1.0 / (1.0 + abs(key_norm - self.key_norm_avg))\n        \n        # Apply scaling and soft-thresholding\n        result = []\n        for i in range(dim):\n            val = linear[i] * scale\n            # Soft threshold for sparsity\n            if abs(val) < self.gamma:\n                val = 0.0\n            elif val > 0:\n                val = val - self.gamma\n            else:\n                val = val + self.gamma\n            result.append(val)\n        \n        return result\n\n    def update(self, key, target):\n        \"\"\"Update M with momentum, regularization, and experience replay.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        self.step += 1\n        \n        # Store in history\n        self.key_history.append(key[:])\n        self.target_history.append(target[:])\n        if len(self.key_history) > self.capacity:\n            self.key_history.pop(0)\n            self.target_history.pop(0)\n        \n        # Compute error\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Update running averages\n        key_norm = sum(x*x for x in key)**0.5\n        error_norm = sum(x*x for x in error)**0.5\n        decay = 0.99\n        self.key_norm_avg = decay * self.key_norm_avg + (1-decay) * key_norm\n        self.error_norm_avg = decay * self.error_norm_avg + (1-decay) * error_norm\n        \n        # Adaptive learning rate\n        adaptive_eta = self.eta / (1.0 + 0.001 * self.step)\n        adaptive_eta *= min(1.0, 1.0 / (error_norm + 1e-8))\n        \n        # Compute gradient with regularization\n        grad = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        for i in range(dim):\n            for j in range(dim):\n                # Error gradient\n                grad[i][j] = error[i] * key[j]\n                # L2 regularization\n                grad[i][j] += self.gamma * self.M[i][j] / (1.0 + abs(self.M[i][j]))\n                # Orthogonality regularization for off-diagonal\n                if i != j:\n                    grad[i][j] += 0.1 * self.M[i][j] * abs(self.M[i][j])\n        \n        # Update momentum\n        for i in range(dim):\n            for j in range(dim):\n                self.momentum[i][j] = self.beta * self.momentum[i][j] - adaptive_eta * grad[i][j]\n        \n        # Apply update with forgetting\n        for i in range(dim):\n            for j in range(dim):\n                identity_term = self.alpha if i == j else 0.0\n                forget = self.M[i][j] * identity_term\n                self.M[i][j] = forget + self.momentum[i][j]\n        \n        # Experience replay (occasionally)\n        if len(self.key_history) > 10 and self.step % 5 == 0:\n            idx = self.step % len(self.key_history)\n            replay_key = self.key_history[idx]\n            replay_target = self.target_history[idx]\n            \n            replay_activation = self.query(replay_key)\n            replay_error = [replay_activation[i] - replay_target[i] for i in range(dim)]",
+      "score": 0.0,
+      "generation": 1,
+      "island_id": 1,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.0,
+        "p_at_3": 0.0,
+        "p_at_5": 0.0,
+        "scores_per_test": {
+          "conv0": 0.0,
+          "conv1": 0.0,
+          "overall": 0.0
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.005,
+            "p_at_3": 0.02,
+            "p_at_5": 0.03
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.0,
+            "p_at_3": 0.0,
+            "p_at_5": 0.0
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.0,
+            "p_at_3": 0.0,
+            "p_at_5": 0.0
+          }
+        ],
+        "elapsed": 68.01305389404297,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.0,
+        "conv1": 0.0,
+        "overall": 0.0
+      },
+      "created_at": "2026-03-17 15:51:52"
+    },
+    {
+      "id": "gen002-island4-000",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1, epsilon=1e-8):\n        \"\"\"Initialize memory with momentum, adaptive learning, and sparse regularization.\"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        self.epsilon = epsilon\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        self.velocity = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.key_history = []\n        self.target_history = []\n        self.history_limit = 100\n        self.step = 0\n\n    def query(self, key):\n        \"\"\"Return activation with non-linear transformation and history context.\"\"\"\n        dim = self.dim\n        base_activation = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        \n        # Add non-linear squashing\n        norm = max(self.epsilon, sum(x * x for x in base_activation) ** 0.5)\n        scaled = [x / norm for x in base_activation]\n        \n        # Blend with recent history if available\n        if self.key_history:\n            recent_keys = self.key_history[-5:]\n            history_effect = [0.0] * dim\n            for hist_key in recent_keys:\n                for i in range(dim):\n                    history_effect[i] += sum(self.M[i][j] * hist_key[j] for j in range(dim))\n            for i in range(dim):\n                scaled[i] = 0.7 * scaled[i] + 0.3 * history_effect[i] / len(recent_keys)\n        \n        return scaled\n\n    def update(self, key, target):\n        \"\"\"Update with momentum, adaptive gradients, and sparse regularization.\"\"\"\n        dim = self.dim\n        self.step += 1\n        self.key_history.append(key[:])\n        self.target_history.append(target[:])\n        if len(self.key_history) > self.history_limit:\n            self.key_history.pop(0)\n            self.target_history.pop(0)\n        \n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Compute gradient with L1 regularization\n        grad = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        for i in range(dim):\n            for j in range(dim):\n                grad[i][j] = error[i] * key[j] + self.gamma * (1.0 if self.M[i][j] > 0 else -1.0)\n        \n        # Momentum update\n        for i in range(dim):\n            for j in range(dim):\n                self.velocity[i][j] = self.beta * self.velocity[i][j] + (1 - self.beta) * grad[i][j]\n                adjusted_lr = self.eta / (1 + self.step * 0.001)\n                self.M[i][j] = self.alpha * self.M[i][j] - adjusted_lr * self.velocity[i][j]\n        \n        # Periodic re-scaling to prevent blowup\n        if self.step % 50 == 0:\n            max_val = max(abs(x) for row in self.M for x in row)\n            if max_val > 10.0:\n                scale = 10.0 / max_val\n                for i in range(dim):\n                    for j in range(dim):\n                        self.M[i][j] *= scale",
+      "score": 0.27,
+      "generation": 2,
+      "island_id": 4,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.27,
+        "p_at_3": 0.34,
+        "p_at_5": 0.415,
+        "scores_per_test": {
+          "conv0": 0.2617801047120419,
+          "conv1": 0.4444444444444444,
+          "overall": 0.27
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.275,
+            "p_at_3": 0.34,
+            "p_at_5": 0.405
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.275,
+            "p_at_3": 0.335,
+            "p_at_5": 0.415
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.27,
+            "p_at_3": 0.34,
+            "p_at_5": 0.415
+          }
+        ],
+        "elapsed": 77.92479395866394,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.2617801047120419,
+        "conv1": 0.4444444444444444,
+        "overall": 0.27
+      },
+      "created_at": "2026-03-17 15:53:23"
+    },
+    {
+      "id": "gen002-island4-001",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1, epsilon=1e-8):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n            beta: momentum factor\n            gamma: regularization strength\n            epsilon: small constant for numerical stability\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        self.epsilon = epsilon\n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum for each weight\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        # Running average of key magnitudes for adaptive learning\n        self.key_mag_avg = 1.0\n        # History of recent errors for adaptive adjustment\n        self.error_history = []\n        self.history_len = 10\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key with non-linear enhancement.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        # Linear projection\n        linear = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        # Compute key magnitude\n        key_mag = sum(k * k for k in key) ** 0.5 + self.epsilon\n        # Non-linear enhancement: amplify components based on similarity to key\n        activation = []\n        for i in range(dim):\n            # Add a small non-linear term that reinforces strong components\n            nonlin = self.gamma * linear[i] * abs(linear[i]) / (key_mag + self.epsilon)\n            activation.append(linear[i] + nonlin)\n        return activation\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Track error magnitude for adaptive learning\n        error_mag = sum(e * e for e in error) ** 0.5\n        self.error_history.append(error_mag)\n        if len(self.error_history) > self.history_len:\n            self.error_history.pop(0)\n        \n        # Adaptive learning rate based on recent errors\n        avg_error = sum(self.error_history) / len(self.error_history) if self.error_history else error_mag\n        adaptive_eta = self.eta * min(1.0, avg_error / (error_mag + self.epsilon))\n        \n        # Update key magnitude average\n        key_mag = sum(k * k for k in key) ** 0.5\n        self.key_mag_avg = 0.9 * self.key_mag_avg + 0.1 * key_mag\n        \n        # Normalize learning by key magnitude\n        norm_factor = self.key_mag_avg + self.epsilon\n        \n        for i in range(dim):\n            for j in range(dim):\n                # Gradient with regularization\n                grad = error[i] * key[j] + self.gamma * self.M[i][j] / (abs(self.M[i][j]) + self.epsilon)\n                grad /= norm_factor\n                \n                # Momentum update\n                self.V[i][j] = self.beta * self.V[i][j] + adaptive_eta * grad\n                \n                # Update with forgetting\n                identity_term = self.alpha if i == j else 0.0\n                forget = self.M[i][j] * identity_term\n                self.M[i][j] = forget - self.V[i][j]",
+      "score": 0.025,
+      "generation": 2,
+      "island_id": 4,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.025,
+        "p_at_3": 0.045,
+        "p_at_5": 0.045,
+        "scores_per_test": {
+          "conv0": 0.0,
+          "conv1": 0.5555555555555556,
+          "overall": 0.025
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.025,
+            "p_at_3": 0.045,
+            "p_at_5": 0.045
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.02,
+            "p_at_3": 0.045,
+            "p_at_5": 0.045
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.025,
+            "p_at_3": 0.045,
+            "p_at_5": 0.045
+          }
+        ],
+        "elapsed": 65.00348591804504,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.0,
+        "conv1": 0.5555555555555556,
+        "overall": 0.025
+      },
+      "created_at": "2026-03-17 15:53:48"
+    },
+    {
+      "id": "gen002-island4-002",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1, capacity=100):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n            beta: momentum factor\n            gamma: regularization strength\n            capacity: size of key/target history buffer\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        self.capacity = capacity\n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum for gradient updates\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        # Running average of key statistics\n        self.key_mean = [0.0 for _ in range(dim)]\n        self.key_m2 = [0.0 for _ in range(dim)]\n        self.key_count = 0\n        # History buffer for replay\n        self.key_history = []\n        self.target_history = []\n        # Adaptive learning rate scaling\n        self.G = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key with non-linear enhancement.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        # Linear projection\n        linear = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        # Non-linear enhancement: soft thresholding\n        activation = []\n        for i in range(dim):\n            val = linear[i]\n            # Add sigmoid gating based on magnitude\n            gate = 1.0 / (1.0 + 2.718281828459045 ** (-abs(val) + 1.0))\n            activation.append(val * (0.5 + 0.5 * gate))\n        return activation\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        beta = self.beta\n        gamma = self.gamma\n        M = self.M\n        V = self.V\n        G = self.G\n\n        # Update running statistics for key\n        self.key_count += 1\n        delta = [key[i] - self.key_mean[i] for i in range(dim)]\n        for i in range(dim):\n            self.key_mean[i] += delta[i] / self.key_count\n            self.key_m2[i] += delta[i] * (key[i] - self.key_mean[i])\n\n        # Compute activation and error\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n\n        # Compute gradient with regularization\n        grad = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        for i in range(dim):\n            for j in range(dim):\n                grad[i][j] = error[i] * key[j] + gamma * M[i][j] / (1.0 + abs(M[i][j]))\n\n        # AdaGrad-like accumulation\n        for i in range(dim):\n            for j in range(dim):\n                G[i][j] += grad[i][j] ** 2\n\n        # Update with momentum and adaptive learning rate\n        for i in range(dim):\n            for j in range(dim):\n                # Adaptive learning rate component\n                ada_eta = eta / (1.0 + (G[i][j] ** 0.5))\n                # Momentum update\n                V[i][j] = beta * V[i][j] - ada_eta * grad[i][j]\n                # Apply update with forgetting\n                identity_term = alpha if i == j else 0.0\n                M[i][j] = M[i][j] * identity_term + V[i][j]\n\n        # Store in history buffer\n        self.key_history.append(key[:])\n        self.target_history.append(target[:])\n        if len(self.key_history) > self.capacity:\n            self.key_history.pop(0)\n            self.target_history.pop(0)\n\n        # Occasional replay from history\n        if len(self.key_history) > 10 and self.key_count % 5 == 0:\n            idx = self.key_count % len(self.key_history)\n            replay_key = self.key_history[idx]\n            replay_target = self.target_history[idx]\n            replay_activation = self.query(replay_key)\n            replay_error = [replay_activation[i] - replay_target[i] for i in range(dim)]\n            for i in range(dim):\n                for j in range(dim):\n                    replay_grad = replay_error[i] * replay_key[j] + gamma * M[i][j] / (1.0 + abs(M[i][j]))\n                    M[i][j] -= 0.1 * eta * replay_grad",
+      "score": 0.245,
+      "generation": 2,
+      "island_id": 4,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.245,
+        "p_at_3": 0.395,
+        "p_at_5": 0.475,
+        "scores_per_test": {
+          "conv0": 0.225130890052356,
+          "conv1": 0.6666666666666666,
+          "overall": 0.245
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.365,
+            "p_at_5": 0.44
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.27,
+            "p_at_3": 0.39,
+            "p_at_5": 0.44
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.245,
+            "p_at_3": 0.395,
+            "p_at_5": 0.475
+          }
+        ],
+        "elapsed": 68.49003195762634,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.225130890052356,
+        "conv1": 0.6666666666666666,
+        "overall": 0.245
+      },
+      "created_at": "2026-03-17 15:54:17"
+    },
+    {
+      "id": "gen003-island3-000",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1, epsilon=1e-8):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n            beta: momentum factor\n            gamma: regularization strength\n            epsilon: small constant for numerical stability\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        self.epsilon = epsilon\n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum for each weight\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        # Running average of key norms for adaptive learning\n        self.key_norm_avg = 1.0\n        # History of recent errors for adaptive adjustment\n        self.error_history = []\n        self.history_size = 10\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key with non-linear enhancement.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        activation = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        \n        # Add non-linear gating based on activation magnitude\n        max_act = max(abs(a) for a in activation) + self.epsilon\n        scaled = [a / max_act for a in activation]\n        gated = [activation[i] * (0.5 + 0.5 * scaled[i]) for i in range(dim)]\n        \n        # Soft thresholding\n        threshold = 0.1 * sum(abs(a) for a in activation) / dim\n        result = [g if abs(g) > threshold else 0.0 for g in gated]\n        return result\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Store error for adaptive learning\n        error_norm = sum(e*e for e in error) ** 0.5\n        self.error_history.append(error_norm)\n        if len(self.error_history) > self.history_size:\n            self.error_history.pop(0)\n        \n        # Adaptive learning rate based on recent errors\n        avg_error = sum(self.error_history) / len(self.error_history) if self.error_history else error_norm\n        adaptive_eta = self.eta * min(2.0, max(0.5, avg_error / (error_norm + self.epsilon)))\n        \n        # Update key norm average\n        key_norm = sum(k*k for k in key) ** 0.5\n        self.key_norm_avg = 0.9 * self.key_norm_avg + 0.1 * key_norm\n        \n        # Normalize key for stable updates\n        norm_key = [k / (self.key_norm_avg + self.epsilon) for k in key]\n        \n        # Compute update with momentum and regularization\n        for i in range(dim):\n            for j in range(dim):\n                # Gradient with regularization\n                grad = error[i] * norm_key[j] + self.gamma * self.M[i][j]\n                \n                # Momentum update\n                self.V[i][j] = self.beta * self.V[i][j] + adaptive_eta * grad\n                \n                # Update with forgetting\n                identity_term = self.alpha if i == j else 0.0\n                forget = self.M[i][j] * identity_term\n                self.M[i][j] = forget - self.V[i][j]\n                \n                # Ensure diagonal dominance for stability\n                if i == j:\n                    self.M[i][j] = max(0.5, min(2.0, self.M[i][j]))",
+      "score": 0.28,
+      "generation": 3,
+      "island_id": 3,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.28,
+        "p_at_3": 0.36,
+        "p_at_5": 0.385,
+        "scores_per_test": {
+          "conv0": 0.2774869109947644,
+          "conv1": 0.3333333333333333,
+          "overall": 0.28
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.28,
+            "p_at_3": 0.36,
+            "p_at_5": 0.385
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.28,
+            "p_at_3": 0.36,
+            "p_at_5": 0.385
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.28,
+            "p_at_3": 0.36,
+            "p_at_5": 0.385
+          }
+        ],
+        "elapsed": 63.05942487716675,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.2774869109947644,
+        "conv1": 0.3333333333333333,
+        "overall": 0.28
+      },
+      "created_at": "2026-03-17 15:56:28"
+    },
+    {
+      "id": "gen003-island3-001",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1, epsilon=1e-8):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n            beta: momentum factor\n            gamma: regularization strength\n            epsilon: small constant for numerical stability\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        self.epsilon = epsilon\n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum for each weight\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        # Running average of key magnitudes for adaptive learning\n        self.key_mag_avg = 1.0\n        # History of recent errors for adaptive adjustment\n        self.error_history = []\n        self.history_len = 10\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key with non-linear enhancement.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        # Linear projection\n        linear = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        # Non-linear enhancement: amplify larger values, suppress smaller ones\n        max_val = max(abs(x) for x in linear) + self.epsilon\n        enhanced = [x * (1.0 + self.gamma * abs(x) / max_val) for x in linear]\n        return enhanced\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        beta = self.beta\n        gamma = self.gamma\n        M = self.M\n        V = self.V\n\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        self.error_history.append(sum(e*e for e in error) ** 0.5)\n        if len(self.error_history) > self.history_len:\n            self.error_history.pop(0)\n\n        # Adaptive learning rate based on recent error\n        avg_error = sum(self.error_history) / len(self.error_history) if self.error_history else 1.0\n        adaptive_eta = eta / (1.0 + gamma * avg_error)\n\n        # Update key magnitude average\n        key_mag = sum(k*k for k in key) ** 0.5\n        self.key_mag_avg = 0.9 * self.key_mag_avg + 0.1 * key_mag\n\n        # Normalize learning by key magnitude\n        norm_factor = self.key_mag_avg / (key_mag + self.epsilon)\n\n        for i in range(dim):\n            for j in range(dim):\n                # Gradient with regularization\n                grad = error[i] * key[j] + gamma * M[i][j] / (abs(M[i][j]) + self.epsilon)\n                grad *= norm_factor\n\n                # Momentum update\n                V[i][j] = beta * V[i][j] + (1 - beta) * grad\n\n                # Update with forgetting and momentum\n                identity_term = alpha if i == j else 0.0\n                forget = M[i][j] * identity_term\n                learn = -adaptive_eta * V[i][j]\n                M[i][j] = forget + learn\n\n                # Soft bounding to prevent explosion\n                if abs(M[i][j]) > 10.0:\n                    M[i][j] = 10.0 if M[i][j] > 0 else -10.0",
+      "score": 0.26,
+      "generation": 3,
+      "island_id": 3,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.26,
+        "p_at_3": 0.365,
+        "p_at_5": 0.435,
+        "scores_per_test": {
+          "conv0": 0.2513089005235602,
+          "conv1": 0.4444444444444444,
+          "overall": 0.26
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.26,
+            "p_at_3": 0.365,
+            "p_at_5": 0.43
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.365,
+            "p_at_5": 0.43
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.365,
+            "p_at_5": 0.435
+          }
+        ],
+        "elapsed": 65.11212801933289,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.2513089005235602,
+        "conv1": 0.4444444444444444,
+        "overall": 0.26
+      },
+      "created_at": "2026-03-17 15:56:51"
+    },
+    {
+      "id": "gen003-island3-002",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01, beta=0.9, gamma=0.1):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n            beta: momentum factor\n            gamma: regularization strength\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.beta = beta\n        self.gamma = gamma\n        # Identity matrix as initial state\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum for each weight\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        # Running average of key statistics\n        self.key_mean = [0.0] * dim\n        self.key_var = [1.0] * dim\n        self.step = 0\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key with normalization.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        # Normalize key using running statistics\n        norm_key = [0.0] * dim\n        for i in range(dim):\n            if self.key_var[i] > 0:\n                norm_key[i] = (key[i] - self.key_mean[i]) / (self.key_var[i] ** 0.5 + 1e-8)\n            else:\n                norm_key[i] = key[i]\n        \n        # Compute activation with softmax-like attention\n        activation = [0.0] * dim\n        for i in range(dim):\n            total = 0.0\n            for j in range(dim):\n                total += self.M[i][j] * norm_key[j]\n            activation[i] = total\n        \n        # Apply non-linear scaling\n        max_act = max(abs(x) for x in activation) if activation else 1.0\n        if max_act > 0:\n            scale = 1.0 / (1.0 + abs(max_act))\n            activation = [x * scale for x in activation]\n        \n        return activation\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        self.step += 1\n        \n        # Update running statistics\n        for i in range(dim):\n            self.key_mean[i] = self.beta * self.key_mean[i] + (1 - self.beta) * key[i]\n            self.key_var[i] = self.beta * self.key_var[i] + (1 - self.beta) * (key[i] ** 2)\n        \n        # Normalize key\n        norm_key = [0.0] * dim\n        for i in range(dim):\n            if self.key_var[i] > 0:\n                norm_key[i] = (key[i] - self.key_mean[i]) / (self.key_var[i] ** 0.5 + 1e-8)\n            else:\n                norm_key[i] = key[i]\n        \n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Compute gradients with regularization\n        for i in range(dim):\n            for j in range(dim):\n                # Gradient of error term\n                grad = error[i] * norm_key[j]\n                # L2 regularization gradient\n                reg_grad = self.gamma * self.M[i][j]\n                # Total gradient\n                total_grad = grad + reg_grad\n                \n                # Update momentum\n                self.V[i][j] = self.beta * self.V[i][j] + self.eta * total_grad\n                \n                # Update weight with forgetting\n                identity_term = self.alpha if i == j else 0.0\n                self.M[i][j] = self.M[i][j] * identity_term - self.V[i][j]\n                \n                # Apply weight clipping\n                if self.M[i][j] > 10.0:\n                    self.M[i][j] = 10.0\n                elif self.M[i][j] < -10.0:\n                    self.M[i][j] = -10.0",
+      "score": 0.05,
+      "generation": 3,
+      "island_id": 3,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.05,
+        "p_at_3": 0.05,
+        "p_at_5": 0.05,
+        "scores_per_test": {
+          "conv0": 0.005235602094240838,
+          "conv1": 1.0,
+          "overall": 0.05
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.05,
+            "p_at_3": 0.05,
+            "p_at_5": 0.05
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.05,
+            "p_at_3": 0.05,
+            "p_at_5": 0.05
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.05,
+            "p_at_3": 0.05,
+            "p_at_5": 0.05
+          }
+        ],
+        "elapsed": 64.17613792419434,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.005235602094240838,
+        "conv1": 1.0,
+        "overall": 0.05
+      },
+      "created_at": "2026-03-17 15:57:15"
+    },
+    {
+      "id": "gen003-island3-003",
+      "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=1.0, eta=0.01):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (1.0 = no time decay)\n            eta: learning rate\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        self.momentum = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.beta = 0.9\n        self.epsilon = 1e-8\n        self.key_history = []\n        self.target_history = []\n        self.history_size = 100\n        self.step = 0\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        activation = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        \n        if self.step > 0 and len(self.key_history) > 0:\n            avg_activation = [0.0] * dim\n            for hist_key in self.key_history[-5:]:\n                hist_act = [sum(self.M[i][j] * hist_key[j] for j in range(dim)) for i in range(dim)]\n                for i in range(dim):\n                    avg_activation[i] += hist_act[i]\n            for i in range(dim):\n                avg_activation[i] /= min(5, len(self.key_history))\n                activation[i] = 0.7 * activation[i] + 0.3 * avg_activation[i]\n        \n        return activation\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        M = self.M\n        \n        self.key_history.append(key[:])\n        self.target_history.append(target[:])\n        if len(self.key_history) > self.history_size:\n            self.key_history.pop(0)\n            self.target_history.pop(0)\n        \n        activation = [sum(M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        error_magnitude = sum(e*e for e in error) ** 0.5\n        if error_magnitude > 0:\n            error = [e / error_magnitude for e in error]\n        \n        adaptive_eta = eta / (1 + 0.001 * self.step)\n        \n        for i in range(dim):\n            for j in range(dim):\n                grad = error[i] * key[j]\n                self.momentum[i][j] = self.beta * self.momentum[i][j] + (1 - self.beta) * grad\n                m_hat = self.momentum[i][j] / (1 - self.beta ** (self.step + 1))\n                \n                identity_term = alpha if i == j else 0.0\n                forget = M[i][j] * (identity_term - adaptive_eta * key[i] * key[j])\n                learn = -adaptive_eta * m_hat\n                \n                M[i][j] = forget + learn\n        \n        if self.step % 10 == 0 and len(self.key_history) > 1:\n            for idx in range(len(self.key_history) - 1):\n                hist_key = self.key_history[idx]\n                hist_target = self.target_history[idx]\n                hist_activation = [sum(M[i][j] * hist_key[j] for j in range(dim)) for i in range(dim)]\n                hist_error = [hist_activation[i] - hist_target[i] for i in range(dim)]\n                \n                for i in range(dim):\n                    for j in range(dim):\n                        M[i][j] -= 0.1 * adaptive_eta * hist_error[i] * hist_key[j]\n        \n        self.step += 1",
+      "score": 0.26,
+      "generation": 3,
+      "island_id": 3,
+      "parent_ids": [
+        "seed-000"
+      ],
+      "eval_details": {
+        "model": "deepseek",
+        "p_at_1": 0.26,
+        "p_at_3": 0.33,
+        "p_at_5": 0.39,
+        "scores_per_test": {
+          "conv0": 0.2513089005235602,
+          "conv1": 0.4444444444444444,
+          "overall": 0.26
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "p_at_1": 0.265,
+            "p_at_3": 0.33,
+            "p_at_5": 0.39
+          },
+          {
+            "round": 2,
+            "p_at_1": 0.26,
+            "p_at_3": 0.33,
+            "p_at_5": 0.39
+          },
+          {
+            "round": 3,
+            "p_at_1": 0.26,
+            "p_at_3": 0.33,
+            "p_at_5": 0.39
+          }
+        ],
+        "elapsed": 98.4705159664154,
+        "error": false
+      },
+      "scores_per_test": {
+        "conv0": 0.2513089005235602,
+        "conv1": 0.4444444444444444,
+        "overall": 0.26
+      },
+      "created_at": "2026-03-17 15:57:39"
+    }
+  ],
+  "register_count": 12
+}

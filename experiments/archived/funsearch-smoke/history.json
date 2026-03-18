@@ -1,0 +1,46 @@
+[
+  {
+    "register_count": 10,
+    "total_programs": 10,
+    "best_per_island": [
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3
+    ],
+    "clusters_per_island": [
+      1,
+      1,
+      1,
+      1,
+      2
+    ],
+    "global_best": 0.3,
+    "global_avg": 0.2985,
+    "avg_code_length": 824.5,
+    "timestamp": "2026-03-17 14:30:31"
+  },
+  {
+    "register_count": 22,
+    "total_programs": 22,
+    "best_per_island": [
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3
+    ],
+    "clusters_per_island": [
+      1,
+      1,
+      2,
+      1,
+      2
+    ],
+    "global_best": 0.3,
+    "global_avg": 0.2975,
+    "avg_code_length": 893.8181818181819,
+    "timestamp": "2026-03-17 14:37:25"
+  }
+]
