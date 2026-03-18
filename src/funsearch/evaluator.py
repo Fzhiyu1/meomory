@@ -140,6 +140,14 @@ def evaluate_update_fn(
         q_vecs_np = q_vecs_np_all[:max_questions]
         q_vecs_list = q_vecs_list_all[:max_questions]
 
+    # 打乱题目顺序（跨对话交叉，暴露干扰问题）
+    import random as _shuffle_rng
+    shuffle_indices = list(range(len(questions)))
+    _shuffle_rng.Random(42).shuffle(shuffle_indices)
+    questions = [questions[i] for i in shuffle_indices]
+    q_vecs_np = q_vecs_np[shuffle_indices]
+    q_vecs_list = [q_vecs_list[i] for i in shuffle_indices]
+
     # 判断是函数还是类
     is_class = isinstance(update_fn_or_class, type)
 
