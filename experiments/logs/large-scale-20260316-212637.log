@@ -1,0 +1,118 @@
+Running 10 experiment(s) from experiments/configs/large-scale.yaml
+Log: /Users/fangzhiyu/run/meomory/experiments/logs/large-scale-20260316-212637.log
+
+============================================================
+  Experiment: cosine-locomo-full
+============================================================
+  Dataset(LoCoMo-full-all: 272 fragments, 1976 questions)
+  Batch embedding 272 fragments...
+    Done (35.3s)
+  Batch embedding 1976 questions...
+    Done (135.6s)
+  Cached to LoCoMo-full-all_embed.json
+  cosine: P@1=22.4% P@3=33.0% P@5=38.7%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-full.json
+
+============================================================
+  Experiment: bm25-locomo-full
+============================================================
+  Dataset(LoCoMo-full-all: 272 fragments, 1976 questions)
+  Loading cached embeddings from LoCoMo-full-all_embed.json
+  bm25: P@1=30.9% P@3=42.2% P@5=48.3%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/bm25-locomo-full.json
+
+============================================================
+  Experiment: dgd-gt-locomo-full
+============================================================
+  Dataset(LoCoMo-full-all: 272 fragments, 1976 questions)
+  Loading cached embeddings from LoCoMo-full-all_embed.json
+  Round  1: P@1=24.7% P@3=35.7% P@5=41.9%  (upd:1976 acc:100% err:0 25.6s)
+  Round  2: P@1=26.2% P@3=36.8% P@5=43.9%  (upd:1976 acc:100% err:0 25.5s)
+  Round  3: P@1=26.6% P@3=38.3% P@5=46.8%  (upd:1976 acc:100% err:0 25.5s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-full.json
+
+============================================================
+  Experiment: dgd-judge-locomo-full
+============================================================
+  Dataset(LoCoMo-full-all: 272 fragments, 1976 questions)
+  Loading cached embeddings from LoCoMo-full-all_embed.json
+  Round  1: P@1=23.6% P@3=34.4% P@5=40.2%  (upd:970 acc:34% err:2 355.2s)
+  Round  2: P@1=23.7% P@3=34.8% P@5=40.0%  (upd:992 acc:34% err:0 340.6s)
+  Round  3: P@1=24.1% P@3=34.9% P@5=39.8%  (upd:1026 acc:33% err:0 339.5s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-full.json
+
+============================================================
+  Experiment: dgd-cms-locomo-full
+============================================================
+  Dataset(LoCoMo-full-all: 272 fragments, 1976 questions)
+  Loading cached embeddings from LoCoMo-full-all_embed.json
+  Round  1: P@1=23.7% P@3=34.4% P@5=39.8%  (upd:983 acc:34% err:2 339.7s)
+  Round  2: P@1=23.6% P@3=34.6% P@5=40.0%  (upd:973 acc:34% err:0 343.6s)
+  Round  3: P@1=23.6% P@3=34.7% P@5=40.1%  (upd:990 acc:33% err:0 328.6s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-cms-locomo-full.json
+
+============================================================
+  Experiment: cosine-longmemeval
+============================================================
+  Dataset(LongMemEval-oracle: 882 fragments, 470 questions)
+  Batch embedding 882 fragments...
+    Done (96.3s)
+  Batch embedding 470 questions...
+    Done (32.1s)
+  Cached to LongMemEval-oracle_embed.json
+  cosine: P@1=41.7% P@3=56.0% P@5=61.7%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-longmemeval.json
+
+============================================================
+  Experiment: bm25-longmemeval
+============================================================
+  Dataset(LongMemEval-oracle: 882 fragments, 470 questions)
+  Loading cached embeddings from LongMemEval-oracle_embed.json
+  bm25: P@1=48.3% P@3=60.9% P@5=66.2%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/bm25-longmemeval.json
+
+============================================================
+  Experiment: dgd-gt-longmemeval
+============================================================
+  Dataset(LongMemEval-oracle: 882 fragments, 470 questions)
+  Loading cached embeddings from LongMemEval-oracle_embed.json
+  Round  1: P@1=48.9% P@3=66.0% P@5=71.7%  (upd:470 acc:100% err:0 10.6s)
+  Round  2: P@1=50.0% P@3=66.8% P@5=72.8%  (upd:470 acc:100% err:0 10.5s)
+  Round  3: P@1=50.0% P@3=67.4% P@5=73.6%  (upd:470 acc:100% err:0 10.5s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-longmemeval.json
+
+============================================================
+  Experiment: dgd-judge-longmemeval
+============================================================
+  Dataset(LongMemEval-oracle: 882 fragments, 470 questions)
+  Loading cached embeddings from LongMemEval-oracle_embed.json
+  Round  1: P@1=47.4% P@3=64.5% P@5=70.6%  (upd:245 acc:44% err:0 123.8s)
+  Round  2: P@1=48.3% P@3=65.3% P@5=70.6%  (upd:262 acc:43% err:0 122.9s)
+  Round  3: P@1=48.3% P@3=65.3% P@5=70.2%  (upd:254 acc:43% err:0 121.0s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-longmemeval.json
+
+============================================================
+  Experiment: dgd-cms-longmemeval
+============================================================
+  Dataset(LongMemEval-oracle: 882 fragments, 470 questions)
+  Loading cached embeddings from LongMemEval-oracle_embed.json
+  Round  1: P@1=44.7% P@3=62.1% P@5=67.7%  (upd:250 acc:42% err:0 122.4s)
+  Round  2: P@1=45.7% P@3=63.0% P@5=68.9%  (upd:253 acc:43% err:0 121.6s)
+  Round  3: P@1=46.2% P@3=63.4% P@5=69.6%  (upd:252 acc:42% err:0 120.1s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-cms-longmemeval.json
+
+============================================================
+  Summary
+============================================================
+  Name                                P@1      P@3      P@5
+  ------------------------------------------------------
+  cosine-locomo-full               22.4%   33.0%   38.7%
+  bm25-locomo-full                 30.9%   42.2%   48.3%
+  dgd-gt-locomo-full               26.6%   38.3%   46.8%
+  dgd-judge-locomo-full            24.1%   34.9%   39.8%
+  dgd-cms-locomo-full              23.6%   34.7%   40.1%
+  cosine-longmemeval               41.7%   56.0%   61.7%
+  bm25-longmemeval                 48.3%   60.9%   66.2%
+  dgd-gt-longmemeval               50.0%   67.4%   73.6%
+  dgd-judge-longmemeval            48.3%   65.3%   70.2%
+  dgd-cms-longmemeval              46.2%   63.4%   69.6%

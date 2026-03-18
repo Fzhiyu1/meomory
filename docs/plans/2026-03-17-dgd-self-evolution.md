@@ -945,7 +945,7 @@ git commit -m "feat(funsearch): main evolution loop and CLI entry point"
 **Step 1: 冒烟测试（10 次迭代，3 岛，200 题）**
 
 ```bash
-MEOMORY_LLM_KEY=sk-4682199cd4bb4d69826a838cd318578c \
+MEOMORY_LLM_KEY=${DEEPSEEK_API_KEY} \
 .venv/bin/python scripts/run_funsearch.py \
   --iterations 10 --islands 3 --samples 2 --max-questions 200 --rounds 3
 ```
@@ -967,7 +967,7 @@ for p in data[:3]:
 **Step 3: 正式运行（100 次迭代，5 岛，500 题）**
 
 ```bash
-MEOMORY_LLM_KEY=sk-4682199cd4bb4d69826a838cd318578c \
+MEOMORY_LLM_KEY=${DEEPSEEK_API_KEY} \
 .venv/bin/python scripts/run_funsearch.py \
   --iterations 100 --islands 5 --samples 2 --max-questions 500 --rounds 3
 ```

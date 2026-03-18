@@ -1,0 +1,101 @@
+Running 9 experiment(s) from experiments/configs/dialsim-rerun.yaml
+Log: /Users/fangzhiyu/run/meomory/experiments/logs/dialsim-rerun-20260317-005625.log
+
+============================================================
+  Experiment: cosine-dialsim-bigbang
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  cosine: P@1=57.1% P@3=71.4% P@5=71.4%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-dialsim-bigbang.json
+
+============================================================
+  Experiment: dgd-gt-dialsim-bigbang
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=64.3% P@3=71.4% P@5=78.6%  (upd:14 acc:100% err:0 0.3s)
+  Round  2: P@1=71.4% P@3=71.4% P@5=78.6%  (upd:14 acc:100% err:0 0.3s)
+  Round  3: P@1=71.4% P@3=78.6% P@5=85.7%  (upd:14 acc:100% err:0 0.3s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-dialsim-bigbang.json
+
+============================================================
+  Experiment: dgd-judge-dialsim-bigbang
+============================================================
+  Dataset(DialSim-bigbang: 805 fragments, 14 questions)
+  Loading cached embeddings from DialSim-bigbang_embed.json
+  Round  1: P@1=57.1% P@3=71.4% P@5=71.4%  (upd:11 acc:73% err:0 8.3s)
+  Round  2: P@1=71.4% P@3=71.4% P@5=71.4%  (upd:11 acc:64% err:0 12.0s)
+  Round  3: P@1=71.4% P@3=71.4% P@5=78.6%  (upd:5 acc:60% err:0 8.4s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-dialsim-bigbang.json
+
+============================================================
+  Experiment: cosine-dialsim-friends
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  cosine: P@1=25.0% P@3=41.7% P@5=50.0%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-dialsim-friends.json
+
+============================================================
+  Experiment: dgd-gt-dialsim-friends
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  Round  1: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:12 acc:100% err:0 0.2s)
+  Round  2: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:12 acc:100% err:0 0.2s)
+  Round  3: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:12 acc:100% err:0 0.2s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-dialsim-friends.json
+
+============================================================
+  Experiment: dgd-judge-dialsim-friends
+============================================================
+  Dataset(DialSim-friends: 787 fragments, 12 questions)
+  Loading cached embeddings from DialSim-friends_embed.json
+  Round  1: P@1=25.0% P@3=41.7% P@5=50.0%  (upd:3 acc:0% err:0 7.7s)
+  Round  2: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:3 acc:0% err:0 7.7s)
+  Round  3: P@1=25.0% P@3=41.7% P@5=41.7%  (upd:3 acc:0% err:0 17.2s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-dialsim-friends.json
+
+============================================================
+  Experiment: cosine-dialsim-theoffice
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  cosine: P@1=25.0% P@3=62.5% P@5=62.5%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-dialsim-theoffice.json
+
+============================================================
+  Experiment: dgd-gt-dialsim-theoffice
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:8 acc:100% err:0 0.4s)
+  Round  2: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:8 acc:100% err:0 0.4s)
+  Round  3: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:8 acc:100% err:0 0.4s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-dialsim-theoffice.json
+
+============================================================
+  Experiment: dgd-judge-dialsim-theoffice
+============================================================
+  Dataset(DialSim-theoffice: 2343 fragments, 8 questions)
+  Loading cached embeddings from DialSim-theoffice_embed.json
+  Round  1: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:4 acc:100% err:0 8.4s)
+  Round  2: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:3 acc:100% err:0 8.3s)
+  Round  3: P@1=25.0% P@3=62.5% P@5=62.5%  (upd:4 acc:75% err:0 7.7s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-dialsim-theoffice.json
+
+============================================================
+  Summary
+============================================================
+  Name                                P@1      P@3      P@5
+  ------------------------------------------------------
+  cosine-dialsim-bigbang           57.1%   71.4%   71.4%
+  dgd-gt-dialsim-bigbang           71.4%   78.6%   85.7%
+  dgd-judge-dialsim-bigbang        71.4%   71.4%   78.6%
+  cosine-dialsim-friends           25.0%   41.7%   50.0%
+  dgd-gt-dialsim-friends           25.0%   41.7%   50.0%
+  dgd-judge-dialsim-friends        25.0%   41.7%   41.7%
+  cosine-dialsim-theoffice         25.0%   62.5%   62.5%
+  dgd-gt-dialsim-theoffice         25.0%   62.5%   62.5%
+  dgd-judge-dialsim-theoffice      25.0%   62.5%   62.5%

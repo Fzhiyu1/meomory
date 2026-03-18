@@ -1,0 +1,287 @@
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+Evaluating 1 seeds (parallel)...
+  Seed 0: P@1=26.8% → island 0
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 1 programs
+  Current best: 26.8% (seed-000)
+  ★ NEW BEST: 61.2% (gen001-island1-004, model=gpt54)
+  Iter   1: 4/5 valid, best=61.2%, islands=[26.8%, 61.2%, -100.0%, -100.0%, -100.0%] (307s)
+  Iter   2: 0/5 valid, best=61.2%, islands=[26.8%, 61.2%, -100.0%, -100.0%, -100.0%] (132s)
+/home/ubuntu/meomory/src/funsearch/evaluator.py:146: RuntimeWarning: overflow encountered in cast
+  act_np = np.array(act, dtype=np.float32)
+/home/ubuntu/meomory/src/funsearch/evaluator.py:149: RuntimeWarning: invalid value encountered in divide
+  act_np = act_np / act_norm
+  Iter   3: 3/6 valid, best=61.2%, islands=[26.8%, 61.2%, -100.0%, -100.0%, -100.0%] (396s)
+  Iter   4: 5/6 valid, best=61.2%, islands=[26.8%, 61.2%, -100.0%, 49.0%, -100.0%] (267s)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 14 programs
+  Current best: 72.4% (gen005-island3-001)
+  Iter  14: 5/6 valid, best=72.4%, islands=[26.8%, 61.2%, 26.0%, 72.4%, -100.0%] (245s)
+  Iter  15: 3/6 valid, best=72.4%, islands=[26.8%, 61.2%, 26.0%, 72.4%, -100.0%] (782s)
+  Iter  16: 3/4 valid, best=72.4%, islands=[26.8%, 61.2%, 57.4%, 72.4%, -100.0%] (349s)
+  Iter  17: 5/6 valid, best=72.4%, islands=[26.8%, 61.2%, 57.4%, 72.4%, -100.0%] (213s)
+  Iter  18: 1/4 valid, best=72.4%, islands=[26.8%, 61.2%, 57.4%, 72.4%, -100.0%] (206s)
+  ★ NEW BEST: 76.8% (gen019-island3-003, model=gpt54)
+  ★ NEW BEST: 79.4% (gen019-island3-004, model=deepseek)
+  Iter  19: 3/5 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, -100.0%] (853s)
+  Iter  20: 0/6 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, -100.0%] (164s)
+  Iter  21: 5/6 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, -100.0%] (222s)
+  Iter  22: 0/2 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, -100.0%] (145s)
+  Iter  23: 6/6 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, 37.4%] (241s)
+  Iter  24: 5/5 valid, best=79.4%, islands=[61.2%, 61.2%, 61.2%, 79.4%, 73.2%] (279s)
+  Iter  25: 0/5 valid, best=79.4%, islands=[61.2%, 61.2%, 61.2%, 79.4%, 73.2%] (138s)
+  Iter  26: 0/4 valid, best=79.4%, islands=[61.2%, 61.2%, 61.2%, 79.4%, 73.2%] (161s)
+  Iter  27: 2/6 valid, best=79.4%, islands=[61.2%, 61.2%, 61.2%, 79.4%, 73.2%] (799s)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 52 programs
+  Current best: 79.4% (gen019-island3-004)
+  Iter  52: 1/2 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, 73.2%] (270s)
+  Iter  53: 2/5 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, 73.2%] (177s)
+  Iter  54: 4/4 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, 73.2%] (238s)
+  Iter  55: 1/6 valid, best=79.4%, islands=[26.8%, 61.2%, 57.4%, 79.4%, 73.2%] (175s)
+  Iter  56: 3/5 valid, best=79.4%, islands=[72.4%, 61.2%, 57.4%, 79.4%, 73.2%] (358s)
+  ★ NEW BEST: 87.6% (gen057-island3-001, model=gpt54)
+    → 全量验证中...
+    → 全量 P@1: 49.5% (膨胀比: 1.8x)
+  Iter  57: 4/5 valid, best=87.6%, islands=[72.4%, 61.2%, 57.4%, 87.6%, 73.2%] (576s)
+  Iter  58: 5/5 valid, best=87.6%, islands=[72.4%, 61.2%, 57.4%, 87.6%, 73.2%] (150s)
+  Iter  59: 5/5 valid, best=87.6%, islands=[72.4%, 61.2%, 57.4%, 87.6%, 73.2%] (306s)
+  Iter  60: 0/3 valid, best=87.6%, islands=[72.4%, 61.2%, 57.4%, 87.6%, 73.2%] (91s)
+  Iter  61: 4/6 valid, best=87.6%, islands=[72.4%, 61.2%, 57.4%, 87.6%, 73.2%] (198s)
+  Iter  62: 5/6 valid, best=87.6%, islands=[73.0%, 61.2%, 57.4%, 87.6%, 73.2%] (425s)
+  Iter  63: 4/6 valid, best=87.6%, islands=[73.0%, 61.2%, 57.4%, 87.6%, 73.2%] (175s)
+  Iter  64: 3/4 valid, best=87.6%, islands=[73.0%, 61.2%, 57.4%, 87.6%, 73.2%] (160s)
+  Iter  65: 4/6 valid, best=87.6%, islands=[73.0%, 61.2%, 57.4%, 87.6%, 73.2%] (149s)
+  Iter  66: 3/6 valid, best=87.6%, islands=[73.0%, 73.0%, 73.2%, 87.6%, 73.2%] (121s)
+  Iter  67: 6/6 valid, best=87.6%, islands=[73.0%, 73.0%, 73.2%, 87.6%, 73.2%] (229s)
+  Iter  68: 2/6 valid, best=87.6%, islands=[73.0%, 73.0%, 73.2%, 87.6%, 73.2%] (202s)
+  Iter  69: 1/3 valid, best=87.6%, islands=[73.0%, 73.0%, 73.2%, 87.6%, 73.2%] (176s)
+  Iter  70: 6/6 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (166s)
+  Iter  71: 6/6 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (341s)
+  Iter  72: 0/1 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (90s)
+  Iter  73: 6/6 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (167s)
+  Iter  74: 5/6 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (190s)
+/home/ubuntu/meomory/.venv/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2767: RuntimeWarning: overflow encountered in dot
+  sqnorm = x.dot(x)
+  Iter  75: 5/6 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (377s)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 137 programs
+  Current best: 87.6% (gen057-island3-001)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 137 programs
+  Current best: 87.6% (gen057-island3-001)
+  Iter 137: 3/5 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (279s)
+  Iter 138: 3/6 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (468s)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 143 programs
+  Current best: 87.6% (gen057-island3-001)
+  Iter 143: 1/3 valid, best=87.6%, islands=[73.0%, 73.0%, 78.2%, 87.6%, 73.2%] (394s)
+  Iter 144: 5/5 valid, best=87.6%, islands=[80.8%, 73.0%, 78.2%, 87.6%, 73.2%] (353s)
+  Iter 145: 2/3 valid, best=87.6%, islands=[80.8%, 87.6%, 78.2%, 87.6%, 80.8%] (397s)
+  Iter 146: 2/3 valid, best=87.6%, islands=[80.8%, 87.6%, 78.2%, 87.6%, 80.8%] (352s)
+  Iter 147: 4/6 valid, best=87.6%, islands=[80.8%, 87.6%, 78.2%, 87.6%, 81.0%] (371s)
+  Iter 148: 6/6 valid, best=87.6%, islands=[80.8%, 87.6%, 78.2%, 87.6%, 81.0%] (397s)
+  Iter 149: 4/4 valid, best=87.6%, islands=[80.8%, 87.6%, 78.2%, 87.6%, 81.0%] (370s)
+  Iter 150: 4/4 valid, best=87.6%, islands=[80.8%, 87.6%, 78.2%, 87.6%, 81.0%] (366s)
+  [Stats] 9b:26(5f) deepseek:16(0f) gpt54:6(6f)
+  ★ NEW BEST: 88.4% (gen151-island4-004, model=deepseek)
+    → 全量验证中...
+    → 全量 P@1: 30.1% (膨胀比: 2.9x)
+  Iter 151: 1/4 valid, best=88.4%, islands=[80.8%, 87.6%, 78.2%, 87.6%, 88.4%] (893s)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 176 programs
+  Current best: 88.4% (gen151-island4-004)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 176 programs
+  Current best: 88.4% (gen151-island4-004)
+  ⚡ 评测集自动扩大: 500 → 1000 题 (膨胀比=2.9x > 2.0x)
+  ⚡ 重新评测 top-10 程序...
+    gen151-island4-004: 88.4% → 66.9% (1000题)
+    gen176-island4-000: 88.4% → 66.9% (1000题)
+    gen176-island4-003: 88.4% → 66.9% (1000题)
+    gen057-island3-001: 87.6% → 74.1% (1000题)
+    gen059-island3-001: 87.0% → 75.3% (1000题)
+    gen147-island4-003: 81.0% → 55.5% (1000题)
+    gen144-island0-003: 80.8% → 55.6% (1000题)
+    gen147-island4-005: 80.8% → 55.6% (1000题)
+    gen019-island3-004: 79.4% → 51.5% (1000题)
+    gen148-island0-001: 78.4% → 56.8% (1000题)
+  ⚡ 重新评测完成，新 best: 78.2% (gen070-island2-005)
+  Iter 176: 3/5 valid, best=78.2%, islands=[80.8%, 73.0%, 78.2%, 87.6%, 88.4%] (2550s)
+  Iter 177: 4/6 valid, best=78.2%, islands=[80.8%, 73.0%, 78.2%, 87.6%, 88.4%] (460s)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 500 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 187 programs
+  Current best: 78.2% (gen070-island2-005)
+  Iter 187: 1/6 valid, best=78.2%, islands=[74.8%, 73.0%, 78.2%, 76.8%, 73.2%] (335s)
+  Iter 188: 4/4 valid, best=78.2%, islands=[74.8%, 73.0%, 78.2%, 76.8%, 73.2%] (361s)
+  Iter 189: 3/6 valid, best=78.2%, islands=[74.8%, 73.0%, 78.2%, 76.8%, 73.2%] (735s)
+/home/ubuntu/meomory/src/funsearch/evaluator.py:158: RuntimeWarning: overflow encountered in cast
+  act_np = np.array(act, dtype=np.float32)
+/home/ubuntu/meomory/src/funsearch/evaluator.py:161: RuntimeWarning: invalid value encountered in divide
+  act_np = act_np / act_norm
+  Iter 190: 2/5 valid, best=78.2%, islands=[74.8%, 73.0%, 78.2%, 76.8%, 73.2%] (418s)
+  Iter 191: 2/5 valid, best=78.2%, islands=[74.8%, 73.0%, 78.2%, 76.8%, 77.8%] (587s)
+  Iter 192: 2/2 valid, best=78.2%, islands=[76.8%, 76.8%, 78.2%, 76.8%, 77.8%] (395s)
+  Iter 193: 3/6 valid, best=78.2%, islands=[76.8%, 76.8%, 78.2%, 76.8%, 77.8%] (369s)
+  Iter 194: 1/2 valid, best=78.2%, islands=[76.8%, 76.8%, 78.2%, 76.8%, 77.8%] (423s)
+  ★ NEW BEST: 80.4% (gen195-island2-001, model=9b)
+    → 全量验证中...
+    → 全量 P@1: 35.1% (膨胀比: 2.3x)
+  Iter 195: 5/6 valid, best=80.4%, islands=[76.8%, 76.8%, 80.4%, 76.8%, 77.8%] (479s)
+  ★ NEW BEST: 82.8% (gen196-island1-000, model=deepseek)
+    → 全量验证中...
+    → 全量 P@1: 46.4% (膨胀比: 1.8x)
+  Iter 196: 4/5 valid, best=82.8%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 77.8%] (568s)
+  Iter 197: 1/5 valid, best=82.8%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 77.8%] (403s)
+  Iter 198: 2/5 valid, best=82.8%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 77.8%] (542s)
+  Iter 199: 2/5 valid, best=82.8%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 77.8%] (284s)
+  Iter 200: 6/6 valid, best=82.8%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 80.2%] (736s)
+  [Stats] 9b:47(7f) deepseek:30(0f) gpt54:7(7f)
+  Iter 201: 4/4 valid, best=82.8%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 80.2%] (454s)
+  Iter 202: 1/2 valid, best=82.8%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 80.2%] (327s)
+  Iter 203: 5/6 valid, best=82.8%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 80.2%] (317s)
+  ★ NEW BEST: 92.4% (gen204-island4-000, model=9b)
+    → 全量验证中...
+    → 全量 P@1: 60.1% (膨胀比: 1.5x)
+  Iter 204: 4/5 valid, best=92.4%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 92.4%] (567s)
+  Iter 205: 5/6 valid, best=92.4%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 92.4%] (353s)
+  ★ NEW BEST: 94.0% (gen206-island4-002, model=9b)
+    → 全量验证中...
+    → 全量 P@1: 60.1% (膨胀比: 1.6x)
+  Iter 206: 4/5 valid, best=94.0%, islands=[76.8%, 82.8%, 80.4%, 76.8%, 94.0%] (762s)
+  Iter 207: 2/4 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (286s)
+  Iter 208: 2/4 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (806s)
+  Iter 209: 5/6 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (303s)
+  Iter 210: 4/6 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (597s)
+  Iter 211: 0/2 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (289s)
+/home/ubuntu/meomory/src/funsearch/evaluator.py:158: RuntimeWarning: overflow encountered in cast
+  act_np = np.array(act, dtype=np.float32)
+/home/ubuntu/meomory/src/funsearch/evaluator.py:162: RuntimeWarning: invalid value encountered in matmul
+  scores = proj_vecs_np @ act_np  # (n_frags,)
+  Iter 212: 3/5 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (734s)
+  Iter 213: 5/6 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (264s)
+  Iter 214: 4/5 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (695s)
+  Iter 215: 3/4 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (552s)
+  Iter 216: 3/5 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (327s)
+  Iter 217: 4/6 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (734s)
+  Iter 218: 4/6 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (303s)
+  Iter 219: 1/3 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (347s)
+  Iter 220: 4/6 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (436s)
+  Iter 221: 3/5 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (331s)
+  Iter 222: 0/5 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (821s)
+  Iter 223: 1/4 valid, best=94.0%, islands=[82.8%, 82.8%, 80.4%, 80.4%, 94.0%] (441s)
+  Iter 224: 4/4 valid, best=94.0%, islands=[82.8%, 82.8%, 82.8%, 82.8%, 94.0%] (343s)
+  Iter 225: 3/5 valid, best=94.0%, islands=[82.8%, 82.8%, 82.8%, 82.8%, 94.0%] (344s)
+  Iter 226: 3/4 valid, best=94.0%, islands=[82.8%, 82.8%, 82.8%, 82.8%, 94.0%] (327s)
+  ★ NEW BEST: 94.8% (gen227-island4-000, model=9b)
+    → 全量验证中...
+    → 全量 P@1: 60.1% (膨胀比: 1.6x)
+  ★ NEW BEST: 95.6% (gen227-island4-002, model=deepseek)
+    → 全量验证中...
+    → 全量 P@1: 59.9% (膨胀比: 1.6x)
+  Iter 227: 5/5 valid, best=95.6%, islands=[82.8%, 82.8%, 82.8%, 82.8%, 95.6%] (924s)
+  Iter 228: 4/6 valid, best=95.6%, islands=[82.8%, 82.8%, 82.8%, 82.8%, 95.6%] (324s)
+  Iter 229: 1/2 valid, best=95.6%, islands=[82.8%, 82.8%, 82.8%, 82.8%, 95.6%] (427s)
+  Iter 230: 2/4 valid, best=95.6%, islands=[82.8%, 82.8%, 82.8%, 82.8%, 95.6%] (300s)
+  Iter 231: 4/6 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (314s)
+  Iter 232: 5/6 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (631s)
+  Iter 233: 3/4 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (307s)
+  Iter 234: 4/4 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (331s)
+  Iter 235: 1/5 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (316s)
+  Iter 236: 2/5 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (1174s)
+  Iter 237: 4/5 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (308s)
+  Iter 238: 4/5 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (319s)
+  Iter 239: 4/4 valid, best=95.6%, islands=[82.8%, 84.2%, 82.8%, 82.8%, 95.6%] (320s)
+  Iter 240: 2/5 valid, best=95.6%, islands=[82.8%, 84.2%, 95.6%, 95.6%, 95.6%] (603s)
+  Iter 241: 3/5 valid, best=95.6%, islands=[82.8%, 84.2%, 95.6%, 95.6%, 95.6%] (313s)
+  Iter 242: 3/5 valid, best=95.6%, islands=[82.8%, 84.2%, 95.6%, 95.6%, 95.6%] (335s)
+  Iter 243: 2/5 valid, best=95.6%, islands=[84.2%, 84.2%, 95.6%, 95.6%, 95.6%] (277s)
+  Iter 244: 4/5 valid, best=95.6%, islands=[84.2%, 84.2%, 95.6%, 95.6%, 95.6%] (319s)
+  Iter 245: 2/4 valid, best=95.6%, islands=[84.2%, 84.2%, 95.6%, 95.6%, 95.6%] (318s)
+  Iter 246: 3/4 valid, best=95.6%, islands=[84.2%, 84.2%, 95.6%, 95.6%, 95.6%] (342s)
+  Iter 247: 5/6 valid, best=95.6%, islands=[84.2%, 84.2%, 95.6%, 95.6%, 95.6%] (290s)
+  Iter 248: 3/4 valid, best=95.6%, islands=[84.2%, 84.2%, 95.6%, 95.6%, 95.6%] (305s)
+  Iter 249: 3/5 valid, best=95.6%, islands=[84.2%, 84.2%, 95.6%, 95.6%, 95.6%] (329s)
+  Iter 250: 2/4 valid, best=95.6%, islands=[84.2%, 84.2%, 95.6%, 95.6%, 95.6%] (377s)
+  [Stats] 9b:230(27f) deepseek:112(0f) gpt54:42(42f)
+Model ensemble: ['9b(60%)', 'deepseek(30%)', 'gpt54(10%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 9999 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f) gpt54:0(0f)
+  Already evaluated: 381 programs
+  Current best: 95.6% (gen227-island4-002)
+  Iter 381: 3/5 valid, best=95.6%, islands=[84.2%, 84.2%, 82.8%, 94.0%, 95.6%] (561s)
+  Iter 382: 3/4 valid, best=95.6%, islands=[84.2%, 84.2%, 82.8%, 94.0%, 95.6%] (579s)
+  Iter 383: 3/5 valid, best=95.6%, islands=[84.2%, 84.2%, 82.8%, 94.0%, 95.6%] (532s)
+  Iter 384: 2/4 valid, best=95.6%, islands=[84.2%, 84.2%, 82.8%, 94.0%, 95.6%] (674s)
+  Iter 385: 3/4 valid, best=95.6%, islands=[84.2%, 84.2%, 82.8%, 94.0%, 95.6%] (580s)
+  Iter 386: 2/4 valid, best=95.6%, islands=[84.2%, 84.2%, 82.8%, 94.0%, 95.6%] (717s)
+  Iter 387: 4/5 valid, best=95.6%, islands=[84.2%, 84.2%, 84.2%, 94.0%, 95.6%] (547s)
+  Iter 388: 3/5 valid, best=95.6%, islands=[84.2%, 84.2%, 84.2%, 94.0%, 95.6%] (938s)
+  Iter 389: 1/5 valid, best=95.6%, islands=[84.2%, 84.2%, 84.2%, 94.0%, 95.6%] (733s)
+  Iter 390: 0/4 valid, best=95.6%, islands=[84.2%, 84.2%, 84.2%, 94.0%, 95.6%] (543s)
+Model ensemble: ['9b(70%)', 'deepseek(30%)']
+
+Starting FunSearch v4 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 9999 questions × 10 rounds
+  Samples/iter: 6
+  Models: 9b:0(0f) deepseek:0(0f)
+  Already evaluated: 10 programs
+  Current best: 60.1% (gen204-island4-000)

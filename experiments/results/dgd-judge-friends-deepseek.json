@@ -8,7 +8,7 @@
     "eval_every": 2,
     "llm_backend": {
       "type": "deepseek",
-      "api_key": "sk-4682199cd4bb4d69826a838cd318578c",
+      "api_key": "${DEEPSEEK_API_KEY}",
       "model": "deepseek-chat"
     },
     "dgd": {

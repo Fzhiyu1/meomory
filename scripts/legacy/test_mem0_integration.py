@@ -26,7 +26,7 @@ def setup_mem0():
             "provider": "deepseek",
             "config": {
                 "model": "deepseek-chat",
-                "api_key": "sk-4682199cd4bb4d69826a838cd318578c",
+                "api_key": "${DEEPSEEK_API_KEY}",
                 "temperature": 0.0,
             }
         },
@@ -58,7 +58,7 @@ def setup_mem0():
                 "provider": "deepseek",
                 "config": {
                     "model": "deepseek-chat",
-                    "api_key": "sk-4682199cd4bb4d69826a838cd318578c",
+                    "api_key": "${DEEPSEEK_API_KEY}",
                     "temperature": 0.0,
                 }
             },

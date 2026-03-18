@@ -1,0 +1,354 @@
+Running 30 experiment(s) from experiments/configs/locomo-per-conv.yaml
+Log: /Users/fangzhiyu/run/meomory/experiments/logs/locomo-per-conv-20260316-223110.log
+
+============================================================
+  Experiment: cosine-locomo-0
+============================================================
+  Dataset(LoCoMo-full-0: 19 fragments, 191 questions)
+  Loading cached embeddings from LoCoMo-full-0_embed.json
+  cosine: P@1=25.7% P@3=37.7% P@5=45.0%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-0.json
+
+============================================================
+  Experiment: dgd-gt-locomo-0
+============================================================
+  Dataset(LoCoMo-full-0: 19 fragments, 191 questions)
+  Loading cached embeddings from LoCoMo-full-0_embed.json
+  Round  1: P@1=30.4% P@3=37.2% P@5=44.5%  (upd:191 acc:100% err:0 1.8s)
+  Round  2: P@1=30.4% P@3=36.6% P@5=45.5%  (upd:191 acc:100% err:0 1.8s)
+  Round  3: P@1=30.4% P@3=37.7% P@5=48.2%  (upd:191 acc:100% err:0 1.8s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-0.json
+
+============================================================
+  Experiment: dgd-judge-locomo-0
+============================================================
+  Dataset(LoCoMo-full-0: 19 fragments, 191 questions)
+  Loading cached embeddings from LoCoMo-full-0_embed.json
+  Round  1: P@1=26.7% P@3=37.2% P@5=45.0%  (upd:107 acc:29% err:0 47.7s)
+  Round  2: P@1=28.3% P@3=37.2% P@5=45.5%  (upd:93 acc:33% err:0 47.4s)
+  Round  3: P@1=28.3% P@3=36.6% P@5=45.5%  (upd:107 acc:31% err:0 47.8s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-0.json
+
+============================================================
+  Experiment: cosine-locomo-1
+============================================================
+  Dataset(LoCoMo-full-1: 19 fragments, 105 questions)
+  Batch embedding 19 fragments...
+    Done (4.4s)
+  Batch embedding 105 questions...
+    Done (7.5s)
+  Cached to LoCoMo-full-1_embed.json
+  cosine: P@1=29.5% P@3=42.9% P@5=50.5%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-1.json
+
+============================================================
+  Experiment: dgd-gt-locomo-1
+============================================================
+  Dataset(LoCoMo-full-1: 19 fragments, 105 questions)
+  Loading cached embeddings from LoCoMo-full-1_embed.json
+  Round  1: P@1=31.4% P@3=44.8% P@5=52.4%  (upd:105 acc:100% err:0 1.0s)
+  Round  2: P@1=32.4% P@3=44.8% P@5=52.4%  (upd:105 acc:100% err:0 1.0s)
+  Round  3: P@1=31.4% P@3=45.7% P@5=56.2%  (upd:105 acc:100% err:0 1.0s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-1.json
+
+============================================================
+  Experiment: dgd-judge-locomo-1
+============================================================
+  Dataset(LoCoMo-full-1: 19 fragments, 105 questions)
+  Loading cached embeddings from LoCoMo-full-1_embed.json
+  Round  1: P@1=30.5% P@3=44.8% P@5=52.4%  (upd:46 acc:41% err:0 30.2s)
+  Round  2: P@1=30.5% P@3=43.8% P@5=48.6%  (upd:57 acc:40% err:0 31.8s)
+  Round  3: P@1=31.4% P@3=42.9% P@5=48.6%  (upd:57 acc:39% err:0 30.2s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-1.json
+
+============================================================
+  Experiment: cosine-locomo-2
+============================================================
+  Dataset(LoCoMo-full-2: 32 fragments, 193 questions)
+  Batch embedding 32 fragments...
+    Done (4.2s)
+  Batch embedding 193 questions...
+    Done (12.9s)
+  Cached to LoCoMo-full-2_embed.json
+  cosine: P@1=29.0% P@3=43.5% P@5=55.4%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-2.json
+
+============================================================
+  Experiment: dgd-gt-locomo-2
+============================================================
+  Dataset(LoCoMo-full-2: 32 fragments, 193 questions)
+  Loading cached embeddings from LoCoMo-full-2_embed.json
+  Round  1: P@1=31.6% P@3=48.2% P@5=58.0%  (upd:193 acc:100% err:0 1.8s)
+  Round  2: P@1=33.7% P@3=50.3% P@5=58.0%  (upd:193 acc:100% err:0 1.8s)
+  Round  3: P@1=35.2% P@3=51.3% P@5=61.7%  (upd:193 acc:100% err:0 1.8s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-2.json
+
+============================================================
+  Experiment: dgd-judge-locomo-2
+============================================================
+  Dataset(LoCoMo-full-2: 32 fragments, 193 questions)
+  Loading cached embeddings from LoCoMo-full-2_embed.json
+  Round  1: P@1=31.6% P@3=46.1% P@5=56.5%  (upd:144 acc:35% err:0 43.9s)
+  Round  2: P@1=31.6% P@3=47.2% P@5=57.0%  (upd:132 acc:36% err:0 45.4s)
+  Round  3: P@1=31.1% P@3=47.2% P@5=55.4%  (upd:137 acc:38% err:0 46.1s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-2.json
+
+============================================================
+  Experiment: cosine-locomo-3
+============================================================
+  Dataset(LoCoMo-full-3: 29 fragments, 260 questions)
+  Batch embedding 29 fragments...
+    Done (3.9s)
+  Batch embedding 260 questions...
+    Done (17.4s)
+  Cached to LoCoMo-full-3_embed.json
+  cosine: P@1=23.5% P@3=30.8% P@5=35.8%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-3.json
+
+============================================================
+  Experiment: dgd-gt-locomo-3
+============================================================
+  Dataset(LoCoMo-full-3: 29 fragments, 260 questions)
+  Loading cached embeddings from LoCoMo-full-3_embed.json
+  Round  1: P@1=20.8% P@3=30.0% P@5=35.8%  (upd:260 acc:100% err:0 2.4s)
+  Round  2: P@1=20.8% P@3=30.0% P@5=39.6%  (upd:260 acc:100% err:0 2.4s)
+  Round  3: P@1=21.5% P@3=33.8% P@5=43.1%  (upd:260 acc:100% err:0 2.4s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-3.json
+
+============================================================
+  Experiment: dgd-judge-locomo-3
+============================================================
+  Dataset(LoCoMo-full-3: 29 fragments, 260 questions)
+  Loading cached embeddings from LoCoMo-full-3_embed.json
+  Round  1: P@1=21.5% P@3=30.8% P@5=36.2%  (upd:116 acc:22% err:0 59.4s)
+  Round  2: P@1=20.4% P@3=30.8% P@5=36.5%  (upd:125 acc:23% err:0 57.5s)
+  Round  3: P@1=20.0% P@3=30.4% P@5=36.5%  (upd:125 acc:26% err:0 58.9s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-3.json
+
+============================================================
+  Experiment: cosine-locomo-4
+============================================================
+  Dataset(LoCoMo-full-4: 29 fragments, 242 questions)
+  Batch embedding 29 fragments...
+    Done (4.0s)
+  Batch embedding 242 questions...
+    Done (15.9s)
+  Cached to LoCoMo-full-4_embed.json
+  cosine: P@1=24.4% P@3=38.4% P@5=44.2%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-4.json
+
+============================================================
+  Experiment: dgd-gt-locomo-4
+============================================================
+  Dataset(LoCoMo-full-4: 29 fragments, 242 questions)
+  Loading cached embeddings from LoCoMo-full-4_embed.json
+  Round  1: P@1=28.5% P@3=39.7% P@5=47.9%  (upd:242 acc:100% err:0 2.2s)
+  Round  2: P@1=28.9% P@3=40.9% P@5=48.8%  (upd:242 acc:100% err:0 2.2s)
+  Round  3: P@1=29.8% P@3=43.0% P@5=52.1%  (upd:242 acc:100% err:0 2.2s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-4.json
+
+============================================================
+  Experiment: dgd-judge-locomo-4
+============================================================
+  Dataset(LoCoMo-full-4: 29 fragments, 242 questions)
+  Loading cached embeddings from LoCoMo-full-4_embed.json
+  Round  1: P@1=25.2% P@3=39.3% P@5=45.0%  (upd:109 acc:28% err:0 51.0s)
+  Round  2: P@1=25.6% P@3=39.7% P@5=44.6%  (upd:111 acc:24% err:0 51.8s)
+  Round  3: P@1=25.6% P@3=40.5% P@5=46.3%  (upd:119 acc:26% err:0 51.9s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-4.json
+
+============================================================
+  Experiment: cosine-locomo-5
+============================================================
+  Dataset(LoCoMo-full-5: 28 fragments, 158 questions)
+  Batch embedding 28 fragments...
+    Done (3.9s)
+  Batch embedding 158 questions...
+    Done (10.2s)
+  Cached to LoCoMo-full-5_embed.json
+  cosine: P@1=27.2% P@3=37.3% P@5=46.2%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-5.json
+
+============================================================
+  Experiment: dgd-gt-locomo-5
+============================================================
+  Dataset(LoCoMo-full-5: 28 fragments, 158 questions)
+  Loading cached embeddings from LoCoMo-full-5_embed.json
+  Round  1: P@1=32.3% P@3=45.6% P@5=48.7%  (upd:158 acc:100% err:0 1.5s)
+  Round  2: P@1=33.5% P@3=46.2% P@5=49.4%  (upd:158 acc:100% err:0 1.5s)
+  Round  3: P@1=33.5% P@3=48.7% P@5=52.5%  (upd:158 acc:100% err:0 1.5s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-5.json
+
+============================================================
+  Experiment: dgd-judge-locomo-5
+============================================================
+  Dataset(LoCoMo-full-5: 28 fragments, 158 questions)
+  Loading cached embeddings from LoCoMo-full-5_embed.json
+  Round  1: P@1=31.0% P@3=43.7% P@5=47.5%  (upd:89 acc:31% err:0 36.0s)
+  Round  2: P@1=32.3% P@3=43.0% P@5=48.7%  (upd:89 acc:39% err:0 39.6s)
+  Round  3: P@1=31.6% P@3=43.0% P@5=50.0%  (upd:82 acc:43% err:1 35.8s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-5.json
+
+============================================================
+  Experiment: cosine-locomo-6
+============================================================
+  Dataset(LoCoMo-full-6: 31 fragments, 190 questions)
+  Batch embedding 31 fragments...
+    Done (4.1s)
+  Batch embedding 190 questions...
+    Done (12.3s)
+  Cached to LoCoMo-full-6_embed.json
+  cosine: P@1=21.1% P@3=32.1% P@5=40.5%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-6.json
+
+============================================================
+  Experiment: dgd-gt-locomo-6
+============================================================
+  Dataset(LoCoMo-full-6: 31 fragments, 190 questions)
+  Loading cached embeddings from LoCoMo-full-6_embed.json
+  Round  1: P@1=24.2% P@3=37.9% P@5=42.6%  (upd:190 acc:100% err:0 1.8s)
+  Round  2: P@1=25.8% P@3=38.4% P@5=45.3%  (upd:190 acc:100% err:0 1.8s)
+  Round  3: P@1=26.3% P@3=39.5% P@5=47.4%  (upd:190 acc:100% err:0 1.8s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-6.json
+
+============================================================
+  Experiment: dgd-judge-locomo-6
+============================================================
+  Dataset(LoCoMo-full-6: 31 fragments, 190 questions)
+  Loading cached embeddings from LoCoMo-full-6_embed.json
+  Round  1: P@1=21.6% P@3=34.7% P@5=41.1%  (upd:77 acc:42% err:0 38.5s)
+  Round  2: P@1=22.6% P@3=34.2% P@5=40.5%  (upd:72 acc:44% err:0 37.0s)
+  Round  3: P@1=23.7% P@3=33.7% P@5=40.0%  (upd:67 acc:43% err:0 36.1s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-6.json
+
+============================================================
+  Experiment: cosine-locomo-7
+============================================================
+  Dataset(LoCoMo-full-7: 30 fragments, 239 questions)
+  Batch embedding 30 fragments...
+    Done (3.9s)
+  Batch embedding 239 questions...
+    Done (16.4s)
+  Cached to LoCoMo-full-7_embed.json
+  cosine: P@1=19.7% P@3=31.4% P@5=39.3%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-7.json
+
+============================================================
+  Experiment: dgd-gt-locomo-7
+============================================================
+  Dataset(LoCoMo-full-7: 30 fragments, 239 questions)
+  Loading cached embeddings from LoCoMo-full-7_embed.json
+  Round  1: P@1=21.8% P@3=34.7% P@5=40.6%  (upd:239 acc:100% err:0 2.2s)
+  Round  2: P@1=23.4% P@3=36.4% P@5=43.5%  (upd:239 acc:100% err:0 2.2s)
+  Round  3: P@1=25.1% P@3=38.5% P@5=48.5%  (upd:239 acc:100% err:0 2.2s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-7.json
+
+============================================================
+  Experiment: dgd-judge-locomo-7
+============================================================
+  Dataset(LoCoMo-full-7: 30 fragments, 239 questions)
+  Loading cached embeddings from LoCoMo-full-7_embed.json
+  Round  1: P@1=19.7% P@3=31.4% P@5=38.5%  (upd:88 acc:49% err:0 43.9s)
+  Round  2: P@1=20.1% P@3=33.5% P@5=39.3%  (upd:94 acc:45% err:0 44.1s)
+  Round  3: P@1=19.7% P@3=33.9% P@5=39.7%  (upd:92 acc:49% err:0 44.4s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-7.json
+
+============================================================
+  Experiment: cosine-locomo-8
+============================================================
+  Dataset(LoCoMo-full-8: 25 fragments, 196 questions)
+  Batch embedding 25 fragments...
+    Done (3.5s)
+  Batch embedding 196 questions...
+    Done (12.6s)
+  Cached to LoCoMo-full-8_embed.json
+  cosine: P@1=19.9% P@3=32.1% P@5=37.8%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-8.json
+
+============================================================
+  Experiment: dgd-gt-locomo-8
+============================================================
+  Dataset(LoCoMo-full-8: 25 fragments, 196 questions)
+  Loading cached embeddings from LoCoMo-full-8_embed.json
+  Round  1: P@1=20.9% P@3=37.2% P@5=42.9%  (upd:196 acc:100% err:0 1.8s)
+  Round  2: P@1=23.0% P@3=37.2% P@5=46.4%  (upd:196 acc:100% err:0 1.8s)
+  Round  3: P@1=23.5% P@3=39.3% P@5=49.0%  (upd:196 acc:100% err:0 1.8s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-8.json
+
+============================================================
+  Experiment: dgd-judge-locomo-8
+============================================================
+  Dataset(LoCoMo-full-8: 25 fragments, 196 questions)
+  Loading cached embeddings from LoCoMo-full-8_embed.json
+  Round  1: P@1=22.4% P@3=33.2% P@5=39.3%  (upd:101 acc:37% err:0 38.3s)
+  Round  2: P@1=21.4% P@3=34.7% P@5=40.8%  (upd:115 acc:34% err:0 38.9s)
+  Round  3: P@1=21.9% P@3=34.7% P@5=40.8%  (upd:104 acc:38% err:0 38.1s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-8.json
+
+============================================================
+  Experiment: cosine-locomo-9
+============================================================
+  Dataset(LoCoMo-full-9: 30 fragments, 202 questions)
+  Batch embedding 30 fragments...
+    Done (4.2s)
+  Batch embedding 202 questions...
+    Done (13.2s)
+  Cached to LoCoMo-full-9_embed.json
+  cosine: P@1=23.8% P@3=40.6% P@5=48.0%
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/cosine-locomo-9.json
+
+============================================================
+  Experiment: dgd-gt-locomo-9
+============================================================
+  Dataset(LoCoMo-full-9: 30 fragments, 202 questions)
+  Loading cached embeddings from LoCoMo-full-9_embed.json
+  Round  1: P@1=27.2% P@3=41.6% P@5=51.0%  (upd:202 acc:100% err:0 1.9s)
+  Round  2: P@1=27.7% P@3=43.1% P@5=50.5%  (upd:202 acc:100% err:0 1.9s)
+  Round  3: P@1=29.2% P@3=45.0% P@5=52.0%  (upd:202 acc:100% err:0 1.9s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-gt-locomo-9.json
+
+============================================================
+  Experiment: dgd-judge-locomo-9
+============================================================
+  Dataset(LoCoMo-full-9: 30 fragments, 202 questions)
+  Loading cached embeddings from LoCoMo-full-9_embed.json
+  Round  1: P@1=26.2% P@3=39.1% P@5=48.0%  (upd:146 acc:30% err:0 41.6s)
+  Round  2: P@1=26.7% P@3=40.6% P@5=48.0%  (upd:149 acc:32% err:0 39.1s)
+  Round  3: P@1=27.7% P@3=41.6% P@5=47.0%  (upd:150 acc:31% err:0 40.5s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/dgd-judge-locomo-9.json
+
+============================================================
+  Summary
+============================================================
+  Name                                P@1      P@3      P@5
+  ------------------------------------------------------
+  cosine-locomo-0                  25.7%   37.7%   45.0%
+  dgd-gt-locomo-0                  30.4%   37.7%   48.2%
+  dgd-judge-locomo-0               28.3%   36.6%   45.5%
+  cosine-locomo-1                  29.5%   42.9%   50.5%
+  dgd-gt-locomo-1                  31.4%   45.7%   56.2%
+  dgd-judge-locomo-1               31.4%   42.9%   48.6%
+  cosine-locomo-2                  29.0%   43.5%   55.4%
+  dgd-gt-locomo-2                  35.2%   51.3%   61.7%
+  dgd-judge-locomo-2               31.1%   47.2%   55.4%
+  cosine-locomo-3                  23.5%   30.8%   35.8%
+  dgd-gt-locomo-3                  21.5%   33.8%   43.1%
+  dgd-judge-locomo-3               20.0%   30.4%   36.5%
+  cosine-locomo-4                  24.4%   38.4%   44.2%
+  dgd-gt-locomo-4                  29.8%   43.0%   52.1%
+  dgd-judge-locomo-4               25.6%   40.5%   46.3%
+  cosine-locomo-5                  27.2%   37.3%   46.2%
+  dgd-gt-locomo-5                  33.5%   48.7%   52.5%
+  dgd-judge-locomo-5               31.6%   43.0%   50.0%
+  cosine-locomo-6                  21.1%   32.1%   40.5%
+  dgd-gt-locomo-6                  26.3%   39.5%   47.4%
+  dgd-judge-locomo-6               23.7%   33.7%   40.0%
+  cosine-locomo-7                  19.7%   31.4%   39.3%
+  dgd-gt-locomo-7                  25.1%   38.5%   48.5%
+  dgd-judge-locomo-7               19.7%   33.9%   39.7%
+  cosine-locomo-8                  19.9%   32.1%   37.8%
+  dgd-gt-locomo-8                  23.5%   39.3%   49.0%
+  dgd-judge-locomo-8               21.9%   34.7%   40.8%
+  cosine-locomo-9                  23.8%   40.6%   48.0%
+  dgd-gt-locomo-9                  29.2%   45.0%   52.0%
+  dgd-judge-locomo-9               27.7%   41.6%   47.0%

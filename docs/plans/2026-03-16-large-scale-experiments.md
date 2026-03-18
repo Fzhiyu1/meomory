@@ -54,7 +54,7 @@
 
 ```bash
 export MEOMORY_EMBED_URL=http://192.168.1.100:11435
-export MEOMORY_LLM_KEY=sk-4682199cd4bb4d69826a838cd318578c
+export MEOMORY_LLM_KEY=${DEEPSEEK_API_KEY}
 ```
 
 ---
@@ -188,7 +188,7 @@ experiments:
 **运行命令:**
 ```bash
 MEOMORY_EMBED_URL=http://192.168.1.100:11435 \
-MEOMORY_LLM_KEY=sk-4682199cd4bb4d69826a838cd318578c \
+MEOMORY_LLM_KEY=${DEEPSEEK_API_KEY} \
 .venv/bin/python scripts/run_bench.py experiments/configs/large-scale.yaml
 ```
 

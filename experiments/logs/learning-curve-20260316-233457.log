@@ -1,0 +1,80 @@
+Running 4 experiment(s) from experiments/configs/learning-curve.yaml
+Log: /Users/fangzhiyu/run/meomory/experiments/logs/learning-curve-20260316-233457.log
+
+============================================================
+  Experiment: curve-dgd-gt-locomo-full
+============================================================
+  Dataset(LoCoMo-full-all: 272 fragments, 1976 questions)
+  Loading cached embeddings from LoCoMo-full-all_embed.json
+  Round  1: P@1=24.7% P@3=35.7% P@5=41.9%  (upd:1976 acc:100% err:0 25.8s)
+  Round  2: P@1=26.2% P@3=36.8% P@5=43.9%  (upd:1976 acc:100% err:0 25.8s)
+  Round  3: P@1=26.6% P@3=38.3% P@5=46.8%  (upd:1976 acc:100% err:0 25.8s)
+  Round  4: P@1=27.7% P@3=40.2% P@5=49.7%  (upd:1976 acc:100% err:0 25.9s)
+  Round  5: P@1=28.8% P@3=42.3% P@5=51.7%  (upd:1976 acc:100% err:0 25.9s)
+  Round  6: P@1=29.2% P@3=44.4% P@5=53.3%  (upd:1976 acc:100% err:0 25.9s)
+  Round  7: P@1=30.0% P@3=46.4% P@5=55.2%  (upd:1976 acc:100% err:0 25.9s)
+  Round  8: P@1=30.9% P@3=48.0% P@5=57.6%  (upd:1976 acc:100% err:0 26.1s)
+  Round  9: P@1=31.9% P@3=49.1% P@5=59.2%  (upd:1976 acc:100% err:0 26.0s)
+  Round 10: P@1=32.8% P@3=50.3% P@5=60.6%  (upd:1976 acc:100% err:0 26.0s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/curve-dgd-gt-locomo-full.json
+
+============================================================
+  Experiment: curve-dgd-judge-locomo-full
+============================================================
+  Dataset(LoCoMo-full-all: 272 fragments, 1976 questions)
+  Loading cached embeddings from LoCoMo-full-all_embed.json
+  Round  1: P@1=23.7% P@3=34.1% P@5=40.1%  (upd:974 acc:35% err:0 306.2s)
+  Round  2: P@1=23.8% P@3=34.7% P@5=40.2%  (upd:996 acc:33% err:0 295.0s)
+  Round  3: P@1=24.1% P@3=34.8% P@5=39.9%  (upd:1001 acc:33% err:0 293.8s)
+  Round  4: P@1=24.5% P@3=34.7% P@5=39.9%  (upd:1019 acc:33% err:0 318.5s)
+  Round  5: P@1=24.4% P@3=34.6% P@5=39.9%  (upd:1022 acc:34% err:0 390.6s)
+  Round  6: P@1=24.8% P@3=34.6% P@5=39.9%  (upd:1028 acc:33% err:2 291.8s)
+  Round  7: P@1=25.1% P@3=34.5% P@5=40.1%  (upd:1016 acc:33% err:0 289.8s)
+  Round  8: P@1=24.9% P@3=34.6% P@5=39.9%  (upd:997 acc:35% err:0 291.7s)
+  Round  9: P@1=24.8% P@3=34.2% P@5=40.5%  (upd:1031 acc:33% err:0 309.5s)
+  Round 10: P@1=24.5% P@3=34.3% P@5=40.6%  (upd:1034 acc:33% err:0 361.6s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/curve-dgd-judge-locomo-full.json
+
+============================================================
+  Experiment: curve-dgd-gt-longmemeval
+============================================================
+  Dataset(LongMemEval-oracle: 882 fragments, 470 questions)
+  Loading cached embeddings from LongMemEval-oracle_embed.json
+  Round  1: P@1=48.9% P@3=66.0% P@5=71.7%  (upd:470 acc:100% err:0 10.6s)
+  Round  2: P@1=50.0% P@3=66.8% P@5=72.8%  (upd:470 acc:100% err:0 10.6s)
+  Round  3: P@1=50.0% P@3=67.4% P@5=73.6%  (upd:470 acc:100% err:0 10.5s)
+  Round  4: P@1=50.9% P@3=67.9% P@5=73.8%  (upd:470 acc:100% err:0 10.6s)
+  Round  5: P@1=52.3% P@3=69.1% P@5=74.3%  (upd:470 acc:100% err:0 10.6s)
+  Round  6: P@1=53.6% P@3=69.8% P@5=76.4%  (upd:470 acc:100% err:0 10.6s)
+  Round  7: P@1=54.3% P@3=70.2% P@5=78.1%  (upd:470 acc:100% err:0 10.5s)
+  Round  8: P@1=55.1% P@3=70.4% P@5=78.3%  (upd:470 acc:100% err:0 10.6s)
+  Round  9: P@1=55.5% P@3=70.6% P@5=80.0%  (upd:470 acc:100% err:0 10.6s)
+  Round 10: P@1=56.0% P@3=72.1% P@5=80.9%  (upd:470 acc:100% err:0 10.6s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/curve-dgd-gt-longmemeval.json
+
+============================================================
+  Experiment: curve-dgd-judge-longmemeval
+============================================================
+  Dataset(LongMemEval-oracle: 882 fragments, 470 questions)
+  Loading cached embeddings from LongMemEval-oracle_embed.json
+  Round  1: P@1=47.2% P@3=64.0% P@5=69.8%  (upd:245 acc:44% err:0 75.8s)
+  Round  2: P@1=48.7% P@3=65.1% P@5=70.0%  (upd:272 acc:40% err:0 74.2s)
+  Round  3: P@1=48.5% P@3=66.0% P@5=70.9%  (upd:262 acc:44% err:0 76.0s)
+  Round  4: P@1=49.1% P@3=65.7% P@5=70.9%  (upd:289 acc:41% err:0 75.3s)
+  Round  5: P@1=49.4% P@3=66.2% P@5=71.1%  (upd:274 acc:39% err:0 75.1s)
+  Round  6: P@1=49.8% P@3=65.7% P@5=71.1%  (upd:274 acc:43% err:0 76.0s)
+  Round  7: P@1=50.0% P@3=66.6% P@5=71.5%  (upd:276 acc:42% err:0 78.0s)
+  Round  8: P@1=49.8% P@3=66.8% P@5=72.3%  (upd:277 acc:44% err:0 88.9s)
+  Round  9: P@1=49.8% P@3=67.0% P@5=72.1%  (upd:265 acc:48% err:0 77.9s)
+  Round 10: P@1=50.0% P@3=67.2% P@5=72.3%  (upd:289 acc:42% err:0 77.4s)
+  Saved: /Users/fangzhiyu/run/meomory/experiments/results/curve-dgd-judge-longmemeval.json
+
+============================================================
+  Summary
+============================================================
+  Name                                P@1      P@3      P@5
+  ------------------------------------------------------
+  curve-dgd-gt-locomo-full         32.8%   50.3%   60.6%
+  curve-dgd-judge-locomo-full      24.5%   34.3%   40.6%
+  curve-dgd-gt-longmemeval         56.0%   72.1%   80.9%
+  curve-dgd-judge-longmemeval      50.0%   67.2%   72.3%

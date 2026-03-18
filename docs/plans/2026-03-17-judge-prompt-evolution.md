@@ -212,7 +212,7 @@ def build_eval_samples(
 **Step 3: 验证评测函数**
 
 ```bash
-MEOMORY_LLM_KEY=sk-4682199cd4bb4d69826a838cd318578c \
+MEOMORY_LLM_KEY=${DEEPSEEK_API_KEY} \
 .venv/bin/python -c "
 import asyncio
 from src.evolution.evaluator import evaluate_judge_prompt, build_eval_samples
@@ -228,7 +228,7 @@ Rules:
 
 USER_TPL = 'Injected memories:\n{mem_list}\n\nAgent response:\n{response}\n\nWhich memories were used? Output JSON array only.'
 
-backend = DeepSeekBackend(api_key='sk-4682199cd4bb4d69826a838cd318578c')
+backend = DeepSeekBackend(api_key='${DEEPSEEK_API_KEY}')
 samples = build_eval_samples('LoCoMo-full-all', n_samples=50, seed=42)
 print(f'Built {len(samples)} samples')
 
@@ -881,7 +881,7 @@ git commit -m "feat(evolution): CLI entry point for judge prompt evolution"
 **Step 1: 冒烟测试（5 个种子，2 代，50 个样本）**
 
 ```bash
-MEOMORY_LLM_KEY=sk-4682199cd4bb4d69826a838cd318578c \
+MEOMORY_LLM_KEY=${DEEPSEEK_API_KEY} \
 .venv/bin/python scripts/run_evolution.py \
   --pop-size 5 --generations 2 --samples 50
 ```
@@ -898,7 +898,7 @@ cat experiments/evolution/history.json | python3 -m json.tool
 **Step 3: 正式运行（10 个种群，15 代，200 个样本）**
 
 ```bash
-MEOMORY_LLM_KEY=sk-4682199cd4bb4d69826a838cd318578c \
+MEOMORY_LLM_KEY=${DEEPSEEK_API_KEY} \
 .venv/bin/python scripts/run_evolution.py \
   --pop-size 10 --generations 15 --samples 200
 ```
