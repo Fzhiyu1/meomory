@@ -99,6 +99,7 @@ def evaluate_update_fn(
     n_rounds: int = 3,
     max_questions: int = 500,
     random_offset: int = 0,
+    noise_accuracy: float = 1.0,
 ) -> dict:
     """评测一个 update 函数或 AssociativeMemory 类的 P@1。
 
@@ -111,6 +112,8 @@ def evaluate_update_fn(
         n_rounds: GT 反馈轮数
         max_questions: 最多评测多少题
         random_offset: >0 时从 offset 位置循环取题（防止过拟合固定子集）
+        noise_accuracy: 反馈准确率 (0.0-1.0)。1.0=纯GT，<1.0 时以该概率给正确反馈，
+                        否则随机选一个错误片段。用于噪声鲁棒性评测和混合 fitness。
 
     Returns:
         {
@@ -140,6 +143,19 @@ def evaluate_update_fn(
     # 判断是函数还是类
     is_class = isinstance(update_fn_or_class, type)
 
+    # 噪声反馈设置
+    import random as _random
+    n_frags = len(proj_vecs_list)
+    noise_rng = _random.Random(42 + random_offset)  # 可复现但每次 offset 不同
+    use_noise = noise_accuracy < 1.0
+
+    def _noisy_target(q):
+        """返回反馈目标索引：以 noise_accuracy 概率给 GT，否则随机。"""
+        target_idx = q["answer_indices"][0]
+        if use_noise and noise_rng.random() > noise_accuracy:
+            target_idx = noise_rng.randint(0, n_frags - 1)
+        return target_idx
+
     if is_class:
         try:
             obj = update_fn_or_class(dim=dim, alpha=alpha, eta=eta)
@@ -164,7 +180,7 @@ def evaluate_update_fn(
             return top5_idx.tolist()
 
         def _update(qi, q):
-            target_idx = q["answer_indices"][0]
+            target_idx = _noisy_target(q)
             obj.update(q_vecs_list[qi], proj_vecs_list[target_idx])
     else:
         M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]
@@ -182,7 +198,7 @@ def evaluate_update_fn(
             return top5_idx.tolist()
 
         def _update(qi, q):
-            target_idx = q["answer_indices"][0]
+            target_idx = _noisy_target(q)
             update_fn_or_class(M, q_vecs_list[qi], proj_vecs_list[target_idx], dim, alpha, eta)
 
     rounds = []

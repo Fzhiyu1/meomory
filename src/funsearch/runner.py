@@ -1,6 +1,6 @@
 """FunSearch 主循环：采样 -> 编译 -> 评测 -> 注册，循环。
 
-v4: 多模型混合（9B/DeepSeek/GPT-5.4）+ 无限循环 + 每步保存。
+v5: 并行 LLM 采样 + 混合 fitness (70% clean + 30% noisy@80%) + 异步全量验证。
 """
 import asyncio
 import random
@@ -18,11 +18,13 @@ from src.funsearch.specification import INITIAL_IMPLEMENTATION, EVOLVE_FUNCTION_
 
 def _eval_in_subprocess(code: str, dataset_name: str, dim: int, alpha: float,
                         eta: float, n_rounds: int, max_questions: int,
-                        random_offset: int = 0) -> dict | None:
+                        random_offset: int = 0,
+                        noise_accuracy: float = 1.0) -> dict | None:
     """在子进程中评测一个 update 函数或类。
 
     random_offset > 0 时，从数据集的 offset 位置开始取 max_questions 题（循环取），
     每次迭代用不同 offset 防止过拟合固定子集。
+    noise_accuracy < 1.0 时，以该概率给正确反馈，用于噪声鲁棒性评测。
     """
     from src.funsearch.sandbox import compile_update_function as _compile_fn
     from src.funsearch.sandbox import compile_class as _compile_cls
@@ -40,7 +42,7 @@ def _eval_in_subprocess(code: str, dataset_name: str, dim: int, alpha: float,
 
     return _eval(obj, dataset_name=dataset_name, dim=dim, alpha=alpha,
                  eta=eta, n_rounds=n_rounds, max_questions=max_questions,
-                 random_offset=random_offset)
+                 random_offset=random_offset, noise_accuracy=noise_accuracy)
 
 
 class ModelEnsemble:
@@ -191,10 +193,11 @@ async def run_funsearch(
     iter_limit = float('inf') if infinite else max_iterations
     mode_str = "infinite" if infinite else f"{max_iterations} iterations"
 
-    print(f"\nStarting FunSearch v4 ({mode_str}, {num_islands} islands)")
+    print(f"\nStarting FunSearch v5 ({mode_str}, {num_islands} islands)")
     print(f"  Dataset: {eval_dataset}, dim={dim}, α={alpha}, η={eta}")
     print(f"  Eval: {eval_max_questions} questions × {eval_rounds} rounds")
-    print(f"  Samples/iter: {samples_per_iteration}")
+    print(f"  Mixed fitness: {0.7:.0%} clean + {0.3:.0%} noisy (80% accuracy)")
+    print(f"  Samples/iter: {samples_per_iteration} (parallel LLM)")
     print(f"  Models: {ensemble.stats()}")
     print(f"  Already evaluated: {len(db.all_programs)} programs")
 
@@ -213,35 +216,67 @@ async def run_funsearch(
                 iteration += 1
                 continue
 
-            # 串行生成候选（多模型混合）
+            # 并行生成候选（多模型混合，asyncio.gather）
             candidates = []
+            sample_tasks = []
+            sample_models = []
             for s in range(samples_per_iteration):
                 model_name, backend = ensemble.pick()
-                try:
-                    program = await sample_new_program(
-                        parents, backend, island_id, iteration, s,
-                    )
-                except Exception:
-                    ensemble.record_fail(model_name)
-                    program = None
+                sample_models.append(model_name)
+                sample_tasks.append(
+                    sample_new_program(parents, backend, island_id, iteration, s)
+                )
 
-                if program is None:
+            results = await asyncio.gather(*sample_tasks, return_exceptions=True)
+            for s, (model_name, result) in enumerate(zip(sample_models, results)):
+                if isinstance(result, Exception) or result is None:
                     ensemble.record_fail(model_name)
                     continue
+                program = result
                 if _calls_ancestor(program.code, EVOLVE_FUNCTION_NAME):
                     continue
                 program.eval_details["model"] = model_name
                 candidates.append(program)
 
             # 并行评测（带强制超时：子进程超 5 分钟直接 kill）
-            successes = 0
-            EVAL_TIMEOUT = 300  # 5 分钟
+            # 混合 fitness: 70% clean GT + 30% noisy (80% accuracy)
+            NOISE_ACCURACY = 0.8
+            CLEAN_WEIGHT = 0.7
+            NOISE_WEIGHT = 0.3
 
-            def _eval_with_kill_timeout(code, ds, d, a, e, r, mq, q_out, offset=0):
-                """在独立进程中评测，结果通过 Queue 返回。"""
+            successes = 0
+            EVAL_TIMEOUT = 600  # 10 分钟（允许单次操作 ≤100ms 的复杂算法）
+
+            def _eval_mixed_fitness(code, ds, d, a, e, r, mq, q_out, offset=0):
+                """混合 fitness：clean + noisy 两轮评测，加权合并。"""
                 try:
-                    res = _eval_in_subprocess(code, ds, d, a, e, r, mq, random_offset=offset)
-                    q_out.put(res)
+                    clean = _eval_in_subprocess(code, ds, d, a, e, r, mq,
+                                                random_offset=offset, noise_accuracy=1.0)
+                    noisy = _eval_in_subprocess(code, ds, d, a, e, r, mq,
+                                                random_offset=offset, noise_accuracy=NOISE_ACCURACY)
+                    if clean is None or noisy is None:
+                        q_out.put(None)
+                        return
+                    if clean.get("error") or noisy.get("error"):
+                        q_out.put(clean)
+                        return
+                    # 混合分数
+                    mixed_p1 = CLEAN_WEIGHT * clean["p_at_1"] + NOISE_WEIGHT * noisy["p_at_1"]
+                    # 合并 scores_per_test + 加入 clean/noisy 独立维度用于 Signature 分簇
+                    spt = {}
+                    clean_spt = clean.get("scores_per_test", {})
+                    noisy_spt = noisy.get("scores_per_test", {})
+                    for k in clean_spt:
+                        spt[k] = CLEAN_WEIGHT * clean_spt.get(k, 0) + NOISE_WEIGHT * noisy_spt.get(k, 0)
+                    # 独立维度：让精度型和鲁棒型程序被分到不同 Cluster
+                    spt["clean_overall"] = clean["p_at_1"]
+                    spt["noisy_overall"] = noisy["p_at_1"]
+                    result = dict(clean)
+                    result["p_at_1"] = mixed_p1
+                    result["clean_p1"] = clean["p_at_1"]
+                    result["noisy_p1"] = noisy["p_at_1"]
+                    result["scores_per_test"] = spt
+                    q_out.put(result)
                 except Exception:
                     q_out.put(None)
 
@@ -251,7 +286,7 @@ async def run_funsearch(
                 iter_offset = iteration * 500  # 每迭代偏移 500 题
                 for prog in candidates:
                     q = Queue()
-                    p = Process(target=_eval_with_kill_timeout, args=(
+                    p = Process(target=_eval_mixed_fitness, args=(
                         prog.code, eval_dataset, dim, alpha, eta, eval_rounds, eval_max_questions, q,
                         iter_offset,
                     ))
@@ -288,27 +323,29 @@ async def run_funsearch(
                         if score > (best_ever.score if best_ever else 0):
                             best_ever = prog
                             model = prog.eval_details.get("model", "?")
-                            print(f"  ★ NEW BEST: {score:.1%} ({prog.id}, model={model})")
+                            clean_s = result.get("clean_p1", score)
+                            noisy_s = result.get("noisy_p1", 0)
+                            print(f"  ★ NEW BEST: {score:.1%} (clean={clean_s:.1%}, noisy={noisy_s:.1%}, {prog.id}, model={model})")
                             db.save()
 
-                            # 自动全量验证
-                            print(f"    → 全量验证中...")
-                            try:
-                                full_result = _eval_in_subprocess(
-                                    prog.code, eval_dataset, dim, alpha, eta,
-                                    eval_rounds, 9999,
-                                )
+                            # 异步全量验证（不阻塞主循环）
+                            def _bg_full_eval(prog_ref, code, ds, d, a, e, r):
+                                full_result = _eval_in_subprocess(code, ds, d, a, e, r, 9999)
                                 if full_result and not full_result.get("error"):
                                     full_p1 = full_result["p_at_1"]
                                     ratio = score / full_p1 if full_p1 > 0 else float('inf')
                                     print(f"    → 全量 P@1: {full_p1:.1%} (膨胀比: {ratio:.1f}x)")
-                                    prog.eval_details["full_p1"] = full_p1
-                                    prog.eval_details["overfit_ratio"] = round(ratio, 2)
+                                    prog_ref.eval_details["full_p1"] = full_p1
+                                    prog_ref.eval_details["overfit_ratio"] = round(ratio, 2)
                                     db.save()
                                 else:
                                     print(f"    → 全量验证失败")
-                            except Exception as e:
-                                print(f"    → 全量验证异常: {e}")
+
+                            bg = Process(target=_bg_full_eval, args=(
+                                prog, prog.code, eval_dataset, dim, alpha, eta, eval_rounds,
+                            ))
+                            bg.start()
+                            print(f"    → 全量验证已启动(后台)")
 
             # 不再需要自动扩大评测集——每迭代随机 500 题 + NEW BEST 时全量验证
 
