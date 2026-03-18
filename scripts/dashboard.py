@@ -83,19 +83,19 @@ def fetch_5070_data():
     # 先尝试 SSH 拉原始 JSON，然后本地构建响应
     try:
         result = subprocess.run(
-            f'{SSH_CMD} "cat ~/meomory/experiments/funsearch-v4/population.json"',
+            f'{SSH_CMD} "cat ~/meomory/experiments/funsearch-v6/population.json"',
             shell=True, capture_output=True, text=True, timeout=15,
         )
         if result.returncode == 0:
             pop = json.loads(result.stdout.strip())
             # 也拉 history 和 best
             hist_result = subprocess.run(
-                f'{SSH_CMD} "cat ~/meomory/experiments/funsearch-v4/history.json"',
+                f'{SSH_CMD} "cat ~/meomory/experiments/funsearch-v6/history.json"',
                 shell=True, capture_output=True, text=True, timeout=10,
             )
             hist = json.loads(hist_result.stdout.strip()) if hist_result.returncode == 0 else []
             best_result = subprocess.run(
-                f'{SSH_CMD} "cat ~/meomory/experiments/funsearch-v4/best.json"',
+                f'{SSH_CMD} "cat ~/meomory/experiments/funsearch-v6/best.json"',
                 shell=True, capture_output=True, text=True, timeout=10,
             )
             best = json.loads(best_result.stdout.strip()) if best_result.returncode == 0 else []
@@ -109,8 +109,8 @@ def fetch_5070_data():
         try:
             subprocess.run(
                 'rsync -az -e "ssh -p 2222 -o ConnectTimeout=10" '
-                'ubuntu@100.94.126.19:~/meomory/experiments/funsearch-v4/{population.json,history.json,best.json} '
-                'experiments/funsearch-v4/ 2>/dev/null',
+                'ubuntu@100.94.126.19:~/meomory/experiments/funsearch-v6/{population.json,history.json,best.json} '
+                'experiments/funsearch-v6/ 2>/dev/null',
                 shell=True, timeout=20,
             )
         except Exception:
@@ -118,7 +118,7 @@ def fetch_5070_data():
     threading.Thread(target=_rsync_bg, daemon=True).start()
 
     try:
-        for data_dir in ["experiments/funsearch-v4", "experiments/funsearch-v2", "experiments/funsearch"]:
+        for data_dir in ["experiments/funsearch-v6", "experiments/funsearch-v2", "experiments/funsearch"]:
             pop_file = Path(data_dir) / "population.json"
             if pop_file.exists():
                 pop = json.loads(pop_file.read_text())
@@ -151,6 +151,7 @@ h1 { color: #58a6ff; margin-bottom: 5px; }
 .card h2 { color: #58a6ff; font-size: 14px; margin-bottom: 10px; }
 .big-number { font-size: 48px; font-weight: bold; color: #39d353; }
 .big-number.blue { color: #58a6ff; }
+.big-number.yellow { color: #d29922; }
 .label { color: #8b949e; font-size: 12px; }
 .top-list { list-style: none; }
 .top-list li {
@@ -212,6 +213,11 @@ pre {
     <h2>已评测程序数</h2>
     <div class="big-number blue" id="totalPrograms">--</div>
     <div class="label">进化产出的候选算法</div>
+  </div>
+  <div class="card">
+    <h2>迭代速度</h2>
+    <div class="big-number yellow" id="iterSpeed">--</div>
+    <div class="label" id="iterInfo">--</div>
   </div>
   <div class="card">
     <h2>模型贡献</h2>
@@ -429,12 +435,37 @@ fetchData();
 setInterval(fetchData, 30000);
 
 // 实时日志
+function updateIterSpeed(lines) {
+  // 从日志解析最近迭代的速度: "Iter  3: 3/3 valid, best=56.6%, islands=[...] (173s)"
+  const iterTimes = [];
+  let lastIter = 0;
+  for (const line of lines) {
+    const m = line.match(/Iter\s+(\d+):.*\((\d+)s\)/);
+    if (m) {
+      iterTimes.push(parseInt(m[2]));
+      lastIter = parseInt(m[1]);
+    }
+  }
+  const el = document.getElementById('iterSpeed');
+  const info = document.getElementById('iterInfo');
+  if (iterTimes.length > 0) {
+    const recent = iterTimes.slice(-5);
+    const avg = Math.round(recent.reduce((a, b) => a + b, 0) / recent.length);
+    el.textContent = avg + 's/轮';
+    info.textContent = '迭代 ' + lastIter + ' · 最近 ' + recent.length + ' 轮均值';
+  } else {
+    el.textContent = '...';
+    info.textContent = '等待第一轮';
+  }
+}
+
 async function fetchLog() {
   try {
     const resp = await fetch('/api/log');
     const data = await resp.json();
     const panel = document.getElementById('logPanel');
     if (data.lines) {
+      updateIterSpeed(data.lines);
       panel.innerHTML = data.lines.map(line => {
         // 高亮关键事件
         if (line.includes('NEW BEST')) return `<span style="color:#39d353;font-weight:bold">${esc(line)}</span>`;
@@ -464,15 +495,15 @@ def fetch_5070_log():
     try:
         subprocess.run(
             'rsync -az -e "ssh -p 2222 -o ConnectTimeout=5" '
-            'ubuntu@100.94.126.19:~/meomory/experiments/funsearch-v4.log '
-            'experiments/funsearch-v4.log 2>/dev/null',
+            'ubuntu@100.94.126.19:~/meomory/experiments/funsearch-v6.log '
+            'experiments/funsearch-v6.log 2>/dev/null',
             shell=True, timeout=10,
         )
     except Exception:
         pass
 
     # 读本地日志
-    log_file = Path("experiments/funsearch-v4.log")
+    log_file = Path("experiments/funsearch-v6.log")
     if log_file.exists():
         lines = log_file.read_text().splitlines()
         return lines[-50:]  # 最后 50 行

@@ -1,0 +1,12 @@
+Model ensemble: ['9b(30%)', 'deepseek(20%)', 'opus(50%)']
+
+Starting FunSearch v5 (infinite, 5 islands)
+  Dataset: LoCoMo-full-all, dim=256, α=1.0, η=0.01
+  Eval: 9999 questions × 1 rounds
+  Mixed fitness: 70% clean + 30% noisy (80% accuracy)
+  Samples/iter: 6 (parallel LLM)
+  Models: 9b:0(0f) deepseek:0(0f) opus:0(0f)
+  Already evaluated: 65 programs
+  Current best: 25.0% (gen011-island4-005)
+  Iter  65: 5/6 valid, best=25.0%, islands=[13.1%, 23.6%, 12.2%, 12.7%, 25.0%] [9b:1(0f) deepseek:1(0f) opus:4(0f)] (303s)
+  Iter  66: 3/3 valid, best=25.0%, islands=[13.1%, 23.6%, 12.2%, 12.7%, 25.0%] [9b:4(3f) deepseek:2(0f) opus:6(0f)] (272s)
