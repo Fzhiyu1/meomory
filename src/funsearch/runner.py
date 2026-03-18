@@ -199,7 +199,7 @@ async def run_funsearch(
     # ---- 初始化种子 ----
     start_iter = len(db.all_programs)
     if start_iter == 0:
-        seed_programs = []
+        seed_data_raw = []  # list of dicts (with score/spt) or strings (code only)
         if seed_from:
             import json as _json
             print(f"Loading seeds from {seed_from}...")
@@ -210,40 +210,63 @@ async def run_funsearch(
                 code = sd["code"].strip()
                 if code not in seen_codes:
                     seen_codes.add(code)
-                    seed_programs.append(code)
-            print(f"  Loaded {len(seed_programs)} unique seeds")
+                    seed_data_raw.append(sd)  # 保留完整 dict（含 score/spt）
+            print(f"  Loaded {len(seed_data_raw)} unique seeds")
         else:
-            seed_programs = [INITIAL_IMPLEMENTATION.strip()]
+            seed_data_raw = [INITIAL_IMPLEMENTATION.strip()]
 
-        print(f"Evaluating {len(seed_programs)} seeds (parallel, mixed fitness)...")
-        seed_futures = []
-        with ProcessPoolExecutor(max_workers=min(len(seed_programs), 12)) as pool:
-            for i, code in enumerate(seed_programs):
-                f = pool.submit(
-                    _eval_mixed_in_subprocess, code,
-                    eval_dataset, dim, alpha, eta, eval_rounds, eval_max_questions,
-                )
-                seed_futures.append((i, code, f))
-            for i, code, f in seed_futures:
-                try:
-                    result = f.result(timeout=300)
-                except Exception:
-                    result = None
-                seed = Program(id=f"seed-{i:03d}", code=code, generation=0)
-                if result and not result.get("error"):
-                    spt = result.get("scores_per_test", {"overall": result["p_at_1"]})
-                    score = _reduce_score(spt)
-                    seed.score = score
-                    seed.eval_details = result
-                    seed.scores_per_test = dict(spt)
-                else:
-                    score = 0.0
-                    spt = {"overall": 0.0}
-                    seed.score = 0.0
+        # 如果 seed 数据自带分数（从 population/best.json 加载），直接使用不重评
+        # 只有无分数的 seed（如 INITIAL_IMPLEMENTATION）才需要评测
+        needs_eval = []
+        for i, sd in enumerate(seed_data_raw):
+            code = sd if isinstance(sd, str) else sd["code"].strip()
+            existing_score = sd.get("score", 0) if isinstance(sd, dict) else 0
+            existing_spt = sd.get("scores_per_test", {}) if isinstance(sd, dict) else {}
+            existing_id = sd.get("id", f"seed-{i:03d}") if isinstance(sd, dict) else f"seed-{i:03d}"
+
+            if existing_score > 0 and existing_spt:
+                # 已有分数，直接注册
+                seed = Program(id=existing_id, code=code, generation=0)
+                seed.score = existing_score
+                seed.eval_details = sd.get("eval_details", {}) if isinstance(sd, dict) else {}
+                seed.scores_per_test = dict(existing_spt)
                 island_id = i % num_islands
                 seed.island_id = island_id
-                db.register(seed, island_id=island_id, scores_per_test=spt)
-                print(f"  Seed {i}: P@1={score:.1%} → island {island_id}")
+                db.register(seed, island_id=island_id, scores_per_test=existing_spt)
+                print(f"  Seed {i} ({existing_id}): P@1={existing_score:.1%} → island {island_id} (pre-scored)")
+            else:
+                needs_eval.append((i, code))
+
+        if needs_eval:
+            print(f"Evaluating {len(needs_eval)} unscored seeds (parallel, mixed fitness)...")
+            with ProcessPoolExecutor(max_workers=min(len(needs_eval), 12)) as pool:
+                futures = []
+                for i, code in needs_eval:
+                    f = pool.submit(
+                        _eval_mixed_in_subprocess, code,
+                        eval_dataset, dim, alpha, eta, eval_rounds, eval_max_questions,
+                    )
+                    futures.append((i, code, f))
+                for i, code, f in futures:
+                    try:
+                        result = f.result(timeout=1200)
+                    except Exception:
+                        result = None
+                    seed = Program(id=f"seed-{i:03d}", code=code, generation=0)
+                    if result and not result.get("error"):
+                        spt = result.get("scores_per_test", {"overall": result["p_at_1"]})
+                        score = _reduce_score(spt)
+                        seed.score = score
+                        seed.eval_details = result
+                        seed.scores_per_test = dict(spt)
+                    else:
+                        score = 0.0
+                        spt = {"overall": 0.0}
+                        seed.score = 0.0
+                    island_id = i % num_islands
+                    seed.island_id = island_id
+                    db.register(seed, island_id=island_id, scores_per_test=spt)
+                    print(f"  Seed {i}: P@1={score:.1%} → island {island_id} (evaluated)")
         db.snapshot()
         db.save()
         start_iter = 1
