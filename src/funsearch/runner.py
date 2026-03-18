@@ -3,10 +3,13 @@
 v5: 并行 LLM 采样 + 混合 fitness (70% clean + 30% noisy@80%) + 异步全量验证。
 """
 import asyncio
+import os
 import random
+import subprocess
 import time
 from concurrent.futures import ProcessPoolExecutor, TimeoutError as FuturesTimeout
 from multiprocessing import Process, Queue
+from pathlib import Path
 
 from src.bench.backends import DeepSeekBackend, OllamaBackend, LLMBackend
 from src.funsearch.database import ProgramsDatabase, Program, ScoresPerTest, _reduce_score
@@ -77,6 +80,28 @@ def _eval_mixed_in_subprocess(code: str, dataset_name: str, dim: int, alpha: flo
     result["noisy_p1"] = noisy["p_at_1"]
     result["scores_per_test"] = spt
     return result
+
+
+def _auto_git_commit(data_dir: str, iteration: int):
+    """自动 git commit 实验数据（静默失败）。"""
+    try:
+        repo_root = Path(data_dir)
+        while repo_root != repo_root.parent:
+            if (repo_root / ".git").exists():
+                break
+            repo_root = repo_root.parent
+        else:
+            return
+        subprocess.run(
+            ["git", "add", str(data_dir)],
+            cwd=repo_root, capture_output=True, timeout=10,
+        )
+        subprocess.run(
+            ["git", "commit", "-m", f"auto: iter {iteration} checkpoint"],
+            cwd=repo_root, capture_output=True, timeout=10,
+        )
+    except Exception:
+        pass
 
 
 class ModelEnsemble:
@@ -369,6 +394,9 @@ async def run_funsearch(
             if iteration % 5 == 0:
                 db.snapshot()
                 db.save()
+            if iteration % 10 == 0:
+                # 自动 git commit 实验数据
+                _auto_git_commit(data_dir, iteration)
             if iteration % 50 == 0:
                 print(f"  [Stats] {ensemble.stats()}")
 
