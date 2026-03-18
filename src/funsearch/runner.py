@@ -217,7 +217,7 @@ async def run_funsearch(
 
         print(f"Evaluating {len(seed_programs)} seeds (parallel, mixed fitness)...")
         seed_futures = []
-        with ProcessPoolExecutor(max_workers=min(len(seed_programs), 4)) as pool:
+        with ProcessPoolExecutor(max_workers=min(len(seed_programs), 12)) as pool:
             for i, code in enumerate(seed_programs):
                 f = pool.submit(
                     _eval_mixed_in_subprocess, code,
