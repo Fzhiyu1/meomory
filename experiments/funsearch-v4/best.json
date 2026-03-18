@@ -1,103 +1,5 @@
 [
   {
-    "id": "gen057-island3-001",
-    "code": "class AssociativeMemory_v2:\n    def __init__(self, dim, alpha=0.999, eta=0.02, momentum=0.9):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        self.eps = 1e-9\n\n        self.M = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n        self.bias = [0.0 for _ in range(dim)]\n        self.bias_v = [0.0 for _ in range(dim)]\n\n        self.gain = [1.0 for _ in range(dim)]\n        self.gain_v = [0.0 for _ in range(dim)]\n\n        self.row_scale = [1.0 for _ in range(dim)]\n        self.err_avg = [0.0 for _ in range(dim)]\n        self.out_avg = [0.0 for _ in range(dim)]\n        self.tgt_avg = [0.0 for _ in range(dim)]\n        self.use_avg = [0.0 for _ in range(dim)]\n\n        self.key_mean = [0.0 for _ in range(dim)]\n        self.key_var = [1.0 for _ in range(dim)]\n\n        self.step = 0.0\n\n    def _prep_key(self, key):\n        dim = self.dim\n\n        for j in range(dim):\n            d = key[j] - self.key_mean[j]\n            self.key_mean[j] = 0.995 * self.key_mean[j] + 0.005 * key[j]\n            self.key_var[j] = 0.995 * self.key_var[j] + 0.005 * (d * d)\n\n        x = [0.0 for _ in range(dim)]\n        norm2 = 0.0\n        for j in range(dim):\n            s = self.key_var[j] ** 0.5 + self.eps\n            v = (key[j] - self.key_mean[j]) / s\n            x[j] = v\n            norm2 += v * v\n\n        inv = 1.0 / (norm2 ** 0.5 + self.eps)\n        xn = [x[j] * inv for j in range(dim)]\n        mean_x = sum(xn) / dim\n        xc = [xn[j] - 0.1 * mean_x for j in range(dim)]\n        return xc\n\n    def query(self, key):\n        dim = self.dim\n        x = self._prep_key(key)\n        out = [0.0 for _ in range(dim)]\n\n        for i in range(dim):\n            row = self.M[i]\n            dot = 0.0\n            row_norm2 = self.eps\n            for j in range(dim):\n                w = row[j]\n                dot += w * x[j]\n                row_norm2 += w * w\n\n            row_norm = row_norm2 ** 0.5\n            cosine = dot / row_norm\n            mixed = 0.75 * dot + 0.25 * cosine\n            out[i] = self.gain[i] * mixed + self.bias[i]\n\n        mean_out = sum(out) / dim\n        return [out[i] - 0.05 * mean_out for i in range(dim)]\n\n    def update(self, key, target):\n        dim = self.dim\n        self.step += 1.0\n        x = self._prep_key(key)\n        pred = self.query(key)\n\n        abs_t = sum(abs(target[i]) for i in range(dim)) + self.eps\n        abs_p = sum(abs(pred[i]) for i in range(dim)) + self.eps\n        global_scale = 1.0 / (1.0 + 0.05 * abs_t + 0.05 * abs_p)\n\n        for i in range(dim):\n            p = pred[i]\n            t = target[i]\n            err = t - p\n\n            self.err_avg[i] = 0.98 * self.err_avg[i] + 0.02 * abs(err)\n            self.out_avg[i] = 0.995 * self.out_avg[i] + 0.005 * p\n            self.tgt_avg[i] = 0.995 * self.tgt_avg[i] + 0.005 * t\n            self.use_avg[i] = 0.995 * self.use_avg[i] + 0.005 * abs(t)\n\n            local_eta = self.eta * global_scale / (1.0 + 0.5 * self.err_avg[i] + 0.1 * self.use_avg[i])\n            row = self.M[i]\n            vel = self.V[i]\n\n            dot = 0.0\n            row_norm2 = self.eps\n            for j in range(dim):\n                w = row[j]\n                dot += w * x[j]\n                row_norm2 += w * w\n\n            proj = dot / row_norm2\n            decay = 0.0005 + 0.002 * abs(t) + 0.001 * max(0.0, row_norm2 - self.row_scale[i] * self.row_scale[i])\n\n            target_push = err + 0.25 * t\n            drift = 0.02 * (self.out_avg[i] - self.tgt_avg[i])\n\n            for j in range(dim):\n                w = row[j]\n                xv = x[j]\n\n                hebb = target_push * xv\n                oja = -0.15 * err * proj * w\n                shrink = -decay * w\n                anti_bias = -drift * xv\n\n                grad = local_eta * (hebb + oja + anti_bias + shrink)\n                vel[j] = self.momentum * vel[j] + grad\n                row[j] = self.alpha * w + vel[j]\n\n            new_norm2 = self.eps\n            for j in range(dim):\n                new_norm2 += row[j] * row[j]\n            new_norm = new_norm2 ** 0.5\n            self.row_scale[i] = 0.99 * self.row_scale[i] + 0.01 * new_norm\n\n            max_norm = 3.0 + 2.0 * self.use_avg[i]\n            if new_norm > max_norm:\n                scale = max_norm / (new_norm + self.eps)\n                for j in range(dim):\n                    row[j] *= scale\n                    vel[j] *= scale\n\n            ggrad = local_eta * (0.5 * err * p + 0.1 * abs(t) - 0.01 * (self.gain[i] - 1.0))\n            self.gain_v[i] = self.momentum * self.gain_v[i] + ggrad\n            self.gain[i] += self.gain_v[i]\n            if self.gain[i] < 0.1:\n                self.gain[i] = 0.1\n                self.gain_v[i] = 0.0\n            if self.gain[i] > 5.0:\n                self.gain[i] = 5.0\n                self.gain_v[i] = 0.0\n\n            bgrad = local_eta * (0.3 * err - 0.01 * self.bias[i])\n            self.bias_v[i] = self.momentum * self.bias_v[i] + bgrad\n            self.bias[i] = self.alpha * self.bias[i] + self.bias_v[i]",
-    "score": 0.876,
-    "generation": 57,
-    "island_id": 3,
-    "parent_ids": [
-      "gen019-island3-004",
-      "gen019-island3-003"
-    ],
-    "eval_details": {
-      "model": "gpt54",
-      "p_at_1": 0.876,
-      "p_at_3": 0.952,
-      "p_at_5": 0.972,
-      "scores_per_test": {
-        "conv0": 0.8691099476439791,
-        "conv1": 0.7714285714285715,
-        "conv2": 0.9326424870466321,
-        "conv3": 1.0,
-        "overall": 0.876
-      },
-      "rounds": [
-        {
-          "round": 1,
-          "p_at_1": 0.534,
-          "p_at_3": 0.686,
-          "p_at_5": 0.784
-        },
-        {
-          "round": 2,
-          "p_at_1": 0.7,
-          "p_at_3": 0.836,
-          "p_at_5": 0.896
-        },
-        {
-          "round": 3,
-          "p_at_1": 0.758,
-          "p_at_3": 0.88,
-          "p_at_5": 0.914
-        },
-        {
-          "round": 4,
-          "p_at_1": 0.79,
-          "p_at_3": 0.896,
-          "p_at_5": 0.928
-        },
-        {
-          "round": 5,
-          "p_at_1": 0.812,
-          "p_at_3": 0.91,
-          "p_at_5": 0.95
-        },
-        {
-          "round": 6,
-          "p_at_1": 0.832,
-          "p_at_3": 0.922,
-          "p_at_5": 0.952
-        },
-        {
-          "round": 7,
-          "p_at_1": 0.84,
-          "p_at_3": 0.928,
-          "p_at_5": 0.962
-        },
-        {
-          "round": 8,
-          "p_at_1": 0.85,
-          "p_at_3": 0.936,
-          "p_at_5": 0.964
-        },
-        {
-          "round": 9,
-          "p_at_1": 0.868,
-          "p_at_3": 0.95,
-          "p_at_5": 0.97
-        },
-        {
-          "round": 10,
-          "p_at_1": 0.876,
-          "p_at_3": 0.952,
-          "p_at_5": 0.972
-        }
-      ],
-      "elapsed": 126.69044995307922,
-      "error": false,
-      "full_p1": 0.49544534412955465,
-      "overfit_ratio": 1.77
-    },
-    "scores_per_test": {
-      "conv0": 0.8691099476439791,
-      "conv1": 0.7714285714285715,
-      "conv2": 0.9326424870466321,
-      "conv3": 1.0,
-      "overall": 0.876
-    },
-    "created_at": "2026-03-17 18:54:46"
-  },
-  {
     "id": "gen059-island3-001",
     "code": "class AssociativeMemory_v2:\n    def __init__(self, dim, alpha=0.999, eta=0.02, momentum=0.9):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        self.eps = 1e-9\n\n        self.M = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n        self.M2 = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.V2 = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n        self.bias = [0.0 for _ in range(dim)]\n        self.bias_v = [0.0 for _ in range(dim)]\n\n        self.gain = [1.0 for _ in range(dim)]\n        self.gain_v = [0.0 for _ in range(dim)]\n\n        self.row_scale = [1.0 for _ in range(dim)]\n        self.err_avg = [0.0 for _ in range(dim)]\n        self.out_avg = [0.0 for _ in range(dim)]\n        self.tgt_avg = [0.0 for _ in range(dim)]\n        self.use_avg = [0.0 for _ in range(dim)]\n        self.mix = [0.15 for _ in range(dim)]\n\n        self.key_mean = [0.0 for _ in range(dim)]\n        self.key_var = [1.0 for _ in range(dim)]\n        self.key_abs = [1.0 for _ in range(dim)]\n\n        self.last_key = [0.0 for _ in range(dim)]\n        self.last_target = [0.0 for _ in range(dim)]\n        self.last_pred = [0.0 for _ in range(dim)]\n\n        self.step = 0.0\n\n    def _prep_key(self, key, adapt):\n        dim = self.dim\n\n        if adapt:\n            for j in range(dim):\n                d = key[j] - self.key_mean[j]\n                self.key_mean[j] = 0.995 * self.key_mean[j] + 0.005 * key[j]\n                self.key_var[j] = 0.995 * self.key_var[j] + 0.005 * (d * d)\n                self.key_abs[j] = 0.995 * self.key_abs[j] + 0.005 * abs(key[j])\n\n        x = [0.0 for _ in range(dim)]\n        norm2 = self.eps\n        s1 = 0.0\n        for j in range(dim):\n            s = self.key_var[j] ** 0.5 + 0.1 * self.key_abs[j] + self.eps\n            v = (key[j] - self.key_mean[j]) / s\n            x[j] = v\n            norm2 += v * v\n            s1 += v\n\n        inv = 1.0 / (norm2 ** 0.5 + self.eps)\n        mean_x = s1 / dim\n        y = [0.0 for _ in range(dim)]\n        y2 = self.eps\n        for j in range(dim):\n            v = (x[j] * inv) - 0.08 * mean_x\n            y[j] = v\n            y2 += v * v\n\n        inv2 = 1.0 / (y2 ** 0.5 + self.eps)\n        return [y[j] * inv2 for j in range(dim)]\n\n    def _forward(self, x):\n        dim = self.dim\n        out = [0.0 for _ in range(dim)]\n        total = 0.0\n\n        for i in range(dim):\n            row1 = self.M[i]\n            row2 = self.M2[i]\n\n            dot1 = 0.0\n            dot2 = 0.0\n            n1 = self.eps\n            n2 = self.eps\n            for j in range(dim):\n                w1 = row1[j]\n                w2 = row2[j]\n                xv = x[j]\n                dot1 += w1 * xv\n                dot2 += w2 * abs(xv)\n                n1 += w1 * w1\n                n2 += w2 * w2\n\n            c1 = dot1 / (n1 ** 0.5 + self.eps)\n            c2 = dot2 / (n2 ** 0.5 + self.eps)\n            m = self.mix[i]\n            raw = (1.0 - m) * (0.72 * dot1 + 0.28 * c1) + m * (0.72 * dot2 + 0.28 * c2)\n            out_i = self.gain[i] * raw + self.bias[i]\n            out[i] = out_i\n            total += out_i\n\n        mean_out = total / dim\n        return [out[i] - 0.04 * mean_out for i in range(dim)]\n\n    def query(self, key):\n        x = self._prep_key(key, True)\n        return self._forward(x)\n\n    def update(self, key, target):\n        dim = self.dim\n        self.step += 1.0\n\n        x = self._prep_key(key, True)\n        pred = self._forward(x)\n\n        abs_t = sum(abs(target[i]) for i in range(dim)) + self.eps\n        abs_p = sum(abs(pred[i]) for i in range(dim)) + self.eps\n        global_scale = 1.0 / (1.0 + 0.03 * abs_t + 0.03 * abs_p)\n\n        for j in range(dim):\n            self.last_key[j] = 0.99 * self.last_key[j] + 0.01 * x[j]\n            self.last_target[j] = 0.99 * self.last_target[j] + 0.01 * target[j]\n            self.last_pred[j] = 0.99 * self.last_pred[j] + 0.01 * pred[j]\n\n        for i in range(dim):\n            p = pred[i]\n            t = target[i]\n            err = t - p\n\n            self.err_avg[i] = 0.98 * self.err_avg[i] + 0.02 * abs(err)\n            self.out_avg[i] = 0.995 * self.out_avg[i] + 0.005 * p\n            self.tgt_avg[i] = 0.995 * self.tgt_avg[i] + 0.005 * t\n            self.use_avg[i] = 0.995 * self.use_avg[i] + 0.005 * abs(t)\n\n            local_eta = self.eta * global_scale / (1.0 + 0.6 * self.err_avg[i] + 0.15 * self.use_avg[i])\n\n            row1 = self.M[i]\n            vel1 = self.V[i]\n            row2 = self.M2[i]\n            vel2 = self.V2[i]\n\n            dot1 = 0.0\n            dot2 = 0.0\n            n1 = self.eps\n            n2 = self.eps\n            abs_sum = self.eps\n            for j in range(dim):\n                xv = x[j]\n                ax = abs(xv)\n                w1 = row1[j]\n                w2 = row2[j]\n                dot1 += w1 * xv\n                dot2 += w2 * ax\n                n1 += w1 * w1\n                n2 += w2 * w2\n                abs_sum += ax\n\n            proj1 = dot1 / n1\n            proj2 = dot2 / n2\n            drift = self.out_avg[i] - self.tgt_avg[i]\n            target_push = err + 0.30 * t - 0.06 * drift\n            decay1 = 0.0004 + 0.0015 * abs(t) + 0.0005 * max(0.0, n1 - self.row_scale[i] * self.row_scale[i])\n            decay2 = 0.0003 + 0.0010 * abs(t) + 0.0004 * max(0.0, n2 - self.row_scale[i] * self.row_scale[i])\n\n            for j in range(dim):\n                xv = x[j]\n                ax = abs(xv)\n\n                w1 = row1[j]\n                hebb1 = target_push * xv\n                oja1 = -0.18 * err * proj1 * w1\n                anti1 = -0.015 * drift * xv\n                corr1 = 0.01 * (target[i] - self.last_target[i]) * (xv - self.last_key[j])\n                grad1 = local_eta * (hebb1 + oja1 + anti1 + corr1 - decay1 * w1)\n                vel1[j] = self.momentum * vel1[j] + grad1\n                row1[j] = self.alpha * w1 + vel1[j]\n\n                w2 = row2[j]\n                hebb2 = target_push * ax\n                oja2 = -0.10 * err * proj2 * w2\n                anti2 = -0.008 * drift * ax\n                grad2 = local_eta * (hebb2 + oja2 + anti2 - decay2 * w2)\n                vel2[j] = self.momentum * vel2[j] + grad2\n                row2[j] = self.alpha * w2 + vel2[j]\n\n            new_n1 = self.eps\n            new_n2 = self.eps\n            for j in range(dim):\n                new_n1 += row1[j] * row1[j]\n                new_n2 += row2[j] * row2[j]\n            new_norm = (new_n1 + 0.5 * new_n2) ** 0.5\n            self.row_scale[i] = 0.99 * self.row_scale[i] + 0.01 * new_norm\n\n            max_norm1 = 3.5 + 2.5 * self.use_avg[i]\n            norm1 = new_n1 ** 0.5\n            if norm1 > max_norm1:\n                scale = max_norm1 / (norm1 + self.eps)\n                for j in range(dim):\n                    row1[j] *= scale\n                    vel1[j] *= scale\n\n            max_norm2 = 2.5 + 1.5 * self.use_avg[i]\n            norm2 = new_n2 ** 0.5\n            if norm2 > max_norm2:\n                scale = max_norm2 / (norm2 + self.eps)\n                for j in range(dim):\n                    row2[j] *= scale\n                    vel2[j] *= scale\n\n            mgrad = local_eta * (0.08 * abs(err) * (abs_sum / dim) + 0.02 * abs(t) - 0.02 * self.mix[i])\n            self.mix[i] += mgrad\n            if self.mix[i] < 0.0:\n                self.mix[i] = 0.0\n            if self.mix[i] > 0.5:\n                self.mix[i] = 0.5\n\n            ggrad = local_eta * (0.45 * err * p + 0.08 * abs(t) - 0.012 * (self.gain[i] - 1.0))\n            self.gain_v[i] = self.momentum * self.gain_v[i] + ggrad\n            self.gain[i] += self.gain_v[i]\n            if self.gain[i] < 0.08:\n                self.gain[i] = 0.08\n                self.gain_v[i] = 0.0\n            if self.gain[i] > 6.0:\n                self.gain[i] = 6.0\n                self.gain_v[i] = 0.0\n\n            bgrad = local_eta * (0.35 * err - 0.012 * self.bias[i])\n            self.bias_v[i] = self.momentum * self.bias_v[i] + bgrad\n            self.bias[i] = self.alpha * self.bias[i] + self.bias_v[i]",
     "score": 0.87,
@@ -290,201 +192,690 @@
     "created_at": "2026-03-17 17:41:13"
   },
   {
-    "id": "gen070-island2-005",
-    "code": "class AssociativeMemory:\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9, beta2=0.999, eps=1e-8):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        self.beta2 = beta2\n        self.eps = eps\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.S = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.t = 0\n\n    def query(self, key):\n        dim = self.dim\n        activation = [0.0] * dim\n        for i in range(dim):\n            total = 0.0\n            row = self.M[i]\n            for j in range(dim):\n                total += row[j] * key[j]\n            activation[i] = total\n        return activation\n\n    def update(self, key, target):\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        mom = self.momentum\n        beta2 = self.beta2\n        eps = self.eps\n        self.t += 1\n\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n\n        for i in range(dim):\n            for j in range(dim):\n                grad = error[i] * key[j]\n                delta = -eta * grad\n                delta_with_momentum = mom * self.V[i][j] + delta\n                self.V[i][j] = delta_with_momentum\n\n                self.S[i][j] = beta2 * self.S[i][j] + (1 - beta2) * (grad * grad)\n                s_corrected = self.S[i][j] / (1 - beta2 ** self.t)\n                adaptive_eta = eta / (s_corrected ** 0.5 + eps)\n\n                decayed_weight = self.M[i][j] * alpha\n                self.M[i][j] = decayed_weight + adaptive_eta * delta_with_momentum",
-    "score": 0.782,
-    "generation": 70,
+    "id": "gen068-island2-002",
+    "code": "class AssociativeMemory:\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9, beta2=0.999, eps=1e-8):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        self.beta2 = beta2\n        self.eps = eps\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.S = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.t = 0\n        self.key_history = []\n        self.target_history = []\n        self.history_size = 10\n\n    def query(self, key):\n        dim = self.dim\n        activation = [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n        norm_a = sum(x * x for x in activation) ** 0.5\n        if norm_a > 0:\n            activation = [x / norm_a for x in activation]\n        return activation\n\n    def update(self, key, target):\n        self.t += 1\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        mom = self.momentum\n        beta2 = self.beta2\n\n        self.key_history.append(key[:])\n        self.target_history.append(target[:])\n        if len(self.key_history) > self.history_size:\n            self.key_history.pop(0)\n            self.target_history.pop(0)\n\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n\n        for i in range(dim):\n            for j in range(dim):\n                grad = error[i] * key[j]\n                self.V[i][j] = mom * self.V[i][j] + (1 - mom) * grad\n                self.S[i][j] = beta2 * self.S[i][j] + (1 - beta2) * (grad * grad)\n                v_corr = self.V[i][j] / (1 - (mom ** self.t))\n                s_corr = self.S[i][j] / (1 - (beta2 ** self.t))\n                delta = -eta * v_corr / ((s_corr ** 0.5) + self.eps)\n                self.M[i][j] = self.M[i][j] * alpha + delta\n\n        if len(self.key_history) >= 2:\n            for _ in range(2):\n                idx = len(self.key_history) - 2\n                key_old = self.key_history[idx]\n                target_old = self.target_history[idx]\n                act_old = self.query(key_old)\n                err_old = [act_old[i] - target_old[i] for i in range(dim)]\n                for i in range(dim):\n                    for j in range(dim):\n                        grad = err_old[i] * key_old[j]\n                        self.M[i][j] -= 0.3 * eta * grad",
+    "score": 0.594,
+    "generation": 68,
     "island_id": 2,
     "parent_ids": [
-      "reset-100-island2",
       "reset-100-island2"
     ],
     "eval_details": {
       "model": "deepseek",
-      "p_at_1": 0.782,
-      "p_at_3": 0.91,
-      "p_at_5": 0.934,
+      "p_at_1": 0.594,
+      "p_at_3": 0.752,
+      "p_at_5": 0.814,
       "scores_per_test": {
-        "conv0": 0.6282722513089005,
-        "conv1": 0.8,
-        "conv2": 0.9119170984455959,
+        "conv0": 0.3717277486910995,
+        "conv1": 0.7333333333333333,
+        "conv2": 0.7150259067357513,
         "conv3": 1.0,
-        "overall": 0.782
+        "overall": 0.594
       },
       "rounds": [
         {
           "round": 1,
-          "p_at_1": 0.486,
-          "p_at_3": 0.64,
-          "p_at_5": 0.7
+          "p_at_1": 0.192,
+          "p_at_3": 0.334,
+          "p_at_5": 0.392
         },
         {
           "round": 2,
-          "p_at_1": 0.586,
-          "p_at_3": 0.74,
-          "p_at_5": 0.804
+          "p_at_1": 0.344,
+          "p_at_3": 0.502,
+          "p_at_5": 0.582
         },
         {
           "round": 3,
-          "p_at_1": 0.652,
-          "p_at_3": 0.794,
-          "p_at_5": 0.848
+          "p_at_1": 0.408,
+          "p_at_3": 0.572,
+          "p_at_5": 0.63
         },
         {
           "round": 4,
-          "p_at_1": 0.684,
-          "p_at_3": 0.832,
-          "p_at_5": 0.888
+          "p_at_1": 0.456,
+          "p_at_3": 0.614,
+          "p_at_5": 0.676
         },
         {
           "round": 5,
-          "p_at_1": 0.718,
-          "p_at_3": 0.856,
-          "p_at_5": 0.9
+          "p_at_1": 0.49,
+          "p_at_3": 0.64,
+          "p_at_5": 0.736
         },
         {
           "round": 6,
-          "p_at_1": 0.736,
-          "p_at_3": 0.872,
-          "p_at_5": 0.906
+          "p_at_1": 0.518,
+          "p_at_3": 0.686,
+          "p_at_5": 0.762
         },
         {
           "round": 7,
-          "p_at_1": 0.754,
-          "p_at_3": 0.882,
-          "p_at_5": 0.922
+          "p_at_1": 0.548,
+          "p_at_3": 0.7,
+          "p_at_5": 0.772
         },
         {
           "round": 8,
-          "p_at_1": 0.76,
-          "p_at_3": 0.894,
-          "p_at_5": 0.926
+          "p_at_1": 0.566,
+          "p_at_3": 0.718,
+          "p_at_5": 0.79
         },
         {
           "round": 9,
-          "p_at_1": 0.77,
-          "p_at_3": 0.902,
-          "p_at_5": 0.926
+          "p_at_1": 0.584,
+          "p_at_3": 0.728,
+          "p_at_5": 0.798
         },
         {
           "round": 10,
-          "p_at_1": 0.782,
-          "p_at_3": 0.91,
-          "p_at_5": 0.934
+          "p_at_1": 0.594,
+          "p_at_3": 0.752,
+          "p_at_5": 0.814
         }
       ],
-      "elapsed": 90.37392520904541,
+      "elapsed": 136.145982503891,
       "error": false
     },
     "scores_per_test": {
-      "conv0": 0.6282722513089005,
-      "conv1": 0.8,
-      "conv2": 0.9119170984455959,
+      "conv0": 0.3717277486910995,
+      "conv1": 0.7333333333333333,
+      "conv2": 0.7150259067357513,
       "conv3": 1.0,
-      "overall": 0.782
+      "overall": 0.594
     },
-    "created_at": "2026-03-17 19:44:12"
+    "created_at": "2026-03-17 19:37:21"
   },
   {
-    "id": "gen019-island3-003",
-    "code": "class AssociativeMemory_v2:\n    def __init__(self, dim, alpha=1.0, eta=0.01, momentum=0.9):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n\n        self.M = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n        self.bias = [0.0 for _ in range(dim)]\n        self.bias_v = [0.0 for _ in range(dim)]\n\n        self.gain = [1.0 for _ in range(dim)]\n        self.gain_v = [0.0 for _ in range(dim)]\n\n        self.row_avg = [0.0 for _ in range(dim)]\n        self.err_avg = [0.0 for _ in range(dim)]\n        self.use_count = [0.0 for _ in range(dim)]\n\n        self.step = 0.0\n        self.eps = 1e-9\n\n    def _normalize_key(self, key):\n        norm2 = sum(key[j] * key[j] for j in range(self.dim))\n        scale = 1.0 / ((norm2 + self.eps) ** 0.5)\n        return [key[j] * scale for j in range(self.dim)], norm2\n\n    def query(self, key):\n        dim = self.dim\n        kn, key_norm2 = self._normalize_key(key)\n        out = [0.0 for _ in range(dim)]\n\n        for i in range(dim):\n            row = self.M[i]\n            dot = 0.0\n            row_norm2 = self.eps\n            row_sum = 0.0\n            for j in range(dim):\n                w = row[j]\n                dot += w * kn[j]\n                row_norm2 += w * w\n                row_sum += w\n            row_norm = row_norm2 ** 0.5\n\n            cosine = dot / row_norm\n            raw = dot\n            centered = row_sum / dim\n            score = 0.7 * cosine + 0.3 * raw - 0.05 * centered\n            out[i] = self.gain[i] * score + self.bias[i]\n\n        mean_out = sum(out) / dim\n        return [out[i] - 0.1 * mean_out for i in range(dim)]\n\n    def update(self, key, target):\n        dim = self.dim\n        eta = self.eta\n        mom = self.momentum\n        retain = self.alpha\n        self.step += 1.0\n\n        kn, key_norm2 = self._normalize_key(key)\n        pred = self.query(key)\n\n        target_sum = sum(abs(target[i]) for i in range(dim))\n        pred_sum = sum(abs(pred[i]) for i in range(dim))\n        norm_mix = 1.0 / (1.0 + 0.1 * target_sum + 0.05 * pred_sum)\n\n        for i in range(dim):\n            p = pred[i]\n            t = target[i]\n            err = t - p\n\n            self.use_count[i] += abs(t)\n            self.row_avg[i] = 0.99 * self.row_avg[i] + 0.01 * p\n            self.err_avg[i] = 0.99 * self.err_avg[i] + 0.01 * abs(err)\n\n            local_eta = eta * norm_mix / (1.0 + 0.1 * self.err_avg[i] + 0.01 * self.use_count[i])\n\n            row = self.M[i]\n            vel = self.V[i]\n\n            row_norm2 = self.eps\n            dot = 0.0\n            for j in range(dim):\n                w = row[j]\n                row_norm2 += w * w\n                dot += w * kn[j]\n            row_norm = row_norm2 ** 0.5\n\n            desired_push = 0.5 * t + err\n            anti_drift = 0.02 * self.row_avg[i]\n            stabilize = 0.001 + 0.002 * abs(t)\n            proj = dot / row_norm2\n\n            for j in range(dim):\n                w = row[j]\n                x = kn[j]\n\n                hebb = desired_push * x\n                norm_corr = -0.1 * err * proj * w\n                decay = -stabilize * w\n                competitive = -anti_drift * x\n\n                delta = local_eta * (hebb + norm_corr + competitive + decay)\n                vel[j] = mom * vel[j] + delta\n                row[j] = retain * w + vel[j]\n\n            gain_delta = local_eta * (err * (0.5 + abs(t)) - 0.001 * (self.gain[i] - 1.0))\n            self.gain_v[i] = mom * self.gain_v[i] + gain_delta\n            self.gain[i] += self.gain_v[i]\n            if self.gain[i] < 0.1:\n                self.gain[i] = 0.1\n                self.gain_v[i] = 0.0\n            if self.gain[i] > 5.0:\n                self.gain[i] = 5.0\n                self.gain_v[i] = 0.0\n\n            bias_delta = local_eta * (0.2 * err - 0.01 * self.bias[i])\n            self.bias_v[i] = mom * self.bias_v[i] + bias_delta\n            self.bias[i] = retain * self.bias[i] + self.bias_v[i]",
-    "score": 0.768,
-    "generation": 19,
-    "island_id": 3,
+    "id": "gen062-island0-001",
+    "code": "class AssociativeMemory:\n    def __init__(self, dim, alpha=0.995, eta=0.15, momentum=0.85):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n\n        self.M = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.B = [0.0 for _ in range(dim)]\n        self.Bv = [0.0 for _ in range(dim)]\n\n        self.mean = [0.0 for _ in range(dim)]\n        self.scale = [1.0 for _ in range(dim)]\n        self.col_energy = [1.0 for _ in range(dim)]\n        self.out_energy = [1.0 for _ in range(dim)]\n\n        self.examples = []\n        self.max_examples = dim * 4 + 16\n\n        self.steps = 0\n        self.eps = 1e-8\n\n    def _prep_key(self, key):\n        x = [0.0 for _ in range(self.dim)]\n        for j in range(self.dim):\n            s = self.scale[j]\n            if s < self.eps:\n                s = 1.0\n            x[j] = (key[j] - self.mean[j]) / s\n        return x\n\n    def _linear(self, x):\n        return [\n            self.B[i] + sum(self.M[i][j] * x[j] for j in range(self.dim))\n            for i in range(self.dim)\n        ]\n\n    def _memory(self, x):\n        n = len(self.examples)\n        if n == 0:\n            return [0.0 for _ in range(self.dim)], 0.0\n\n        best = -1e30\n        weights = [0.0 for _ in range(n)]\n        total = 0.0\n\n        for idx in range(n):\n            ex = self.examples[idx]\n            k = ex[0]\n            strength = ex[2]\n\n            dot = 0.0\n            dist = 0.0\n            kabs = 0.0\n            xabs = 0.0\n            for j in range(self.dim):\n                a = x[j]\n                b = k[j]\n                dot += a * b\n                dist += abs(a - b)\n                xabs += abs(a)\n                kabs += abs(b)\n\n            sim = (2.0 * dot) / (self.eps + xabs + kabs + dist)\n            if sim < 0.0:\n                sim *= 0.25\n            score = (sim + 1.0) * strength\n            if score > best:\n                best = score\n            weights[idx] = score\n\n        cutoff = best * 0.5\n        mem = [0.0 for _ in range(self.dim)]\n        used = 0.0\n\n        for idx in range(n):\n            w = weights[idx]\n            if w >= cutoff and w > 0.0:\n                t = self.examples[idx][1]\n                used += w\n                for i in range(self.dim):\n                    mem[i] += w * t[i]\n\n        if used <= self.eps:\n            return [0.0 for _ in range(self.dim)], 0.0\n\n        inv = 1.0 / used\n        for i in range(self.dim):\n            mem[i] *= inv\n        conf = used / (used + 1.0)\n        return mem, conf\n\n    def query(self, key):\n        x = self._prep_key(key)\n        lin = self._linear(x)\n        mem, conf = self._memory(x)\n\n        if conf <= 0.0:\n            return lin\n\n        mix = conf\n        if mix > 0.85:\n            mix = 0.85\n\n        return [(1.0 - mix) * lin[i] + mix * mem[i] for i in range(self.dim)]\n\n    def update(self, key, target):\n        self.steps += 1\n\n        stat_lr = 1.0 / min(256.0, float(self.steps))\n        for j in range(self.dim):\n            d = key[j] - self.mean[j]\n            self.mean[j] += stat_lr * d\n            self.scale[j] = 0.995 * self.scale[j] + 0.005 * (abs(d) + self.eps)\n\n        x = self._prep_key(key)\n        pred = self.query(key)\n        err = [target[i] - pred[i] for i in range(self.dim)]\n\n        x2 = sum(v * v for v in x)\n        denom = 1.0 + x2\n\n        for j in range(self.dim):\n            self.col_energy[j] = 0.99 * self.col_energy[j] + 0.01 * (x[j] * x[j])\n\n        for i in range(self.dim):\n            ae = abs(err[i])\n            self.out_energy[i] = 0.99 * self.out_energy[i] + 0.01 * ae\n\n            be = self.eta * err[i] / (1.0 + self.out_energy[i])\n            self.Bv[i] = self.momentum * self.Bv[i] + be\n            self.B[i] = self.alpha * self.B[i] + self.Bv[i]\n\n            row_scale = self.eta / (1.0 + self.out_energy[i])\n            Mi = self.M[i]\n            Vi = self.V[i]\n            for j in range(self.dim):\n                grad = row_scale * err[i] * x[j] / (denom + self.col_energy[j])\n                Vi[j] = self.momentum * Vi[j] + grad\n                Mi[j] = self.alpha * Mi[j] + Vi[j]\n\n        best_idx = -1\n        best_score = -1e30\n        for idx in range(len(self.examples)):\n            k = self.examples[idx][0]\n            dot = 0.0\n            dist = 0.0\n            kabs = 0.0\n            xabs = 0.0\n            for j in range(self.dim):\n                a = x[j]\n                b = k[j]\n                dot += a * b\n                dist += abs(a - b)\n                xabs += abs(a)\n                kabs += abs(b)\n            sim = (2.0 * dot) / (self.eps + xabs + kabs + dist)\n            if sim > best_score:\n                best_score = sim\n                best_idx = idx\n\n        err_mag = sum(abs(v) for v in err) / (1.0 + sum(abs(v) for v in target))\n        strength = 1.0 + (1.0 - min(1.0, err_mag))\n\n        if best_idx >= 0 and best_score > 0.75:\n            ex = self.examples[best_idx]\n            w = ex[2]\n            nw = min(50.0, 0.95 * w + 0.5 * strength)\n            blend = 1.0 / (1.0 + nw)\n            for j in range(self.dim):\n                ex[0][j] = (1.0 - blend) * ex[0][j] + blend * x[j]\n            for i in range(self.dim):\n                ex[1][i] = (1.0 - blend) * ex[1][i] + blend * target[i]\n            ex[2] = nw\n            ex[3] += 1.0\n        else:\n            self.examples.append([\n                [x[j] for j in range(self.dim)],\n                [target[i] for i in range(self.dim)],\n                strength,\n                1.0\n            ])\n\n        if len(self.examples) > self.max_examples:\n            worst = 0\n            worst_score = self.examples[0][2] + 0.05 * self.examples[0][3]\n            for idx in range(1, len(self.examples)):\n                ex = self.examples[idx]\n                score = ex[2] + 0.05 * ex[3]\n                if score < worst_score:\n                    worst_score = score\n                    worst = idx\n            self.examples.pop(worst)",
+    "score": 0.56,
+    "generation": 62,
+    "island_id": 0,
     "parent_ids": [
-      "gen005-island3-001",
-      "gen005-island3-001"
+      "gen056-island0-002",
+      "gen056-island0-002"
     ],
     "eval_details": {
       "model": "gpt54",
-      "p_at_1": 0.768,
-      "p_at_3": 0.898,
-      "p_at_5": 0.932,
+      "p_at_1": 0.56,
+      "p_at_3": 0.72,
+      "p_at_5": 0.804,
       "scores_per_test": {
-        "conv0": 0.7068062827225131,
-        "conv1": 0.7904761904761904,
-        "conv2": 0.8031088082901554,
-        "conv3": 1.0,
-        "overall": 0.768
+        "conv0": 0.5340314136125655,
+        "conv1": 0.5333333333333333,
+        "conv2": 0.5958549222797928,
+        "conv3": 0.6363636363636364,
+        "overall": 0.56
       },
       "rounds": [
         {
           "round": 1,
-          "p_at_1": 0.142,
-          "p_at_3": 0.316,
-          "p_at_5": 0.372
+          "p_at_1": 0.04,
+          "p_at_3": 0.066,
+          "p_at_5": 0.128
         },
         {
           "round": 2,
-          "p_at_1": 0.45,
-          "p_at_3": 0.614,
-          "p_at_5": 0.696
+          "p_at_1": 0.326,
+          "p_at_3": 0.496,
+          "p_at_5": 0.592
         },
         {
           "round": 3,
-          "p_at_1": 0.602,
-          "p_at_3": 0.764,
-          "p_at_5": 0.814
+          "p_at_1": 0.384,
+          "p_at_3": 0.566,
+          "p_at_5": 0.654
         },
         {
           "round": 4,
-          "p_at_1": 0.69,
-          "p_at_3": 0.822,
-          "p_at_5": 0.874
+          "p_at_1": 0.42,
+          "p_at_3": 0.592,
+          "p_at_5": 0.7
         },
         {
           "round": 5,
-          "p_at_1": 0.708,
-          "p_at_3": 0.85,
-          "p_at_5": 0.888
+          "p_at_1": 0.454,
+          "p_at_3": 0.63,
+          "p_at_5": 0.738
         },
         {
           "round": 6,
-          "p_at_1": 0.73,
-          "p_at_3": 0.856,
-          "p_at_5": 0.896
+          "p_at_1": 0.478,
+          "p_at_3": 0.658,
+          "p_at_5": 0.764
         },
         {
           "round": 7,
-          "p_at_1": 0.744,
-          "p_at_3": 0.86,
-          "p_at_5": 0.902
+          "p_at_1": 0.514,
+          "p_at_3": 0.682,
+          "p_at_5": 0.778
         },
         {
           "round": 8,
-          "p_at_1": 0.75,
-          "p_at_3": 0.87,
-          "p_at_5": 0.922
+          "p_at_1": 0.536,
+          "p_at_3": 0.688,
+          "p_at_5": 0.788
         },
         {
           "round": 9,
-          "p_at_1": 0.758,
-          "p_at_3": 0.888,
-          "p_at_5": 0.924
+          "p_at_1": 0.554,
+          "p_at_3": 0.708,
+          "p_at_5": 0.79
         },
         {
           "round": 10,
-          "p_at_1": 0.768,
-          "p_at_3": 0.898,
-          "p_at_5": 0.932
+          "p_at_1": 0.56,
+          "p_at_3": 0.72,
+          "p_at_5": 0.804
         }
       ],
-      "elapsed": 129.4773666858673,
+      "elapsed": 309.60867285728455,
       "error": false
     },
     "scores_per_test": {
-      "conv0": 0.7068062827225131,
-      "conv1": 0.7904761904761904,
-      "conv2": 0.8031088082901554,
-      "conv3": 1.0,
-      "overall": 0.768
+      "conv0": 0.5340314136125655,
+      "conv1": 0.5333333333333333,
+      "conv2": 0.5958549222797928,
+      "conv3": 0.6363636363636364,
+      "overall": 0.56
     },
-    "created_at": "2026-03-17 17:40:51"
+    "created_at": "2026-03-17 19:17:09"
+  },
+  {
+    "id": "gen057-island3-001",
+    "code": "class AssociativeMemory_v2:\n    def __init__(self, dim, alpha=0.999, eta=0.02, momentum=0.9):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        self.eps = 1e-9\n\n        self.M = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n        self.bias = [0.0 for _ in range(dim)]\n        self.bias_v = [0.0 for _ in range(dim)]\n\n        self.gain = [1.0 for _ in range(dim)]\n        self.gain_v = [0.0 for _ in range(dim)]\n\n        self.row_scale = [1.0 for _ in range(dim)]\n        self.err_avg = [0.0 for _ in range(dim)]\n        self.out_avg = [0.0 for _ in range(dim)]\n        self.tgt_avg = [0.0 for _ in range(dim)]\n        self.use_avg = [0.0 for _ in range(dim)]\n\n        self.key_mean = [0.0 for _ in range(dim)]\n        self.key_var = [1.0 for _ in range(dim)]\n\n        self.step = 0.0\n\n    def _prep_key(self, key):\n        dim = self.dim\n\n        for j in range(dim):\n            d = key[j] - self.key_mean[j]\n            self.key_mean[j] = 0.995 * self.key_mean[j] + 0.005 * key[j]\n            self.key_var[j] = 0.995 * self.key_var[j] + 0.005 * (d * d)\n\n        x = [0.0 for _ in range(dim)]\n        norm2 = 0.0\n        for j in range(dim):\n            s = self.key_var[j] ** 0.5 + self.eps\n            v = (key[j] - self.key_mean[j]) / s\n            x[j] = v\n            norm2 += v * v\n\n        inv = 1.0 / (norm2 ** 0.5 + self.eps)\n        xn = [x[j] * inv for j in range(dim)]\n        mean_x = sum(xn) / dim\n        xc = [xn[j] - 0.1 * mean_x for j in range(dim)]\n        return xc\n\n    def query(self, key):\n        dim = self.dim\n        x = self._prep_key(key)\n        out = [0.0 for _ in range(dim)]\n\n        for i in range(dim):\n            row = self.M[i]\n            dot = 0.0\n            row_norm2 = self.eps\n            for j in range(dim):\n                w = row[j]\n                dot += w * x[j]\n                row_norm2 += w * w\n\n            row_norm = row_norm2 ** 0.5\n            cosine = dot / row_norm\n            mixed = 0.75 * dot + 0.25 * cosine\n            out[i] = self.gain[i] * mixed + self.bias[i]\n\n        mean_out = sum(out) / dim\n        return [out[i] - 0.05 * mean_out for i in range(dim)]\n\n    def update(self, key, target):\n        dim = self.dim\n        self.step += 1.0\n        x = self._prep_key(key)\n        pred = self.query(key)\n\n        abs_t = sum(abs(target[i]) for i in range(dim)) + self.eps\n        abs_p = sum(abs(pred[i]) for i in range(dim)) + self.eps\n        global_scale = 1.0 / (1.0 + 0.05 * abs_t + 0.05 * abs_p)\n\n        for i in range(dim):\n            p = pred[i]\n            t = target[i]\n            err = t - p\n\n            self.err_avg[i] = 0.98 * self.err_avg[i] + 0.02 * abs(err)\n            self.out_avg[i] = 0.995 * self.out_avg[i] + 0.005 * p\n            self.tgt_avg[i] = 0.995 * self.tgt_avg[i] + 0.005 * t\n            self.use_avg[i] = 0.995 * self.use_avg[i] + 0.005 * abs(t)\n\n            local_eta = self.eta * global_scale / (1.0 + 0.5 * self.err_avg[i] + 0.1 * self.use_avg[i])\n            row = self.M[i]\n            vel = self.V[i]\n\n            dot = 0.0\n            row_norm2 = self.eps\n            for j in range(dim):\n                w = row[j]\n                dot += w * x[j]\n                row_norm2 += w * w\n\n            proj = dot / row_norm2\n            decay = 0.0005 + 0.002 * abs(t) + 0.001 * max(0.0, row_norm2 - self.row_scale[i] * self.row_scale[i])\n\n            target_push = err + 0.25 * t\n            drift = 0.02 * (self.out_avg[i] - self.tgt_avg[i])\n\n            for j in range(dim):\n                w = row[j]\n                xv = x[j]\n\n                hebb = target_push * xv\n                oja = -0.15 * err * proj * w\n                shrink = -decay * w\n                anti_bias = -drift * xv\n\n                grad = local_eta * (hebb + oja + anti_bias + shrink)\n                vel[j] = self.momentum * vel[j] + grad\n                row[j] = self.alpha * w + vel[j]\n\n            new_norm2 = self.eps\n            for j in range(dim):\n                new_norm2 += row[j] * row[j]\n            new_norm = new_norm2 ** 0.5\n            self.row_scale[i] = 0.99 * self.row_scale[i] + 0.01 * new_norm\n\n            max_norm = 3.0 + 2.0 * self.use_avg[i]\n            if new_norm > max_norm:\n                scale = max_norm / (new_norm + self.eps)\n                for j in range(dim):\n                    row[j] *= scale\n                    vel[j] *= scale\n\n            ggrad = local_eta * (0.5 * err * p + 0.1 * abs(t) - 0.01 * (self.gain[i] - 1.0))\n            self.gain_v[i] = self.momentum * self.gain_v[i] + ggrad\n            self.gain[i] += self.gain_v[i]\n            if self.gain[i] < 0.1:\n                self.gain[i] = 0.1\n                self.gain_v[i] = 0.0\n            if self.gain[i] > 5.0:\n                self.gain[i] = 5.0\n                self.gain_v[i] = 0.0\n\n            bgrad = local_eta * (0.3 * err - 0.01 * self.bias[i])\n            self.bias_v[i] = self.momentum * self.bias_v[i] + bgrad\n            self.bias[i] = self.alpha * self.bias[i] + self.bias_v[i]",
+    "score": 0.49544534412955465,
+    "generation": 57,
+    "island_id": 3,
+    "parent_ids": [
+      "gen019-island3-004",
+      "gen019-island3-003"
+    ],
+    "eval_details": {
+      "model": "gpt54",
+      "p_at_1": 0.876,
+      "p_at_3": 0.952,
+      "p_at_5": 0.972,
+      "scores_per_test": {
+        "conv0": 0.8691099476439791,
+        "conv1": 0.7714285714285715,
+        "conv2": 0.9326424870466321,
+        "conv3": 1.0,
+        "overall": 0.876
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.534,
+          "p_at_3": 0.686,
+          "p_at_5": 0.784
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.7,
+          "p_at_3": 0.836,
+          "p_at_5": 0.896
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.758,
+          "p_at_3": 0.88,
+          "p_at_5": 0.914
+        },
+        {
+          "round": 4,
+          "p_at_1": 0.79,
+          "p_at_3": 0.896,
+          "p_at_5": 0.928
+        },
+        {
+          "round": 5,
+          "p_at_1": 0.812,
+          "p_at_3": 0.91,
+          "p_at_5": 0.95
+        },
+        {
+          "round": 6,
+          "p_at_1": 0.832,
+          "p_at_3": 0.922,
+          "p_at_5": 0.952
+        },
+        {
+          "round": 7,
+          "p_at_1": 0.84,
+          "p_at_3": 0.928,
+          "p_at_5": 0.962
+        },
+        {
+          "round": 8,
+          "p_at_1": 0.85,
+          "p_at_3": 0.936,
+          "p_at_5": 0.964
+        },
+        {
+          "round": 9,
+          "p_at_1": 0.868,
+          "p_at_3": 0.95,
+          "p_at_5": 0.97
+        },
+        {
+          "round": 10,
+          "p_at_1": 0.876,
+          "p_at_3": 0.952,
+          "p_at_5": 0.972
+        }
+      ],
+      "elapsed": 126.69044995307922,
+      "error": false,
+      "full_p1": 0.49544534412955465,
+      "overfit_ratio": 1.77,
+      "old_score": 0.876
+    },
+    "scores_per_test": {
+      "conv0": 0.8691099476439791,
+      "conv1": 0.7714285714285715,
+      "conv2": 0.9326424870466321,
+      "conv3": 1.0,
+      "overall": 0.876
+    },
+    "created_at": "2026-03-17 18:54:46"
+  },
+  {
+    "id": "gen075-island1-005",
+    "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=0.95, eta=0.1, momentum=0.9):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (0.0 to 1.0, where 1.0 is no decay)\n            eta: learning rate\n            momentum: momentum coefficient for weight updates\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        self.M = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.key_history = []\n        self.target_history = []\n        self.beta = 0.8\n        self.epsilon = 1e-8\n\n    def query(self, key):\n        \"\"\"Return activation vector.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        key_norm = sum(x * x for x in key)\n        if key_norm < self.epsilon:\n            key_norm = 1.0\n        key_norm = key_norm ** 0.5\n        normalized_key = [x / key_norm for x in key]\n        \n        act = [sum(self.M[i][j] * normalized_key[j] for j in range(self.dim)) for i in range(self.dim)]\n        \n        for i in range(self.dim):\n            act[i] = self.beta * act[i] + (1 - self.beta) * normalized_key[i]\n        \n        return act\n\n    def update(self, key, target):\n        \"\"\"Update memory based on query error.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        key_norm = sum(x * x for x in key)\n        if key_norm < self.epsilon:\n            key_norm = 1.0\n        key_norm = key_norm ** 0.5\n        normalized_key = [x / key_norm for x in key]\n        \n        target_norm = sum(x * x for x in target)\n        if target_norm < self.epsilon:\n            target_norm = 1.0\n        target_norm = target_norm ** 0.5\n        normalized_target = [x / target_norm for x in target]\n        \n        self.key_history.append(normalized_key[:])\n        self.target_history.append(normalized_target[:])\n        if len(self.key_history) > 10:\n            self.key_history.pop(0)\n            self.target_history.pop(0)\n        \n        act = self.query(key)\n        error = [act[i] - normalized_target[i] for i in range(self.dim)]\n        \n        for i in range(self.dim):\n            for j in range(self.dim):\n                hebb = -self.eta * error[i] * normalized_key[j]\n                decay = (1 - self.alpha) * self.M[i][j]\n                grad = hebb - decay\n                \n                if i == j:\n                    identity_bias = 0.01 * (1.0 - self.M[i][j])\n                    grad += identity_bias\n                \n                self.V[i][j] = self.momentum * self.V[i][j] + grad\n                self.M[i][j] += self.V[i][j]\n        \n        for i in range(self.dim):\n            for j in range(self.dim):\n                if self.M[i][j] > 1.0:\n                    self.M[i][j] = 1.0\n                if self.M[i][j] < -1.0:\n                    self.M[i][j] = -1.0",
+    "score": 0.4731781376518219,
+    "generation": 75,
+    "island_id": 1,
+    "parent_ids": [
+      "reset-100-island1"
+    ],
+    "eval_details": {
+      "model": "deepseek",
+      "p_at_1": 0.696,
+      "p_at_3": 0.858,
+      "p_at_5": 0.912,
+      "scores_per_test": {
+        "conv0": 0.6649214659685864,
+        "conv1": 0.7142857142857143,
+        "conv2": 0.7046632124352331,
+        "conv3": 0.9090909090909091,
+        "overall": 0.696
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.328,
+          "p_at_3": 0.476,
+          "p_at_5": 0.566
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.418,
+          "p_at_3": 0.594,
+          "p_at_5": 0.67
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.486,
+          "p_at_3": 0.652,
+          "p_at_5": 0.748
+        },
+        {
+          "round": 4,
+          "p_at_1": 0.542,
+          "p_at_3": 0.712,
+          "p_at_5": 0.778
+        },
+        {
+          "round": 5,
+          "p_at_1": 0.588,
+          "p_at_3": 0.756,
+          "p_at_5": 0.82
+        },
+        {
+          "round": 6,
+          "p_at_1": 0.614,
+          "p_at_3": 0.774,
+          "p_at_5": 0.834
+        },
+        {
+          "round": 7,
+          "p_at_1": 0.652,
+          "p_at_3": 0.788,
+          "p_at_5": 0.872
+        },
+        {
+          "round": 8,
+          "p_at_1": 0.672,
+          "p_at_3": 0.812,
+          "p_at_5": 0.886
+        },
+        {
+          "round": 9,
+          "p_at_1": 0.69,
+          "p_at_3": 0.834,
+          "p_at_5": 0.908
+        },
+        {
+          "round": 10,
+          "p_at_1": 0.696,
+          "p_at_3": 0.858,
+          "p_at_5": 0.912
+        }
+      ],
+      "elapsed": 78.81257128715515,
+      "error": false,
+      "full_p1": 0.4731781376518219,
+      "old_score": 0.696
+    },
+    "scores_per_test": {
+      "conv0": 0.6649214659685864,
+      "conv1": 0.7142857142857143,
+      "conv2": 0.7046632124352331,
+      "conv3": 0.9090909090909091,
+      "overall": 0.696
+    },
+    "created_at": "2026-03-17 20:00:32"
+  },
+  {
+    "id": "gen024-island4-000",
+    "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9):\n        \"\"\"Initialize memory with identity kernel and momentum buffers.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting factor (0.98 means 2% decay per step)\n            eta: learning rate for Hebbian updates\n            momentum: momentum coefficient for weight smoothing\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        # Initialize as Identity to preserve orthogonal inputs initially\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum buffer initialized to zero\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        return [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target using momentum-based Hebbian learning.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        mom = self.momentum\n        \n        # Compute current activation\n        activation = self.query(key)\n        \n        # Compute error\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Update weights with momentum\n        for i in range(dim):\n            for j in range(dim):\n                # Error term: negative gradient to reduce difference between activation and target\n                delta = -eta * error[i] * key[j]\n                \n                # Combine delta with momentum from previous step\n                delta_with_momentum = mom * self.V[i][j] + delta\n                \n                # Update momentum buffer\n                self.V[i][j] = delta_with_momentum\n                \n                # Update weight with forgetting (decay) and new delta\n                decayed_weight = self.M[i][j] * alpha\n                self.M[i][j] = decayed_weight + delta_with_momentum",
+    "score": 0.4347165991902834,
+    "generation": 24,
+    "island_id": 4,
+    "parent_ids": [
+      "gen023-island4-005",
+      "gen023-island4-002"
+    ],
+    "eval_details": {
+      "model": "9b",
+      "p_at_1": 0.732,
+      "p_at_3": 0.882,
+      "p_at_5": 0.918,
+      "scores_per_test": {
+        "conv0": 0.680628272251309,
+        "conv1": 0.7428571428571429,
+        "conv2": 0.7616580310880829,
+        "conv3": 1.0,
+        "overall": 0.732
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.346,
+          "p_at_3": 0.522,
+          "p_at_5": 0.606
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.468,
+          "p_at_3": 0.634,
+          "p_at_5": 0.71
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.538,
+          "p_at_3": 0.708,
+          "p_at_5": 0.776
+        },
+        {
+          "round": 4,
+          "p_at_1": 0.59,
+          "p_at_3": 0.756,
+          "p_at_5": 0.812
+        },
+        {
+          "round": 5,
+          "p_at_1": 0.628,
+          "p_at_3": 0.778,
+          "p_at_5": 0.842
+        },
+        {
+          "round": 6,
+          "p_at_1": 0.654,
+          "p_at_3": 0.796,
+          "p_at_5": 0.878
+        },
+        {
+          "round": 7,
+          "p_at_1": 0.674,
+          "p_at_3": 0.84,
+          "p_at_5": 0.89
+        },
+        {
+          "round": 8,
+          "p_at_1": 0.708,
+          "p_at_3": 0.86,
+          "p_at_5": 0.908
+        },
+        {
+          "round": 9,
+          "p_at_1": 0.724,
+          "p_at_3": 0.872,
+          "p_at_5": 0.916
+        },
+        {
+          "round": 10,
+          "p_at_1": 0.732,
+          "p_at_3": 0.882,
+          "p_at_5": 0.918
+        }
+      ],
+      "elapsed": 107.27254271507263,
+      "error": false,
+      "full_p1": 0.4347165991902834,
+      "old_score": 0.732
+    },
+    "scores_per_test": {
+      "conv0": 0.680628272251309,
+      "conv1": 0.7428571428571429,
+      "conv2": 0.7616580310880829,
+      "conv3": 1.0,
+      "overall": 0.732
+    },
+    "created_at": "2026-03-17 18:05:57"
+  },
+  {
+    "id": "gen054-island4-002",
+    "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9):\n        \"\"\"Initialize memory with identity kernel and momentum buffers.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting factor (0.98 means 2% decay per step)\n            eta: learning rate for Hebbian updates\n            momentum: momentum coefficient for weight smoothing\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        # Initialize as Identity to preserve orthogonal inputs initially\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum buffer initialized to zero\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        return [sum(self.M[i][j] * key[j] for j in range(self.dim)) for i in range(self.dim)]\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target using momentum-based Hebbian learning.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(self.dim)]\n        \n        for i in range(self.dim):\n            for j in range(self.dim):\n                # Error term: negative gradient to reduce difference between activation and target\n                delta = -self.eta * error[i] * key[j]\n                \n                # Combine delta with momentum from previous step\n                delta_with_momentum = self.momentum * self.V[i][j] + delta\n                \n                # Update momentum buffer\n                self.V[i][j] = delta_with_momentum\n                \n                # Update weight with forgetting (decay) and new delta\n                decayed_weight = self.M[i][j] * self.alpha\n                self.M[i][j] = decayed_weight + delta_with_momentum",
+    "score": 0.4347165991902834,
+    "generation": 54,
+    "island_id": 4,
+    "parent_ids": [
+      "gen024-island4-000",
+      "gen023-island4-005"
+    ],
+    "eval_details": {
+      "model": "9b",
+      "p_at_1": 0.732,
+      "p_at_3": 0.882,
+      "p_at_5": 0.918,
+      "scores_per_test": {
+        "conv0": 0.680628272251309,
+        "conv1": 0.7428571428571429,
+        "conv2": 0.7616580310880829,
+        "conv3": 1.0,
+        "overall": 0.732
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.346,
+          "p_at_3": 0.522,
+          "p_at_5": 0.606
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.468,
+          "p_at_3": 0.634,
+          "p_at_5": 0.71
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.538,
+          "p_at_3": 0.708,
+          "p_at_5": 0.776
+        },
+        {
+          "round": 4,
+          "p_at_1": 0.59,
+          "p_at_3": 0.756,
+          "p_at_5": 0.812
+        },
+        {
+          "round": 5,
+          "p_at_1": 0.628,
+          "p_at_3": 0.778,
+          "p_at_5": 0.842
+        },
+        {
+          "round": 6,
+          "p_at_1": 0.654,
+          "p_at_3": 0.796,
+          "p_at_5": 0.878
+        },
+        {
+          "round": 7,
+          "p_at_1": 0.674,
+          "p_at_3": 0.84,
+          "p_at_5": 0.89
+        },
+        {
+          "round": 8,
+          "p_at_1": 0.708,
+          "p_at_3": 0.86,
+          "p_at_5": 0.908
+        },
+        {
+          "round": 9,
+          "p_at_1": 0.724,
+          "p_at_3": 0.872,
+          "p_at_5": 0.916
+        },
+        {
+          "round": 10,
+          "p_at_1": 0.732,
+          "p_at_3": 0.882,
+          "p_at_5": 0.918
+        }
+      ],
+      "elapsed": 103.77375602722168,
+      "error": false,
+      "full_p1": 0.4347165991902834,
+      "old_score": 0.732
+    },
+    "scores_per_test": {
+      "conv0": 0.680628272251309,
+      "conv1": 0.7428571428571429,
+      "conv2": 0.7616580310880829,
+      "conv3": 1.0,
+      "overall": 0.732
+    },
+    "created_at": "2026-03-17 18:42:12"
+  },
+  {
+    "id": "gen063-island4-003",
+    "code": "class AssociativeMemory:\n    \"\"\"Associative memory class for DGD retrieval system.\n\nThe class maintains internal state and provides query() and update() methods.\nquery(key) returns an activation vector used to find nearest neighbors.\nupdate(key, target) adjusts internal state based on feedback.\n\nGoal: design a class that, after repeated update() calls, makes query() return\nactivations that better match the correct targets.\n\nYou may:\n- Add any extra state in __init__ (momentum, history, running averages, etc.)\n- Change the query logic (not just M @ key)\n- Change the update rule (not just standard Hebbian)\n- Use math functions: sqrt, exp, log, abs, max, min, sum\n- Use list comprehensions\n\nYou may NOT:\n- Import any modules\n- Use numpy or any external library\n- Make query() or update() take different arguments\n- Output anything outside the class definition\n\nOutput ONLY the class definition, no explanation, no markdown.\n\"\"\"\n\nclass AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=0.99, eta=0.1):\n        \"\"\"Initialize memory.\n\n        Args:\n            dim: vector dimension\n            alpha: forgetting rate (0.0 = no decay)\n            eta: learning rate\n        \"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        # Initialize with identity matrix scaled by 1/sqrt(dim) for better signal-to-noise\n        scale = 1.0 / sqrt(dim) if hasattr(self, 'dim') and dim > 0 else 1.0\n        # Using list comp to create initial state without random values\n        self.M = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        \"\"\"Return activation vector.\n\n        Args:\n            key: query vector (list of floats, length dim)\n        Returns:\n            activation vector (list of floats, length dim)\n        \"\"\"\n        dim = self.dim\n        return [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target using momentum-based Hebbian learning.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        for i in range(dim):\n            for j in range(dim):\n                # Compute delta for weight update\n                delta = -self.eta * error[i] * key[j]\n                \n                # Forgetting/Decay term\n                decay = self.M[i][j] * (1.0 - self.alpha)\n                \n                # Update weight directly without separate momentum buffer for simplicity in constraints\n                # But to follow best practices of momentum, let's introduce a simple V buffer here\n                # Since we cannot import numpy, we manage state manually.\n                pass\n\n    def _init_with_momentum(self, dim):\n        \"\"\"Helper to set up momentum state if not done in __init__ for this specific version.\"\"\"\n        self.M = [[0.0 for _ in range(dim)] for _ in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)] # Momentum buffer\n\nclass AssociativeMemory_v1:\n    \"\"\"Associative memory with momentum.\"\"\"\n\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        # Identity initialization\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum buffer initialized to zero\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key.\"\"\"\n        return [sum(self.M[i][j] * key[j] for j in range(self.dim)) for i in range(self.dim)]\n\n    def update(self, key, target):\n        \"\"\"Update M with momentum-based Hebbian learning and decay.\"\"\"\n        dim = self.dim\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        for i in range(dim):\n            for j in range(dim):\n                # Error term: negative gradient to reduce difference between activation and target\n                delta = -self.eta * error[i] * key[j]\n                \n                # Combine delta with momentum from previous step\n                delta_with_momentum = self.momentum * self.V[i][j] + delta\n                \n                # Update momentum buffer\n                self.V[i][j] = delta_with_momentum\n                \n                # Apply decay to current weight before adding new update\n                decayed_weight = self.M[i][j] * self.alpha\n                \n                # Update weight\n                self.M[i][j] = decayed_weight + delta_with_momentum",
+    "score": 0.4347165991902834,
+    "generation": 63,
+    "island_id": 4,
+    "parent_ids": [
+      "gen054-island4-002",
+      "gen023-island4-005"
+    ],
+    "eval_details": {
+      "model": "9b",
+      "p_at_1": 0.732,
+      "p_at_3": 0.882,
+      "p_at_5": 0.918,
+      "scores_per_test": {
+        "conv0": 0.680628272251309,
+        "conv1": 0.7428571428571429,
+        "conv2": 0.7616580310880829,
+        "conv3": 1.0,
+        "overall": 0.732
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "p_at_1": 0.346,
+          "p_at_3": 0.522,
+          "p_at_5": 0.606
+        },
+        {
+          "round": 2,
+          "p_at_1": 0.468,
+          "p_at_3": 0.634,
+          "p_at_5": 0.71
+        },
+        {
+          "round": 3,
+          "p_at_1": 0.538,
+          "p_at_3": 0.708,
+          "p_at_5": 0.776
+        },
+        {
+          "round": 4,
+          "p_at_1": 0.59,
+          "p_at_3": 0.756,
+          "p_at_5": 0.812
+        },
+        {
+          "round": 5,
+          "p_at_1": 0.628,
+          "p_at_3": 0.778,
+          "p_at_5": 0.842
+        },
+        {
+          "round": 6,
+          "p_at_1": 0.654,
+          "p_at_3": 0.796,
+          "p_at_5": 0.878
+        },
+        {
+          "round": 7,
+          "p_at_1": 0.674,
+          "p_at_3": 0.84,
+          "p_at_5": 0.89
+        },
+        {
+          "round": 8,
+          "p_at_1": 0.708,
+          "p_at_3": 0.86,
+          "p_at_5": 0.908
+        },
+        {
+          "round": 9,
+          "p_at_1": 0.724,
+          "p_at_3": 0.872,
+          "p_at_5": 0.916
+        },
+        {
+          "round": 10,
+          "p_at_1": 0.732,
+          "p_at_3": 0.882,
+          "p_at_5": 0.918
+        }
+      ],
+      "elapsed": 46.26383972167969,
+      "error": false,
+      "full_p1": 0.4347165991902834,
+      "old_score": 0.732
+    },
+    "scores_per_test": {
+      "conv0": 0.680628272251309,
+      "conv1": 0.7428571428571429,
+      "conv2": 0.7616580310880829,
+      "conv3": 1.0,
+      "overall": 0.732
+    },
+    "created_at": "2026-03-17 19:23:50"
   },
   {
     "id": "gen073-island4-000",
     "code": "class AssociativeMemory:\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        return [sum(self.M[i][j] * key[j] for j in range(self.dim)) for i in range(self.dim)]\n\n    def update(self, key, target):\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        mom = self.momentum\n        \n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        for i in range(dim):\n            for j in range(dim):\n                delta = -eta * error[i] * key[j]\n                delta_with_momentum = mom * self.V[i][j] + delta\n                self.V[i][j] = delta_with_momentum\n                decayed_weight = self.M[i][j] * alpha\n                self.M[i][j] = decayed_weight + delta_with_momentum",
-    "score": 0.732,
+    "score": 0.4347165991902834,
     "generation": 73,
     "island_id": 4,
     "parent_ids": [
@@ -566,7 +957,9 @@
         }
       ],
       "elapsed": 52.01471471786499,
-      "error": false
+      "error": false,
+      "full_p1": 0.4347165991902834,
+      "old_score": 0.732
     },
     "scores_per_test": {
       "conv0": 0.680628272251309,
@@ -576,389 +969,5 @@
       "overall": 0.732
     },
     "created_at": "2026-03-17 19:53:07"
-  },
-  {
-    "id": "gen074-island4-003",
-    "code": "class AssociativeMemory:\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        return [sum(self.M[i][j] * key[j] for j in range(self.dim)) for i in range(self.dim)]\n\n    def update(self, key, target):\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        mom = self.momentum\n        \n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        for i in range(dim):\n            for j in range(dim):\n                delta = -eta * error[i] * key[j]\n                delta_with_momentum = mom * self.V[i][j] + delta\n                self.V[i][j] = delta_with_momentum\n                decayed_weight = self.M[i][j] * alpha\n                self.M[i][j] = decayed_weight + delta_with_momentum",
-    "score": 0.732,
-    "generation": 74,
-    "island_id": 4,
-    "parent_ids": [
-      "gen073-island4-000",
-      "gen073-island4-000"
-    ],
-    "eval_details": {
-      "model": "9b",
-      "p_at_1": 0.732,
-      "p_at_3": 0.882,
-      "p_at_5": 0.918,
-      "scores_per_test": {
-        "conv0": 0.680628272251309,
-        "conv1": 0.7428571428571429,
-        "conv2": 0.7616580310880829,
-        "conv3": 1.0,
-        "overall": 0.732
-      },
-      "rounds": [
-        {
-          "round": 1,
-          "p_at_1": 0.346,
-          "p_at_3": 0.522,
-          "p_at_5": 0.606
-        },
-        {
-          "round": 2,
-          "p_at_1": 0.468,
-          "p_at_3": 0.634,
-          "p_at_5": 0.71
-        },
-        {
-          "round": 3,
-          "p_at_1": 0.538,
-          "p_at_3": 0.708,
-          "p_at_5": 0.776
-        },
-        {
-          "round": 4,
-          "p_at_1": 0.59,
-          "p_at_3": 0.756,
-          "p_at_5": 0.812
-        },
-        {
-          "round": 5,
-          "p_at_1": 0.628,
-          "p_at_3": 0.778,
-          "p_at_5": 0.842
-        },
-        {
-          "round": 6,
-          "p_at_1": 0.654,
-          "p_at_3": 0.796,
-          "p_at_5": 0.878
-        },
-        {
-          "round": 7,
-          "p_at_1": 0.674,
-          "p_at_3": 0.84,
-          "p_at_5": 0.89
-        },
-        {
-          "round": 8,
-          "p_at_1": 0.708,
-          "p_at_3": 0.86,
-          "p_at_5": 0.908
-        },
-        {
-          "round": 9,
-          "p_at_1": 0.724,
-          "p_at_3": 0.872,
-          "p_at_5": 0.916
-        },
-        {
-          "round": 10,
-          "p_at_1": 0.732,
-          "p_at_3": 0.882,
-          "p_at_5": 0.918
-        }
-      ],
-      "elapsed": 50.240777254104614,
-      "error": false
-    },
-    "scores_per_test": {
-      "conv0": 0.680628272251309,
-      "conv1": 0.7428571428571429,
-      "conv2": 0.7616580310880829,
-      "conv3": 1.0,
-      "overall": 0.732
-    },
-    "created_at": "2026-03-17 19:56:11"
-  },
-  {
-    "id": "gen074-island4-002",
-    "code": "class AssociativeMemory:\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9):\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        # Initialize M as identity matrix (or small random values) to start without bias towards specific associations immediately,\n        # or keep close to zero for pure learning. Here we use a small epsilon or zeros.\n        # Let's use zeros for V and a scaled identity for M to dampen initial noise if needed, \n        # but standard Hebbian often starts with zero weights. \n        # However, the example had identity. Let's stick to identity + decay learning rule.\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        # Compute activation vector: result of matrix-vector multiplication M @ key\n        return [sum(self.M[i][j] * key[j] for j in range(self.dim)) for i in range(self.dim)]\n\n    def update(self, key, target):\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        mom = self.momentum\n        \n        # Get current prediction and compute error\n        activation = self.query(key)\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        for i in range(dim):\n            # Update V (velocity/momentum accumulator) for the row corresponding to output i\n            for j in range(dim):\n                # Standard gradient descent term: -eta * error * input\n                delta = -eta * error[i] * key[j]\n                \n                # Apply momentum to the velocity update\n                self.V[i][j] = mom * self.V[i][j] + delta\n                \n                # Decay existing weight and add new change\n                decayed_weight = self.M[i][j] * alpha\n                self.M[i][j] = decayed_weight + self.V[i][j]",
-    "score": 0.732,
-    "generation": 74,
-    "island_id": 4,
-    "parent_ids": [
-      "gen073-island4-000",
-      "gen073-island4-000"
-    ],
-    "eval_details": {
-      "model": "9b",
-      "p_at_1": 0.732,
-      "p_at_3": 0.882,
-      "p_at_5": 0.918,
-      "scores_per_test": {
-        "conv0": 0.680628272251309,
-        "conv1": 0.7428571428571429,
-        "conv2": 0.7616580310880829,
-        "conv3": 1.0,
-        "overall": 0.732
-      },
-      "rounds": [
-        {
-          "round": 1,
-          "p_at_1": 0.346,
-          "p_at_3": 0.522,
-          "p_at_5": 0.606
-        },
-        {
-          "round": 2,
-          "p_at_1": 0.468,
-          "p_at_3": 0.634,
-          "p_at_5": 0.71
-        },
-        {
-          "round": 3,
-          "p_at_1": 0.538,
-          "p_at_3": 0.708,
-          "p_at_5": 0.776
-        },
-        {
-          "round": 4,
-          "p_at_1": 0.59,
-          "p_at_3": 0.756,
-          "p_at_5": 0.812
-        },
-        {
-          "round": 5,
-          "p_at_1": 0.628,
-          "p_at_3": 0.778,
-          "p_at_5": 0.842
-        },
-        {
-          "round": 6,
-          "p_at_1": 0.654,
-          "p_at_3": 0.796,
-          "p_at_5": 0.878
-        },
-        {
-          "round": 7,
-          "p_at_1": 0.674,
-          "p_at_3": 0.84,
-          "p_at_5": 0.89
-        },
-        {
-          "round": 8,
-          "p_at_1": 0.708,
-          "p_at_3": 0.86,
-          "p_at_5": 0.908
-        },
-        {
-          "round": 9,
-          "p_at_1": 0.724,
-          "p_at_3": 0.872,
-          "p_at_5": 0.916
-        },
-        {
-          "round": 10,
-          "p_at_1": 0.732,
-          "p_at_3": 0.882,
-          "p_at_5": 0.918
-        }
-      ],
-      "elapsed": 51.493130922317505,
-      "error": false
-    },
-    "scores_per_test": {
-      "conv0": 0.680628272251309,
-      "conv1": 0.7428571428571429,
-      "conv2": 0.7616580310880829,
-      "conv3": 1.0,
-      "overall": 0.732
-    },
-    "created_at": "2026-03-17 19:56:07"
-  },
-  {
-    "id": "gen073-island4-002",
-    "code": "class AssociativeMemory:\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9):\n        \"\"\"Initialize memory with identity kernel and momentum buffers.\"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        # Initialize as Identity to preserve orthogonal inputs initially\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum buffer initialized to zero\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key.\"\"\"\n        return [sum(self.M[i][j] * key[j] for j in range(self.dim)) for i in range(self.dim)]\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target using momentum-based Hebbian learning.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        mom = self.momentum\n        \n        # Compute current activation\n        activation = self.query(key)\n        \n        # Compute error\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Update weights with momentum\n        for i in range(dim):\n            for j in range(dim):\n                # Error term: negative gradient to reduce difference between activation and target\n                delta = -eta * error[i] * key[j]\n                \n                # Combine delta with momentum from previous step\n                delta_with_momentum = mom * self.V[i][j] + delta\n                \n                # Update momentum buffer\n                self.V[i][j] = delta_with_momentum\n                \n                # Update weight with forgetting (decay) and new delta\n                decayed_weight = self.M[i][j] * alpha\n                self.M[i][j] = decayed_weight + delta_with_momentum",
-    "score": 0.732,
-    "generation": 73,
-    "island_id": 4,
-    "parent_ids": [
-      "gen054-island4-002",
-      "gen024-island4-000"
-    ],
-    "eval_details": {
-      "model": "9b",
-      "p_at_1": 0.732,
-      "p_at_3": 0.882,
-      "p_at_5": 0.918,
-      "scores_per_test": {
-        "conv0": 0.680628272251309,
-        "conv1": 0.7428571428571429,
-        "conv2": 0.7616580310880829,
-        "conv3": 1.0,
-        "overall": 0.732
-      },
-      "rounds": [
-        {
-          "round": 1,
-          "p_at_1": 0.346,
-          "p_at_3": 0.522,
-          "p_at_5": 0.606
-        },
-        {
-          "round": 2,
-          "p_at_1": 0.468,
-          "p_at_3": 0.634,
-          "p_at_5": 0.71
-        },
-        {
-          "round": 3,
-          "p_at_1": 0.538,
-          "p_at_3": 0.708,
-          "p_at_5": 0.776
-        },
-        {
-          "round": 4,
-          "p_at_1": 0.59,
-          "p_at_3": 0.756,
-          "p_at_5": 0.812
-        },
-        {
-          "round": 5,
-          "p_at_1": 0.628,
-          "p_at_3": 0.778,
-          "p_at_5": 0.842
-        },
-        {
-          "round": 6,
-          "p_at_1": 0.654,
-          "p_at_3": 0.796,
-          "p_at_5": 0.878
-        },
-        {
-          "round": 7,
-          "p_at_1": 0.674,
-          "p_at_3": 0.84,
-          "p_at_5": 0.89
-        },
-        {
-          "round": 8,
-          "p_at_1": 0.708,
-          "p_at_3": 0.86,
-          "p_at_5": 0.908
-        },
-        {
-          "round": 9,
-          "p_at_1": 0.724,
-          "p_at_3": 0.872,
-          "p_at_5": 0.916
-        },
-        {
-          "round": 10,
-          "p_at_1": 0.732,
-          "p_at_3": 0.882,
-          "p_at_5": 0.918
-        }
-      ],
-      "elapsed": 51.61534786224365,
-      "error": false
-    },
-    "scores_per_test": {
-      "conv0": 0.680628272251309,
-      "conv1": 0.7428571428571429,
-      "conv2": 0.7616580310880829,
-      "conv3": 1.0,
-      "overall": 0.732
-    },
-    "created_at": "2026-03-17 19:53:18"
-  },
-  {
-    "id": "gen073-island4-001",
-    "code": "class AssociativeMemory:\n    \"\"\"Associative memory for DGD retrieval.\"\"\"\n\n    def __init__(self, dim, alpha=0.98, eta=0.05, momentum=0.9):\n        \"\"\"Initialize memory with identity kernel and momentum buffers.\"\"\"\n        self.dim = dim\n        self.alpha = alpha\n        self.eta = eta\n        self.momentum = momentum\n        # Initialize as Identity to preserve orthogonal inputs initially\n        self.M = [[1.0 if i == j else 0.0 for j in range(dim)] for i in range(dim)]\n        # Momentum buffer initialized to zero\n        self.V = [[0.0 for _ in range(dim)] for _ in range(dim)]\n\n    def query(self, key):\n        \"\"\"Return activation = M @ key.\"\"\"\n        dim = self.dim\n        return [sum(self.M[i][j] * key[j] for j in range(dim)) for i in range(dim)]\n\n    def update(self, key, target):\n        \"\"\"Update M given a query key and correct target using momentum-based Hebbian learning.\n\n        Args:\n            key: query vector\n            target: correct target vector\n        \"\"\"\n        dim = self.dim\n        alpha = self.alpha\n        eta = self.eta\n        mom = self.momentum\n        \n        # Compute current activation\n        activation = self.query(key)\n        \n        # Compute error\n        error = [activation[i] - target[i] for i in range(dim)]\n        \n        # Update weights with momentum\n        for i in range(dim):\n            for j in range(dim):\n                # Error term: negative gradient to reduce difference between activation and target\n                delta = -eta * error[i] * key[j]\n                \n                # Combine delta with momentum from previous step\n                delta_with_momentum = mom * self.V[i][j] + delta\n                \n                # Update momentum buffer\n                self.V[i][j] = delta_with_momentum\n                \n                # Update weight with forgetting (decay) and new delta\n                decayed_weight = self.M[i][j] * alpha\n                self.M[i][j] = decayed_weight + delta_with_momentum",
-    "score": 0.732,
-    "generation": 73,
-    "island_id": 4,
-    "parent_ids": [
-      "gen054-island4-002",
-      "gen024-island4-000"
-    ],
-    "eval_details": {
-      "model": "9b",
-      "p_at_1": 0.732,
-      "p_at_3": 0.882,
-      "p_at_5": 0.918,
-      "scores_per_test": {
-        "conv0": 0.680628272251309,
-        "conv1": 0.7428571428571429,
-        "conv2": 0.7616580310880829,
-        "conv3": 1.0,
-        "overall": 0.732
-      },
-      "rounds": [
-        {
-          "round": 1,
-          "p_at_1": 0.346,
-          "p_at_3": 0.522,
-          "p_at_5": 0.606
-        },
-        {
-          "round": 2,
-          "p_at_1": 0.468,
-          "p_at_3": 0.634,
-          "p_at_5": 0.71
-        },
-        {
-          "round": 3,
-          "p_at_1": 0.538,
-          "p_at_3": 0.708,
-          "p_at_5": 0.776
-        },
-        {
-          "round": 4,
-          "p_at_1": 0.59,
-          "p_at_3": 0.756,
-          "p_at_5": 0.812
-        },
-        {
-          "round": 5,
-          "p_at_1": 0.628,
-          "p_at_3": 0.778,
-          "p_at_5": 0.842
-        },
-        {
-          "round": 6,
-          "p_at_1": 0.654,
-          "p_at_3": 0.796,
-          "p_at_5": 0.878
-        },
-        {
-          "round": 7,
-          "p_at_1": 0.674,
-          "p_at_3": 0.84,
-          "p_at_5": 0.89
-        },
-        {
-          "round": 8,
-          "p_at_1": 0.708,
-          "p_at_3": 0.86,
-          "p_at_5": 0.908
-        },
-        {
-          "round": 9,
-          "p_at_1": 0.724,
-          "p_at_3": 0.872,
-          "p_at_5": 0.916
-        },
-        {
-          "round": 10,
-          "p_at_1": 0.732,
-          "p_at_3": 0.882,
-          "p_at_5": 0.918
-        }
-      ],
-      "elapsed": 52.51691913604736,
-      "error": false
-    },
-    "scores_per_test": {
-      "conv0": 0.680628272251309,
-      "conv1": 0.7428571428571429,
-      "conv2": 0.7616580310880829,
-      "conv3": 1.0,
-      "overall": 0.732
-    },
-    "created_at": "2026-03-17 19:53:13"
   }
 ]

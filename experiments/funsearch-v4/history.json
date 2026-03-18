@@ -196,5 +196,379 @@
     "global_avg": 0.28414598540145986,
     "avg_code_length": 3264.2481751824816,
     "timestamp": "2026-03-17 20:05:17"
+  },
+  {
+    "register_count": 151,
+    "total_programs": 151,
+    "best_per_island": [
+      0.808,
+      0.876,
+      0.782,
+      0.876,
+      0.808
+    ],
+    "clusters_per_island": [
+      21,
+      1,
+      30,
+      13,
+      1
+    ],
+    "global_best": 0.876,
+    "global_avg": 0.2991655629139073,
+    "avg_code_length": 3174.0794701986756,
+    "timestamp": "2026-03-17 22:13:57"
+  },
+  {
+    "register_count": 171,
+    "total_programs": 171,
+    "best_per_island": [
+      0.808,
+      0.876,
+      0.782,
+      0.876,
+      0.81
+    ],
+    "clusters_per_island": [
+      27,
+      2,
+      30,
+      13,
+      4
+    ],
+    "global_best": 0.876,
+    "global_avg": 0.2948771929824561,
+    "avg_code_length": 3161.9883040935674,
+    "timestamp": "2026-03-17 22:44:53"
+  },
+  {
+    "register_count": 197,
+    "total_programs": 197,
+    "best_per_island": [
+      0.748,
+      0.73,
+      0.782,
+      0.768,
+      0.732
+    ],
+    "clusters_per_island": [
+      33,
+      14,
+      33,
+      17,
+      28
+    ],
+    "global_best": 0.782,
+    "global_avg": 0.29326903553299494,
+    "avg_code_length": 3193.3248730964465,
+    "timestamp": "2026-03-18 00:51:41"
+  },
+  {
+    "register_count": 210,
+    "total_programs": 210,
+    "best_per_island": [
+      0.768,
+      0.768,
+      0.804,
+      0.768,
+      0.778
+    ],
+    "clusters_per_island": [
+      1,
+      1,
+      38,
+      19,
+      29
+    ],
+    "global_best": 0.804,
+    "global_avg": 0.28391428571428573,
+    "avg_code_length": 3175.1714285714284,
+    "timestamp": "2026-03-18 01:29:14"
+  },
+  {
+    "register_count": 225,
+    "total_programs": 225,
+    "best_per_island": [
+      0.768,
+      0.828,
+      0.804,
+      0.768,
+      0.802
+    ],
+    "clusters_per_island": [
+      5,
+      4,
+      38,
+      19,
+      34
+    ],
+    "global_best": 0.828,
+    "global_avg": 0.2903466666666667,
+    "avg_code_length": 3204.4044444444444,
+    "timestamp": "2026-03-18 02:11:27"
+  },
+  {
+    "register_count": 244,
+    "total_programs": 244,
+    "best_per_island": [
+      0.768,
+      0.828,
+      0.804,
+      0.768,
+      0.924
+    ],
+    "clusters_per_island": [
+      5,
+      7,
+      45,
+      19,
+      38
+    ],
+    "global_best": 0.924,
+    "global_avg": 0.29412295081967216,
+    "avg_code_length": 3172.995901639344,
+    "timestamp": "2026-03-18 02:45:04"
+  },
+  {
+    "register_count": 261,
+    "total_programs": 261,
+    "best_per_island": [
+      0.828,
+      0.828,
+      0.804,
+      0.804,
+      0.94
+    ],
+    "clusters_per_island": [
+      1,
+      9,
+      47,
+      1,
+      47
+    ],
+    "global_best": 0.94,
+    "global_avg": 0.314911877394636,
+    "avg_code_length": 3151.536398467433,
+    "timestamp": "2026-03-18 03:30:59"
+  },
+  {
+    "register_count": 276,
+    "total_programs": 276,
+    "best_per_island": [
+      0.828,
+      0.828,
+      0.804,
+      0.804,
+      0.94
+    ],
+    "clusters_per_island": [
+      1,
+      9,
+      47,
+      8,
+      52
+    ],
+    "global_best": 0.94,
+    "global_avg": 0.32964492753623187,
+    "avg_code_length": 3121.4057971014495,
+    "timestamp": "2026-03-18 04:13:13"
+  },
+  {
+    "register_count": 292,
+    "total_programs": 292,
+    "best_per_island": [
+      0.828,
+      0.828,
+      0.804,
+      0.804,
+      0.94
+    ],
+    "clusters_per_island": [
+      2,
+      9,
+      47,
+      16,
+      56
+    ],
+    "global_best": 0.94,
+    "global_avg": 0.3383287671232877,
+    "avg_code_length": 3148.5479452054797,
+    "timestamp": "2026-03-18 04:49:00"
+  },
+  {
+    "register_count": 303,
+    "total_programs": 303,
+    "best_per_island": [
+      0.828,
+      0.828,
+      0.828,
+      0.828,
+      0.94
+    ],
+    "clusters_per_island": [
+      2,
+      11,
+      3,
+      1,
+      56
+    ],
+    "global_best": 0.94,
+    "global_avg": 0.3425676567656766,
+    "avg_code_length": 3171.792079207921,
+    "timestamp": "2026-03-18 05:26:59"
+  },
+  {
+    "register_count": 318,
+    "total_programs": 318,
+    "best_per_island": [
+      0.828,
+      0.828,
+      0.828,
+      0.828,
+      0.956
+    ],
+    "clusters_per_island": [
+      2,
+      13,
+      6,
+      1,
+      61
+    ],
+    "global_best": 0.956,
+    "global_avg": 0.3467798742138365,
+    "avg_code_length": 3193.2955974842766,
+    "timestamp": "2026-03-18 06:05:21"
+  },
+  {
+    "register_count": 335,
+    "total_programs": 335,
+    "best_per_island": [
+      0.828,
+      0.842,
+      0.828,
+      0.828,
+      0.956
+    ],
+    "clusters_per_island": [
+      2,
+      14,
+      9,
+      2,
+      65
+    ],
+    "global_best": 0.956,
+    "global_avg": 0.3510089552238806,
+    "avg_code_length": 3229.1283582089554,
+    "timestamp": "2026-03-18 06:37:01"
+  },
+  {
+    "register_count": 351,
+    "total_programs": 351,
+    "best_per_island": [
+      0.828,
+      0.842,
+      0.956,
+      0.956,
+      0.956
+    ],
+    "clusters_per_island": [
+      4,
+      15,
+      1,
+      2,
+      66
+    ],
+    "global_best": 0.956,
+    "global_avg": 0.351994301994302,
+    "avg_code_length": 3263.6837606837607,
+    "timestamp": "2026-03-18 07:22:26"
+  },
+  {
+    "register_count": 365,
+    "total_programs": 365,
+    "best_per_island": [
+      0.842,
+      0.842,
+      0.956,
+      0.956,
+      0.956
+    ],
+    "clusters_per_island": [
+      5,
+      16,
+      1,
+      9,
+      66
+    ],
+    "global_best": 0.956,
+    "global_avg": 0.359041095890411,
+    "avg_code_length": 3277.3123287671233,
+    "timestamp": "2026-03-18 07:48:29"
+  },
+  {
+    "register_count": 381,
+    "total_programs": 381,
+    "best_per_island": [
+      0.842,
+      0.842,
+      0.956,
+      0.956,
+      0.956
+    ],
+    "clusters_per_island": [
+      6,
+      21,
+      1,
+      12,
+      66
+    ],
+    "global_best": 0.956,
+    "global_avg": 0.3662992125984252,
+    "avg_code_length": 3299.3884514435695,
+    "timestamp": "2026-03-18 08:15:53"
+  },
+  {
+    "register_count": 395,
+    "total_programs": 395,
+    "best_per_island": [
+      0.842,
+      0.842,
+      0.828,
+      0.94,
+      0.956
+    ],
+    "clusters_per_island": [
+      44,
+      37,
+      54,
+      49,
+      66
+    ],
+    "global_best": 0.956,
+    "global_avg": 0.35819397324860347,
+    "avg_code_length": 3310.9037974683542,
+    "timestamp": "2026-03-18 09:07:42"
+  },
+  {
+    "register_count": 405,
+    "total_programs": 405,
+    "best_per_island": [
+      0.842,
+      0.842,
+      0.842,
+      0.94,
+      0.956
+    ],
+    "clusters_per_island": [
+      2,
+      37,
+      1,
+      50,
+      67
+    ],
+    "global_best": 0.956,
+    "global_avg": 0.35517513870145445,
+    "avg_code_length": 3305.5506172839505,
+    "timestamp": "2026-03-18 10:05:42"
   }
 ]
