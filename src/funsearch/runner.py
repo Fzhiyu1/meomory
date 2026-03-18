@@ -387,26 +387,7 @@ async def run_funsearch(
                             print(f"  ★ NEW BEST: {score:.1%} (clean={clean_s:.1%}, noisy={noisy_s:.1%}, {prog.id}, model={model})")
                             db.save()
 
-                            # 异步全量验证（不阻塞主循环）
-                            def _bg_full_eval(prog_ref, code, ds, d, a, e, r):
-                                full_result = _eval_in_subprocess(code, ds, d, a, e, r, 9999)
-                                if full_result and not full_result.get("error"):
-                                    full_p1 = full_result["p_at_1"]
-                                    ratio = score / full_p1 if full_p1 > 0 else float('inf')
-                                    print(f"    → 全量 P@1: {full_p1:.1%} (膨胀比: {ratio:.1f}x)")
-                                    prog_ref.eval_details["full_p1"] = full_p1
-                                    prog_ref.eval_details["overfit_ratio"] = round(ratio, 2)
-                                    db.save()
-                                else:
-                                    print(f"    → 全量验证失败")
-
-                            bg = Process(target=_bg_full_eval, args=(
-                                prog, prog.code, eval_dataset, dim, alpha, eta, eval_rounds,
-                            ))
-                            bg.start()
-                            print(f"    → 全量验证已启动(后台)")
-
-            # 不再需要自动扩大评测集——每迭代随机 500 题 + NEW BEST 时全量验证
+                            # v6: 主评测已是全量在线模式，不需要额外全量验证
 
             elapsed = time.time() - t0
             best = db.get_best()
